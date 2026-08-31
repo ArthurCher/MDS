@@ -1,0 +1,11 @@
+numpy
+scipy
+matplotlib
+pandas
+scikit-learn
+
+# Jupyter tooling to author and run the homework notebooks
+jupyterlab
+notebook
+ipykernel
+nbconvert

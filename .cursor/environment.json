@@ -1,0 +1,11 @@
+{
+  "name": "MDS",
+  "install": "pip install --upgrade pip && pip install -r requirements.txt",
+  "terminals": [
+    {
+      "name": "jupyter-lab",
+      "command": "python3 -m jupyterlab --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.token='' --ServerApp.password='' --ServerApp.disable_check_xsrf=True"
+    }
+  ],
+  "ports": [8888]
+}
