@@ -250,6 +250,7 @@ html, body {
 
 .chip--orange { background: var(--orange); }
 .chip--green { background: var(--green); }
+.chip--pink { background: #e08a8a; }
 .chip--red { background: var(--accent); }
 
 .anatomy__list h3 {
