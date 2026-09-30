@@ -1,4 +1,4 @@
-/* Premium 2-page A4 memo — readable, photo-led */
+/* Premium 4-page A4 memo — full photos, no clipping */
 
 :root {
   --ink: #171411;
@@ -8,6 +8,8 @@
   --line: #e2d8c8;
   --brand: #1b4332;
   --accent: #9b2226;
+  --cue: #9b2226;
+  --reps: #0f6b5c;
   --orange: #e07a3d;
   --green: #2d6a4f;
   --font: "Manrope", system-ui, sans-serif;
@@ -46,30 +48,57 @@ html, body {
 
 .sheet {
   width: 210mm;
+  min-height: 297mm;
   height: 297mm;
   margin: 14px auto;
-  padding: 9mm 11mm 8mm;
+  padding: 10mm 12mm 10mm;
   background:
-    radial-gradient(800px 400px at 100% 0%, rgba(155, 34, 38, .06), transparent 50%),
-    radial-gradient(700px 380px at 0% 100%, rgba(45, 106, 79, .07), transparent 50%),
+    radial-gradient(800px 400px at 100% 0%, rgba(155, 34, 38, .05), transparent 50%),
+    radial-gradient(700px 380px at 0% 100%, rgba(45, 106, 79, .06), transparent 50%),
     var(--paper);
   box-shadow: 0 12px 40px rgba(0, 0, 0, .18);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 3.5mm;
+  gap: 4mm;
   page-break-after: always;
+  position: relative;
 }
 
 .sheet:last-child { page-break-after: auto; }
 
-/* —— MASTHEAD —— */
+.page-num {
+  position: absolute;
+  top: 6mm;
+  right: 12mm;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* highlights */
+.cue {
+  color: var(--cue);
+  font-weight: 800;
+}
+
+.reps {
+  color: var(--reps);
+  font-weight: 800;
+}
+
+.reps--light { color: #7ddec8; }
+
+/* mast */
 .mast__row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
   margin-bottom: 3mm;
+  padding-right: 22mm;
 }
 
 .mast__brand {
@@ -91,38 +120,36 @@ html, body {
 
 .mast h1 {
   font-family: var(--display);
-  font-size: 24px;
+  font-size: 26px;
   line-height: 1.12;
   letter-spacing: -0.02em;
-  color: var(--ink);
   max-width: 18ch;
-  margin-bottom: 2mm;
+  margin-bottom: 2.5mm;
 }
 
 .mast__lead {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
   font-weight: 600;
-  max-width: 56ch;
+  max-width: 54ch;
 }
 
 .mast--compact {
-  padding-bottom: 1mm;
   border-bottom: 1px solid var(--line);
-  margin-bottom: 1mm;
+  padding-bottom: 2mm;
 }
 
 .mast--compact .mast__brand {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: .08em;
 }
 
-/* —— BLOCKS —— */
+/* blocks */
 .block h2 {
   font-family: var(--display);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.2;
-  margin: 1.5mm 0 2.5mm;
+  margin: 2mm 0 3mm;
 }
 
 .block__label {
@@ -141,25 +168,25 @@ html, body {
   background: var(--accent);
 }
 
-/* —— RULES —— */
+/* rules */
 .rules {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5mm;
+  gap: 3mm;
 }
 
 .rule {
   display: grid;
-  grid-template-columns: 28px 1fr;
+  grid-template-columns: 30px 1fr;
   gap: 2.5mm;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 2.4mm 3mm;
+  padding: 3.5mm;
 }
 
 .rule__icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
@@ -171,37 +198,36 @@ html, body {
 }
 
 .rule__icon--ban { background: #5c4033; }
-.rule__icon--ok { background: var(--brand); font-size: 12px; }
+.rule__icon--ok { background: var(--brand); }
 .rule__icon--loop { background: #3d5a80; }
 
 .rule h3 {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 800;
-  margin-bottom: 1mm;
-  line-height: 1.25;
+  margin-bottom: 1.2mm;
 }
 
 .rule p {
-  font-size: 10.5px;
+  font-size: 11.5px;
   color: var(--muted);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
-/* —— ANATOMY —— */
+/* anatomy */
 .anatomy__grid {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: 4mm;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 5mm;
   align-items: center;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3mm;
+  padding: 4mm;
 }
 
 .anatomy__figure {
   overflow: hidden;
   background: #efe8dc;
-  height: 48mm;
+  height: 95mm;
 }
 
 .anatomy__figure img {
@@ -215,24 +241,23 @@ html, body {
 .anatomy__list {
   list-style: none;
   display: grid;
-  gap: 3.5mm;
+  gap: 5mm;
 }
 
 .anatomy__list li {
   display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 2.5mm;
-  align-items: start;
+  grid-template-columns: 36px 1fr;
+  gap: 3mm;
 }
 
 .chip {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   color: #fff;
 }
@@ -242,124 +267,156 @@ html, body {
 .chip--red { background: var(--accent); }
 
 .anatomy__list h3 {
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 1mm;
 }
 
 .anatomy__list p {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--muted);
 }
 
-/* —— EXERCISES —— */
+.note {
+  margin-top: 3mm;
+  font-size: 12px;
+  color: var(--muted);
+  background: rgba(155, 34, 38, .06);
+  border-left: 3px solid var(--accent);
+  padding: 2.5mm 3mm;
+}
+
+/* exercise heads */
 .exercise__head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 2.5mm;
+  margin-bottom: 3mm;
 }
 
 .exercise__head h2 { margin: 0; }
 
 .exercise__meta {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--muted);
-  white-space: nowrap;
+  text-align: right;
 }
 
-.exercise__visuals {
+/* pose photos — full, not clipped awkwardly */
+.pose-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3mm;
-  margin-bottom: 2.5mm;
+  gap: 4mm;
+  margin-bottom: 3.5mm;
 }
 
-.exercise__visuals figure,
-.exercise__photo {
-  background: #ebe4d8;
+.pose-grid--single { grid-template-columns: 1fr; }
+
+.pose {
+  background: var(--card);
   border: 1px solid var(--line);
   overflow: hidden;
 }
 
-.exercise__visuals img,
-.exercise__photo img {
+.pose__frame {
+  position: relative;
+  background: #ebe4d8;
+  height: 92mm;
+  overflow: hidden;
+}
+
+.pose__frame--wide { height: 88mm; }
+
+.pose__frame img {
   width: 100%;
-  height: 32mm;
-  object-fit: cover;
-  object-position: center 12%;
-  display: block;
-}
-
-.exercise__visuals figcaption {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2mm 2.5mm;
-  background: var(--card);
-  color: var(--ink);
-}
-
-.exercise__row {
-  display: grid;
-  grid-template-columns: 0.95fr 1.25fr;
-  gap: 3.5mm;
-  align-items: stretch;
-}
-
-.exercise__row .exercise__photo img {
   height: 100%;
-  min-height: 40mm;
-  max-height: 48mm;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  background: #ebe4d8;
 }
 
-.steps-list {
+.amp {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.badge-pose {
+  position: absolute;
+  left: 3mm;
+  top: 3mm;
+  background: rgba(23, 20, 17, .82);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2.5px 7px;
+}
+
+.pose figcaption {
+  padding: 2.5mm 3mm;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.pose figcaption b {
+  display: block;
+  color: var(--ink);
+  font-size: 12px;
+  margin-bottom: 0.8mm;
+}
+
+/* steps */
+.steps {
   list-style: none;
   display: grid;
-  gap: 1.8mm;
+  gap: 2.2mm;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3mm 3.5mm;
+  padding: 3.5mm 4mm;
 }
 
-.steps-list li {
-  font-size: 11.5px;
-  color: var(--ink);
-  padding-left: 3.2mm;
-  border-left: 2px solid rgba(155, 34, 38, .35);
+.steps li {
+  font-size: 12px;
+  padding-left: 3mm;
+  border-left: 2.5px solid rgba(155, 34, 38, .35);
   line-height: 1.4;
 }
 
-.steps-list--compact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.6mm 3mm;
+.steps b { font-weight: 800; }
+
+.tip {
+  margin-top: 2.5mm;
+  font-size: 12px;
+  background: rgba(155, 34, 38, .07);
+  border: 1px solid rgba(155, 34, 38, .18);
   padding: 2.5mm 3mm;
 }
 
-.steps-list--compact li:last-child {
-  grid-column: 1 / -1;
+.tip--ok {
+  background: rgba(15, 107, 92, .08);
+  border-color: rgba(15, 107, 92, .2);
 }
 
-.steps-list b {
-  color: var(--accent);
-  font-weight: 800;
-}
-
-/* —— FINALE —— */
+/* finale */
 .finale {
   margin-top: auto;
   background: #1a1714;
   color: #f6f1e8;
-  padding: 4mm 4.5mm 3mm;
+  padding: 5mm 5mm 3.5mm;
 }
 
 .finale__grid {
   display: grid;
-  grid-template-columns: 1.1fr 1.3fr 1fr;
-  gap: 3mm;
-  margin-bottom: 2.5mm;
+  grid-template-columns: 1.1fr 1.4fr 1fr;
+  gap: 4mm;
+  margin-bottom: 3mm;
 }
 
 .finale strong {
@@ -367,22 +424,28 @@ html, body {
   font-family: var(--display);
   font-size: 12px;
   color: #f0a070;
-  margin-bottom: 1mm;
+  margin-bottom: 1.2mm;
 }
 
-.finale p {
-  font-size: 11px;
-  opacity: .85;
-}
+.finale p { font-size: 12px; opacity: .9; }
 
 .disclaimer {
   font-size: 9.5px;
   opacity: .55;
   border-top: 1px solid rgba(255,255,255,.12);
-  padding-top: 2mm;
+  padding-top: 2.5mm;
 }
 
-/* —— SCREEN RESPONSIVE —— */
+/* page 2: taller photos for single exercise */
+.sheet:nth-of-type(2) .pose__frame { height: 110mm; }
+
+/* page 3: two exercises — slightly shorter photos */
+.sheet:nth-of-type(3) .pose__frame { height: 58mm; }
+.sheet:nth-of-type(3) { gap: 3.5mm; }
+
+/* page 4 */
+.sheet:nth-of-type(4) .pose__frame--wide { height: 100mm; }
+
 @media screen and (max-width: 860px) {
   .sheet {
     width: calc(100% - 16px);
@@ -393,32 +456,21 @@ html, body {
   }
   .rules,
   .anatomy__grid,
-  .exercise__visuals,
-  .exercise__row,
-  .finale__grid,
-  .mast h1 {
-    max-width: none;
-  }
-  .rules,
-  .anatomy__grid,
-  .exercise__visuals,
-  .exercise__row,
+  .pose-grid,
   .finale__grid {
     grid-template-columns: 1fr;
   }
-  .exercise__visuals img,
-  .exercise__row .exercise__photo img {
-    height: 220px;
-    max-height: none;
+  .pose__frame,
+  .pose__frame--wide,
+  .anatomy__figure,
+  .sheet:nth-of-type(2) .pose__frame,
+  .sheet:nth-of-type(3) .pose__frame,
+  .sheet:nth-of-type(4) .pose__frame--wide {
+    height: 260px;
   }
-  .exercise__meta { white-space: normal; }
 }
 
-/* —— PRINT —— */
-@page {
-  size: A4;
-  margin: 0;
-}
+@page { size: A4; margin: 0; }
 
 @media print {
   body { background: #fff; }
@@ -426,6 +478,7 @@ html, body {
   .sheet {
     width: 210mm;
     height: 297mm;
+    min-height: 297mm;
     margin: 0;
     box-shadow: none;
     page-break-after: always;

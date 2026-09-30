@@ -14,8 +14,9 @@
     <button type="button" onclick="window.print()">Скачать PDF</button>
   </div>
 
-  <!-- ===================== PAGE 1 ===================== -->
+  <!-- ========== PAGE 1: база ========== -->
   <section class="sheet">
+    <p class="page-num">01 / 04</p>
     <header class="mast">
       <div class="mast__row">
         <p class="mast__brand">Artur Cheremisin Fitness</p>
@@ -33,7 +34,7 @@
           <div class="rule__icon">!</div>
           <div>
             <h3>Только вне острой фазы</h3>
-            <p>Комплекс — строго после снятия острого болевого синдрома. Если есть прострелы и трудно ходить — сначала к врачу (курс НПВС по назначению: обычно 5–7 дней).</p>
+            <p>Комплекс — строго после снятия острого болевого синдрома. Если есть прострелы и трудно ходить — сначала к врачу. Курс НПВС по назначению обычно <span class="reps">5–7 дней</span>.</p>
           </div>
         </article>
         <article class="rule">
@@ -47,14 +48,14 @@
           <div class="rule__icon rule__icon--ok">0</div>
           <div>
             <h3>Нулевая нагрузка на поясницу</h3>
-            <p>Ни до позы, ни во время вытяжения, ни при возврате поясница не напрягается. Вес — на руках/ногах, кор полностью расслаблен.</p>
+            <p>Ни до позы, ни во время, ни при возврате поясница не напрягается. <span class="cue">Вес на руках/ногах, кор полностью расслаблен.</span></p>
           </div>
         </article>
         <article class="rule">
           <div class="rule__icon rule__icon--loop">↻</div>
           <div>
             <h3>Ежедневная рутина</h3>
-            <p>Результат даёт регулярность изо дня в день, а не разовая тренировка.</p>
+            <p>Результат даёт регулярность изо дня в день, а не разовая тренировка. Формат: <span class="reps">10–15 минут</span> каждый день.</p>
           </div>
         </article>
       </div>
@@ -65,7 +66,7 @@
       <h2>На что направлен комплекс</h2>
       <div class="anatomy__grid">
         <figure class="anatomy__figure">
-          <img src="assets/img/anatomy-back.jpg" alt="Анатомия спины: длинные мышцы, поясница, ягодицы" />
+          <img src="assets/img/anatomy-back.jpg" alt="Анатомия спины с выделением рабочих зон" />
         </figure>
         <ol class="anatomy__list">
           <li>
@@ -91,116 +92,190 @@
           </li>
         </ol>
       </div>
-    </section>
-
-    <section class="block exercise">
-      <div class="block__label">Блок 3 · Разогрев · 2–3 минуты</div>
-      <div class="exercise__head">
-        <h2>Разогрев у стены</h2>
-        <p class="exercise__meta">Без оборудования · вытяжение позвоночника</p>
-      </div>
-      <div class="exercise__visuals">
-        <figure>
-          <img src="assets/img/ex1-wall.jpg" alt="Вытяжение у стены руками вверх" />
-          <figcaption>Спина к стене → макушка и руки вверх</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/img/ex1-wall-side.jpg" alt="Боковое вытяжение у стены" />
-          <figcaption>Боком к стене → рука тянется вверх</figcaption>
-        </figure>
-      </div>
-      <ul class="steps-list steps-list--compact">
-        <li><b>Старт:</b> плотно спиной к стене, макушка тянется вверх.</li>
-        <li><b>Голова:</b> повороты вправо‑влево, затем мягкие наклоны.</li>
-        <li><b>Вверх:</b> руки и макушка тянутся к потолку.</li>
-        <li><b>Бока:</b> правый/левый бок к стене — рука вверх поочерёдно.</li>
-        <li><b>Лицом:</b> руки вверх, максимальное вытяжение всего тела.</li>
-      </ul>
+      <p class="note">Дальше — упражнения. Каждое начинается с фото старта и финиша; <span class="cue">штриховая линия</span> показывает амплитуду движения.</p>
     </section>
   </section>
 
-  <!-- ===================== PAGE 2 ===================== -->
+  <!-- ========== PAGE 2: разогрев ========== -->
   <section class="sheet">
+    <p class="page-num">02 / 04 · Упражнения</p>
     <header class="mast mast--compact">
       <div class="mast__row">
-        <p class="mast__brand">Основной комплекс вытяжений</p>
-        <p class="mast__tag">Продолжение</p>
+        <p class="mast__brand">Разогрев</p>
+        <p class="mast__tag">Блок 3</p>
       </div>
     </header>
 
     <section class="block exercise">
-      <div class="block__label">Блок 4 · Декомпрессия · 5–7 повторений</div>
+      <div class="block__label">Блок 3 · Разогрев у стены</div>
       <div class="exercise__head">
-        <h2>Декомпрессия со стулом</h2>
-        <p class="exercise__meta">Пауза 5–10 сек внизу · вес на руках</p>
+        <h2>Вытяжение позвоночника у стены</h2>
+        <p class="exercise__meta"><span class="reps">2–3 минуты</span> · без оборудования</p>
       </div>
-      <div class="exercise__row">
-        <figure class="exercise__photo">
-          <img src="assets/img/ex2-chair.jpg" alt="Наклон с опорой предплечьями на стул" />
+
+      <div class="pose-grid">
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex1-wall.jpg" alt="Спина к стене, руки вверх" />
+            <svg class="amp" viewBox="0 0 200 260" aria-hidden="true">
+              <path d="M100 210 C100 150 100 90 100 40" fill="none" stroke="#9b2226" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <path d="M92 52 L100 38 L108 52" fill="none" stroke="#9b2226" stroke-width="2.5"/>
+              <circle cx="100" cy="210" r="5" fill="#9b2226"/>
+            </svg>
+          </div>
+          <figcaption><b>Старт → вверх</b>Спина к стене, макушка и руки тянутся к потолку</figcaption>
         </figure>
-        <ul class="steps-list">
-          <li><b>Техника:</b> стул или табурет. Подойдите на 10–15 см, наклонитесь и упритесь руками. Ноги прямые, колени не сгибать.</li>
-          <li><b>Движение:</b> за счёт рук опускайтесь до полного сгибания в локтях — предплечья на опоре. Живот и кор абсолютно расслаблены.</li>
-          <li><b>Фиксация:</b> 5–10 секунд. На счёт 10 плавно вернитесь вверх.</li>
-          <li><b>Если поясница напряглась:</b> уменьшите амплитуду и перенесите вес полностью на руки.</li>
-        </ul>
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex1-wall-side.jpg" alt="Боком к стене, рука вверх" />
+            <svg class="amp" viewBox="0 0 200 260" aria-hidden="true">
+              <path d="M70 200 C90 140 120 90 145 45" fill="none" stroke="#9b2226" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <path d="M134 55 L145 42 L152 56" fill="none" stroke="#9b2226" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <figcaption><b>Бок</b>Правый/левый бок к стене — рука вверх поочерёдно</figcaption>
+        </figure>
       </div>
+
+      <ul class="steps">
+        <li><b>Старт:</b> плотно спиной к стене, макушка тянется вверх.</li>
+        <li><b>Голова:</b> плавные повороты вправо‑влево, затем мягкие наклоны.</li>
+        <li><b>Вверх:</b> руки и макушка тянутся к потолку — <span class="cue">без прогиба в пояснице</span>.</li>
+        <li><b>Бока:</b> правый и левый бок к стене с поочерёдным вытяжением руки вверх.</li>
+        <li><b>Лицом к стене:</b> руки вверх, максимальное вытяжение всего тела.</li>
+      </ul>
+      <p class="tip"><span class="cue">Важно:</span> это разогрев и мобильность. Не давим на поясницу — только вытягиваемся.</p>
+    </section>
+  </section>
+
+  <!-- ========== PAGE 3: стул + дверь ========== -->
+  <section class="sheet">
+    <p class="page-num">03 / 04 · Декомпрессия</p>
+
+    <section class="block exercise">
+      <div class="block__label">Блок 4 · Декомпрессия со стулом</div>
+      <div class="exercise__head">
+        <h2>Разгрузка с опорой на стул</h2>
+        <p class="exercise__meta"><span class="reps">5–7 повторений</span> · пауза <span class="reps">5–10 сек</span></p>
+      </div>
+
+      <div class="pose-grid">
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex2-chair-start.jpg" alt="Руки на стуле, старт" />
+            <span class="badge-pose">1 · Старт</span>
+          </div>
+          <figcaption><b>Упор руками</b>10–15 см от стула, ноги прямые</figcaption>
+        </figure>
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex2-chair-low.jpg" alt="Предплечья на стуле, низ" />
+            <svg class="amp" viewBox="0 0 200 160" aria-hidden="true">
+              <path d="M55 55 C90 70 130 85 165 95" fill="none" stroke="#9b2226" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <path d="M155 88 L168 96 L158 104" fill="none" stroke="#9b2226" stroke-width="2.5"/>
+            </svg>
+            <span class="badge-pose">2 · Низ</span>
+          </div>
+          <figcaption><b>Опускание</b>За счёт рук до полного сгиба локтей</figcaption>
+        </figure>
+      </div>
+
+      <ul class="steps">
+        <li><b>Техника:</b> стул/табурет. Подойдите на 10–15 см, наклонитесь, упритесь руками. <span class="cue">Ноги прямые, колени не сгибать.</span></li>
+        <li><b>Движение:</b> опускайтесь <span class="cue">за счёт рук</span>, пока предплечья не лягут на опору. Живот и кор абсолютно расслаблены.</li>
+        <li><b>Фиксация:</b> <span class="cue">Пауза 5–10 секунд в нижней точке</span>. На счёт 10 плавно вверх.</li>
+        <li><b>Если поясница напряглась:</b> уменьшите амплитуду и перенесите вес полностью на руки.</li>
+      </ul>
     </section>
 
     <section class="block exercise">
-      <div class="block__label">Блок 5 · Декомпрессия · 5–7 повторений</div>
+      <div class="block__label">Блок 5 · Вытяжение в дверном проёме</div>
       <div class="exercise__head">
-        <h2>Вытяжение в дверном проёме</h2>
-        <p class="exercise__meta">Пауза в нижней точке · подъём перехватом</p>
+        <h2>Декомпрессия в проёме</h2>
+        <p class="exercise__meta"><span class="reps">5–7 повторений</span> · <span class="cue">пауза внизу · подъём перехватом</span></p>
       </div>
-      <div class="exercise__row">
-        <figure class="exercise__photo">
-          <img src="assets/img/ex3-door.jpg" alt="Вытяжение в дверном проёме" />
+
+      <div class="pose-grid">
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex3-door-start.jpg" alt="Старт в дверном проёме: бок к одному косяку, руки в другой" />
+            <span class="badge-pose">1 · Старт</span>
+          </div>
+          <figcaption><b>Позиция</b>Плотно к одному косяку, руки — в противоположный</figcaption>
         </figure>
-        <ul class="steps-list">
-          <li><b>Техника:</b> вплотную к одной стороне проёма, руками упритесь в противоположный косяк.</li>
-          <li><b>Движение:</b> плавно опускайтесь вниз за счёт рук, насколько возможно. Внизу полностью расслабьте пресс и спину.</li>
-          <li><b>Подъём:</b> медленно вверх, перехватываясь руками.</li>
-          <li><b>Дозировка:</b> 5–7 повторений.</li>
-        </ul>
+        <figure class="pose">
+          <div class="pose__frame">
+            <img src="assets/img/ex3-door-low.jpg" alt="Опускание в дверном проёме за счёт рук" />
+            <svg class="amp" viewBox="0 0 200 260" aria-hidden="true">
+              <path d="M105 70 C105 110 105 160 105 210" fill="none" stroke="#9b2226" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <path d="M97 198 L105 212 L113 198" fill="none" stroke="#9b2226" stroke-width="2.5"/>
+            </svg>
+            <span class="badge-pose">2 · Низ</span>
+          </div>
+          <figcaption><b>Опускание</b>Вниз за счёт рук, насколько возможно</figcaption>
+        </figure>
       </div>
+
+      <ul class="steps">
+        <li><b>Техника:</b> встаньте <span class="cue">вплотную к одной стороне</span> дверного проёма; руками упритесь в <span class="cue">противоположный косяк</span> (не вис на двух руках сверху).</li>
+        <li><b>Движение:</b> плавно опускайтесь вниз за счёт рук. В нижней точке полностью расслабьте пресс и спину.</li>
+        <li><b>Ключевой момент:</b> <span class="cue">Пауза в нижней точке · подъём перехватом</span> — возвращайтесь медленно, перехватываясь руками.</li>
+        <li><b>Дозировка:</b> <span class="reps">5–7 повторений</span>.</li>
+      </ul>
+      <p class="tip tip--ok"><span class="cue">Важно:</span> это не вис сверху на двух руках. Бок плотно к одному косяку, руки — в противоположный, опускание весом через руки (как со стулом).</p>
     </section>
+  </section>
+
+  <!-- ========== PAGE 4: скручивание + итог ========== -->
+  <section class="sheet">
+    <p class="page-num">04 / 04 · Ягодицы + итог</p>
 
     <section class="block exercise">
-      <div class="block__label">Блок 6 · Ягодицы и поясница · 5–7 на сторону</div>
+      <div class="block__label">Блок 6 · Скручивание лёжа</div>
       <div class="exercise__head">
-        <h2>Скручивание лёжа</h2>
-        <p class="exercise__meta">Без рывков · до комфортного натяжения</p>
+        <h2>Растяжение ягодицы и поясницы</h2>
+        <p class="exercise__meta"><span class="reps">5–7 на каждую сторону</span> · без рывков</p>
       </div>
-      <div class="exercise__row">
-        <figure class="exercise__photo">
-          <img src="assets/img/ex4-twist.jpg" alt="Скручивание лёжа с растяжением ягодицы" />
+
+      <div class="pose-grid pose-grid--single">
+        <figure class="pose pose--wide">
+          <div class="pose__frame pose__frame--wide">
+            <img src="assets/img/ex4-twist.jpg" alt="Скручивание лёжа" />
+            <svg class="amp" viewBox="0 0 320 200" aria-hidden="true">
+              <path d="M210 120 C240 90 270 70 295 55" fill="none" stroke="#9b2226" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <path d="M286 62 L298 52 L300 68" fill="none" stroke="#9b2226" stroke-width="2.5"/>
+              <path d="M60 95 C40 95 25 95 12 95" fill="none" stroke="#2d6a4f" stroke-width="2.5" stroke-dasharray="6 5"/>
+            </svg>
+            <span class="badge-pose">Скручивание</span>
+          </div>
+          <figcaption><b>Векторы:</b> колено — вверх и в сторону · противоположное плечо прижато к полу</figcaption>
         </figure>
-        <ul class="steps-list">
-          <li><b>Техника:</b> на спине, руки крестом в стороны, плечи плотно к полу.</li>
-          <li><b>Движение:</b> правой рукой возьмите левую ногу под коленом и тяните вверх и вправо — скручивая поясницу и растягивая ягодицу. Левое плечо удерживайте на полу.</li>
-          <li><b>Смена стороны:</b> то же левой рукой для правой ноги (вверх и влево).</li>
-          <li><b>Дозировка:</b> 5–7 повторений на каждую сторону.</li>
-        </ul>
       </div>
+
+      <ul class="steps">
+        <li><b>Техника:</b> на спине, руки крестом в стороны, <span class="cue">плечи плотно к полу</span>.</li>
+        <li><b>Движение:</b> правой рукой возьмите левую ногу под коленом и тяните <span class="cue">вверх и вправо</span> — скручивая поясницу и растягивая ягодицу. Левое плечо удерживайте на полу.</li>
+        <li><b>Смена стороны:</b> то же левой рукой для правой ноги (вверх и влево).</li>
+        <li><b>Дозировка:</b> <span class="reps">5–7 повторений на каждую сторону</span>, до комфортного натяжения, без рывков.</li>
+      </ul>
     </section>
 
     <footer class="finale">
       <div class="finale__grid">
         <div>
-          <strong>⏱ 10–15 минут в день</strong>
-          <p>Все блоки подряд, каждый день</p>
+          <strong>Формат</strong>
+          <p><span class="reps reps--light">10–15 минут</span> в день · все блоки подряд</p>
         </div>
         <div>
           <strong>Итог</strong>
           <p>Ежедневная рутина возвращает свободу движений без боли</p>
         </div>
         <div>
-          <strong>@a.cheremisin_fitness</strong>
-          <p>Artur Cheremisin · Fitness</p>
+          <strong>Контакт</strong>
+          <p>@a.cheremisin_fitness</p>
         </div>
       </div>
-      <p class="disclaimer">Материал носит образовательный характер и дополняет рекомендации вашего лечащего врача.</p>
+      <p class="disclaimer">Материал носит образовательный характер и дополняет рекомендации вашего лечащего врача. Artur Cheremisin · Fitness</p>
     </footer>
   </section>
 </body>
