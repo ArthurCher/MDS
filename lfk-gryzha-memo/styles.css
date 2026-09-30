@@ -62,8 +62,10 @@ body {
 .hero__atmosphere {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
-    linear-gradient(135deg, rgba(27, 67, 50, 0.92) 0%, rgba(18, 32, 39, 0.88) 48%, rgba(193, 18, 31, 0.55) 100%),
+    linear-gradient(135deg, rgba(27, 67, 50, 0.94) 0%, rgba(18, 32, 39, 0.9) 48%, rgba(193, 18, 31, 0.58) 100%),
     repeating-linear-gradient(
       -12deg,
       transparent,
@@ -71,7 +73,12 @@ body {
       rgba(255, 255, 255, 0.03) 14px,
       rgba(255, 255, 255, 0.03) 15px
     );
-  animation: drift 14s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__atmosphere {
+    animation: drift 14s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes drift {
@@ -103,7 +110,8 @@ body {
   letter-spacing: -0.02em;
   max-width: 12ch;
   margin-bottom: 1rem;
-  animation: rise 0.8s ease both;
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 }
 
 .hero__lead {
@@ -111,7 +119,6 @@ body {
   max-width: 36ch;
   color: rgba(247, 250, 248, 0.86);
   margin-bottom: 1.4rem;
-  animation: rise 0.9s 0.1s ease both;
 }
 
 .hero__tags {
@@ -119,7 +126,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  animation: rise 1s 0.18s ease both;
 }
 
 .hero__tags li {
@@ -141,7 +147,6 @@ body {
   background: rgba(244, 247, 249, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(8px);
-  animation: rise 1s 0.25s ease both;
 }
 
 .hero__panel-label {
@@ -159,7 +164,24 @@ body {
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 1; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1,
+  .hero__lead,
+  .hero__tags,
+  .hero__panel {
+    animation: rise-in 0.7s ease both;
+  }
+  .hero__lead { animation-delay: 0.08s; }
+  .hero__tags { animation-delay: 0.14s; }
+  .hero__panel { animation-delay: 0.2s; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
