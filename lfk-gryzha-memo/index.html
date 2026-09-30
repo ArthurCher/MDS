@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ЛФК при пояснично-крестцовой грыже — памятка</title>
+  <title>ЛФК при пояснично-крестцовой грыже — Artur Cheremisin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,411 +14,194 @@
     <button type="button" onclick="window.print()">Скачать PDF</button>
   </div>
 
-  <!-- ========== PAGE 1 ========== -->
-  <section class="sheet sheet--1">
-    <header class="top">
-      <div class="top__brand">Artur Cheremisin · Fitness</div>
+  <!-- ===================== PAGE 1 ===================== -->
+  <section class="sheet">
+    <header class="mast">
+      <div class="mast__row">
+        <p class="mast__brand">Artur Cheremisin Fitness</p>
+        <p class="mast__tag">Домашняя памятка</p>
+      </div>
       <h1>ЛФК при пояснично‑крестцовой грыже</h1>
-      <p class="top__lead">Домашний комплекс на вытяжение · ~10–15 мин · каждый день · после острой боли</p>
-      <div class="top__row">
-        <div class="top__time">
-          <span class="top__clock">⏱</span>
+      <p class="mast__lead">Декомпрессия, снятие спазмов и восстановление мобильности без осевой нагрузки.</p>
+    </header>
+
+    <section class="block">
+      <div class="block__label block__label--alert">Блок 1 · Важно перед началом</div>
+      <h2>Строгие правила и подготовка</h2>
+      <div class="rules">
+        <article class="rule">
+          <div class="rule__icon">!</div>
           <div>
-            <strong>4 упражнения</strong>
-            <small>без нагрузки на поясницу</small>
+            <h3>Только вне острой фазы</h3>
+            <p>Комплекс — строго после снятия острого болевого синдрома. Если есть прострелы и трудно ходить — сначала к врачу (курс НПВС по назначению: обычно 5–7 дней).</p>
           </div>
-        </div>
-        <ul class="checks">
-          <li>Без оборудования</li>
-          <li>Дома</li>
-          <li>Кор расслаблен</li>
-          <li>Медленно, без рывков</li>
-        </ul>
+        </article>
+        <article class="rule">
+          <div class="rule__icon rule__icon--ban">✕</div>
+          <div>
+            <h3>Никакого классического массажа</h3>
+            <p>Пока грыжа активна, точечный массаж может усилить воспаление. Нужны декомпрессия и мягкое вытяжение.</p>
+          </div>
+        </article>
+        <article class="rule">
+          <div class="rule__icon rule__icon--ok">0</div>
+          <div>
+            <h3>Нулевая нагрузка на поясницу</h3>
+            <p>Ни до позы, ни во время вытяжения, ни при возврате поясница не напрягается. Вес — на руках/ногах, кор полностью расслаблен.</p>
+          </div>
+        </article>
+        <article class="rule">
+          <div class="rule__icon rule__icon--loop">↻</div>
+          <div>
+            <h3>Ежедневная рутина</h3>
+            <p>Результат даёт регулярность изо дня в день, а не разовая тренировка.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block anatomy">
+      <div class="block__label">Блок 2 · Анатомия работы</div>
+      <h2>На что направлен комплекс</h2>
+      <div class="anatomy__grid">
+        <figure class="anatomy__figure">
+          <img src="assets/img/anatomy-back.jpg" alt="Анатомия спины: длинные мышцы, поясница, ягодицы" />
+        </figure>
+        <ol class="anatomy__list">
+          <li>
+            <span class="chip chip--orange">01</span>
+            <div>
+              <h3>Ягодичные мышцы</h3>
+              <p>Снимаем глубокий зажим, который тянет поясницу.</p>
+            </div>
+          </li>
+          <li>
+            <span class="chip chip--green">02</span>
+            <div>
+              <h3>Длинные мышцы спины</h3>
+              <p>Убираем спазм в пояснично‑крестцовом отделе.</p>
+            </div>
+          </li>
+          <li>
+            <span class="chip chip--red">03</span>
+            <div>
+              <h3>Позвоночник</h3>
+              <p>Возвращаем мобильность и декомпрессию без давления.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block exercise">
+      <div class="block__label">Блок 3 · Разогрев · 2–3 минуты</div>
+      <div class="exercise__head">
+        <h2>Разогрев у стены</h2>
+        <p class="exercise__meta">Без оборудования · вытяжение позвоночника</p>
+      </div>
+      <div class="exercise__visuals">
+        <figure>
+          <img src="assets/img/ex1-wall.jpg" alt="Вытяжение у стены руками вверх" />
+          <figcaption>Спина к стене → макушка и руки вверх</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/img/ex1-wall-side.jpg" alt="Боковое вытяжение у стены" />
+          <figcaption>Боком к стене → рука тянется вверх</figcaption>
+        </figure>
+      </div>
+      <ul class="steps-list steps-list--compact">
+        <li><b>Старт:</b> плотно спиной к стене, макушка тянется вверх.</li>
+        <li><b>Голова:</b> повороты вправо‑влево, затем мягкие наклоны.</li>
+        <li><b>Вверх:</b> руки и макушка тянутся к потолку.</li>
+        <li><b>Бока:</b> правый/левый бок к стене — рука вверх поочерёдно.</li>
+        <li><b>Лицом:</b> руки вверх, максимальное вытяжение всего тела.</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- ===================== PAGE 2 ===================== -->
+  <section class="sheet">
+    <header class="mast mast--compact">
+      <div class="mast__row">
+        <p class="mast__brand">Основной комплекс вытяжений</p>
+        <p class="mast__tag">Продолжение</p>
       </div>
     </header>
 
-    <div class="rules-bar">
-      <div class="rules-bar__title"><span>!</span> Перед стартом</div>
-      <div class="rules-bar__grid">
-        <p><b>1.</b> Только когда острая боль прошла. Прострелы / сложно ходить — сначала к врачу.</p>
-        <p><b>2.</b> Поясница не напрягается ни до, ни во время, ни при подъёме.</p>
-        <p><b>3.</b> Делать каждый день. Результат = рутина, не «курс на неделю».</p>
-        <p><b>4.</b> Классический массаж пока нельзя — усиливает воспаление.</p>
+    <section class="block exercise">
+      <div class="block__label">Блок 4 · Декомпрессия · 5–7 повторений</div>
+      <div class="exercise__head">
+        <h2>Декомпрессия со стулом</h2>
+        <p class="exercise__meta">Пауза 5–10 сек внизу · вес на руках</p>
       </div>
-    </div>
-
-    <div class="zones">
-      <div class="zones__art" aria-hidden="true">
-        <!-- Anatomy body with highlighted zones -->
-        <svg viewBox="0 0 220 260" class="body-map">
-          <ellipse cx="110" cy="130" rx="70" ry="110" fill="#f0ebe3"/>
-          <!-- silhouette -->
-          <path d="M110 28c14 0 24 12 24 28v18c18 8 28 28 28 52v40c0 22-10 40-24 50v36c0 8-6 12-14 12h-28c-8 0-14-4-14-12v-36c-14-10-24-28-24-50v-40c0-24 10-44 28-52V56c0-16 10-28 24-28z" fill="#d9d2c5" stroke="#3d3a35" stroke-width="2"/>
-          <!-- long back muscles -->
-          <path d="M96 95c-2 28-2 55 0 82M124 95c2 28 2 55 0 82" stroke="#2d6a4f" stroke-width="7" stroke-linecap="round" opacity=".85"/>
-          <!-- lumbar highlight -->
-          <ellipse cx="110" cy="168" rx="18" ry="22" fill="#e63946" opacity=".9"/>
-          <!-- glutes -->
-          <ellipse cx="92" cy="198" rx="16" ry="14" fill="#f4a261"/>
-          <ellipse cx="128" cy="198" rx="16" ry="14" fill="#f4a261"/>
-          <text x="148" y="100" font-size="9" fill="#2d6a4f" font-family="Manrope,sans-serif" font-weight="700">длинные мышцы спины</text>
-          <text x="148" y="172" font-size="9" fill="#e63946" font-family="Manrope,sans-serif" font-weight="700">поясница</text>
-          <text x="148" y="202" font-size="9" fill="#c45c26" font-family="Manrope,sans-serif" font-weight="700">ягодицы</text>
-          <path d="M128 100h16M128 168h16M140 198h6" stroke="#3d3a35" stroke-width="1"/>
-        </svg>
-      </div>
-      <div class="zones__copy">
-        <h2>Что растягиваем</h2>
-        <ul>
-          <li><i class="dot dot--green"></i><b>Длинные мышцы спины</b> — снимаем спазм</li>
-          <li><i class="dot dot--red"></i><b>Пояснично‑крестцовая зона</b> — вытягиваем, не сжимаем</li>
-          <li><i class="dot dot--orange"></i><b>Ягодичные</b> — убираем зажим</li>
+      <div class="exercise__row">
+        <figure class="exercise__photo">
+          <img src="assets/img/ex2-chair.jpg" alt="Наклон с опорой предплечьями на стул" />
+        </figure>
+        <ul class="steps-list">
+          <li><b>Техника:</b> стул или табурет. Подойдите на 10–15 см, наклонитесь и упритесь руками. Ноги прямые, колени не сгибать.</li>
+          <li><b>Движение:</b> за счёт рук опускайтесь до полного сгибания в локтях — предплечья на опоре. Живот и кор абсолютно расслаблены.</li>
+          <li><b>Фиксация:</b> 5–10 секунд. На счёт 10 плавно вернитесь вверх.</li>
+          <li><b>Если поясница напряглась:</b> уменьшите амплитуду и перенесите вес полностью на руки.</li>
         </ul>
-        <p class="principle"><b>Принцип:</b> вес на руках/ногах, живот расслаблен, поясница «отдыхает».</p>
       </div>
-    </div>
+    </section>
 
-    <!-- Exercise 1 -->
-    <article class="ex">
-      <header class="ex__head">
-        <span class="ex__num">1</span>
-        <div>
-          <h3>Разогрев у стены</h3>
-          <p>2–3 мин · вытяжение позвоночника</p>
-        </div>
-        <div class="ex__muscles">
-          <span class="m m--green">спина</span>
-          <span class="m m--red">поясница</span>
-        </div>
-      </header>
-      <div class="ex__body">
-        <div class="steps">
-          <figure class="step">
-            <svg viewBox="0 0 140 150" aria-label="Шаг 1: спиной к стене">
-              <rect width="140" height="150" fill="#f4f1ea"/>
-              <rect x="118" y="10" width="8" height="120" fill="#b8b0a4"/>
-              <circle cx="70" cy="32" r="10" fill="#3d3a35"/>
-              <path d="M70 42v38" stroke="#3d3a35" stroke-width="7" stroke-linecap="round"/>
-              <path d="M70 52c-18-8-28-4-34 2M70 52c18-8 28-4 34 2" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M70 80l-12 40M70 80l12 40" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M64 70v28" stroke="#2d6a4f" stroke-width="4" stroke-linecap="round"/>
-              <path d="M76 70v28" stroke="#2d6a4f" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="70" cy="95" rx="8" ry="10" fill="#e63946" opacity=".85"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">СТАРТ · спина к стене</text>
-            </svg>
-            <figcaption>Повороты и наклоны головы</figcaption>
-          </figure>
-          <span class="arrow" aria-hidden="true">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 140 150" aria-label="Шаг 2: руки вверх">
-              <rect width="140" height="150" fill="#f4f1ea"/>
-              <rect x="118" y="10" width="8" height="120" fill="#b8b0a4"/>
-              <circle cx="70" cy="36" r="10" fill="#3d3a35"/>
-              <path d="M70 46v34" stroke="#3d3a35" stroke-width="7" stroke-linecap="round"/>
-              <path d="M70 56c-22-28-30-30-38-28M70 56c22-28 30-30 38-28" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M70 80l-12 40M70 80l12 40" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M64 66v26" stroke="#2d6a4f" stroke-width="4" stroke-linecap="round"/>
-              <path d="M76 66v26" stroke="#2d6a4f" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="70" cy="90" rx="8" ry="10" fill="#e63946" opacity=".85"/>
-              <path d="M32 22v-10M32 12l-4 5M32 12l4 5M108 22v-10M108 12l-4 5M108 12l4 5" stroke="#e63946" stroke-width="2" stroke-linecap="round"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">ТЯНЕМСЯ · руки вверх</text>
-            </svg>
-            <figcaption>Макушка + руки к потолку</figcaption>
-          </figure>
-          <span class="arrow" aria-hidden="true">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 140 150" aria-label="Шаг 3: боком и лицом">
-              <rect width="140" height="150" fill="#f4f1ea"/>
-              <rect x="118" y="10" width="8" height="120" fill="#b8b0a4"/>
-              <circle cx="62" cy="36" r="10" fill="#3d3a35"/>
-              <path d="M62 46v34" stroke="#3d3a35" stroke-width="7" stroke-linecap="round"/>
-              <path d="M62 55c10-20 28-28 42-22" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M62 55c-16-6-22 4-24 12" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M62 80l-10 40M62 80l14 40" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M58 68v24" stroke="#2d6a4f" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="62" cy="90" rx="8" ry="10" fill="#e63946" opacity=".85"/>
-              <path d="M100 28v-12M100 16l-4 5M100 16l4 5" stroke="#e63946" stroke-width="2" stroke-linecap="round"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">БОК / ЛИЦО · тянемся</text>
-            </svg>
-            <figcaption>Правый бок → левый → лицом</figcaption>
-          </figure>
-        </div>
-        <div class="ex__how">
-          <p><b>Как:</b> встаньте у стены → голова вправо‑влево и наклоны → тянитесь вверх спиной / боком / лицом к стене.</p>
-          <p><b>Цель:</b> разогреть позвоночник и суставы, снять зажим с поясницы.</p>
-        </div>
+    <section class="block exercise">
+      <div class="block__label">Блок 5 · Декомпрессия · 5–7 повторений</div>
+      <div class="exercise__head">
+        <h2>Вытяжение в дверном проёме</h2>
+        <p class="exercise__meta">Пауза в нижней точке · подъём перехватом</p>
       </div>
-    </article>
-  </section>
-
-  <!-- ========== PAGE 2 ========== -->
-  <section class="sheet sheet--2">
-    <div class="sheet-label">Страница 2 · вытяжения</div>
-
-    <!-- Exercise 2 -->
-    <article class="ex">
-      <header class="ex__head">
-        <span class="ex__num">2</span>
-        <div>
-          <h3>Вытяжение со стулом</h3>
-          <p>5–7 раз · пауза 5–10 сек внизу</p>
-        </div>
-        <div class="ex__muscles">
-          <span class="m m--red">поясница</span>
-          <span class="m m--green">длинные спины</span>
-        </div>
-      </header>
-      <div class="ex__body">
-        <div class="steps">
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Старт у стула">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="95" y="55" width="40" height="8" rx="1" fill="#9a9184"/>
-              <rect x="100" y="63" width="6" height="50" fill="#7a7266"/>
-              <rect x="124" y="63" width="6" height="50" fill="#7a7266"/>
-              <circle cx="48" cy="48" r="9" fill="#3d3a35"/>
-              <path d="M48 57v30" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M48 68h40" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M48 87l-8 35M48 87l12 35" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="55" cy="78" rx="7" ry="9" fill="#e63946" opacity=".9"/>
-              <path d="M52 62v22" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">1 · руки на стул</text>
-            </svg>
-            <figcaption>10–15 см от стула, ноги прямые</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Опускаемся">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="95" y="55" width="40" height="8" rx="1" fill="#9a9184"/>
-              <rect x="100" y="63" width="6" height="50" fill="#7a7266"/>
-              <rect x="124" y="63" width="6" height="50" fill="#7a7266"/>
-              <circle cx="40" cy="58" r="9" fill="#3d3a35"/>
-              <path d="M48 64c20 8 40 10 55 8" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M103 72v18" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M92 90h24" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M48 70c6 22 12 40 16 50" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M64 120h28" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <ellipse cx="62" cy="78" rx="9" ry="11" fill="#e63946" opacity=".95"/>
-              <path d="M55 68c8 8 14 18 16 28" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M110 50v-12M110 38l-4 5M110 38l4 5" stroke="#457b9d" stroke-width="2" stroke-linecap="round"/>
-              <text x="70" y="32" font-size="8" fill="#457b9d" font-family="Manrope,sans-serif" font-weight="700">вес на руках</text>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">2 · опускаемся локтями</text>
-            </svg>
-            <figcaption>Опускайтесь, пока локти не лягут</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Пауза внизу">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="95" y="55" width="40" height="8" rx="1" fill="#9a9184"/>
-              <rect x="100" y="63" width="6" height="50" fill="#7a7266"/>
-              <rect x="124" y="63" width="6" height="50" fill="#7a7266"/>
-              <circle cx="36" cy="62" r="9" fill="#3d3a35"/>
-              <path d="M44 68c22 10 42 12 58 10" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M102 78v14" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M90 92h26" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M46 74c8 24 14 40 18 48" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="60" cy="82" rx="10" ry="12" fill="#e63946"/>
-              <path d="M52 72c10 10 16 22 18 32" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <text x="8" y="118" font-size="8" fill="#e63946" font-family="Manrope,sans-serif" font-weight="800">5–10 сек · живот расслаблен</text>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">3 · пауза → плавно вверх</text>
-            </svg>
-            <figcaption>Кор расслаблен → на счёт 10 вверх</figcaption>
-          </figure>
-        </div>
-        <div class="ex__how">
-          <p><b>Как:</b> руки на стул → ноги прямые → опускаетесь <u>за счёт рук</u> до полного сгиба локтей → 5–10 сек → плавно вверх. ×5–7.</p>
-          <p><b>Важно:</b> если поясница напряглась — уменьшите амплитуду, больше веса на руки.</p>
-        </div>
+      <div class="exercise__row">
+        <figure class="exercise__photo">
+          <img src="assets/img/ex3-door.jpg" alt="Вытяжение в дверном проёме" />
+        </figure>
+        <ul class="steps-list">
+          <li><b>Техника:</b> вплотную к одной стороне проёма, руками упритесь в противоположный косяк.</li>
+          <li><b>Движение:</b> плавно опускайтесь вниз за счёт рук, насколько возможно. Внизу полностью расслабьте пресс и спину.</li>
+          <li><b>Подъём:</b> медленно вверх, перехватываясь руками.</li>
+          <li><b>Дозировка:</b> 5–7 повторений.</li>
+        </ul>
       </div>
-    </article>
+    </section>
 
-    <!-- Exercise 3 -->
-    <article class="ex">
-      <header class="ex__head">
-        <span class="ex__num">3</span>
-        <div>
-          <h3>Вытяжение в дверном проёме</h3>
-          <p>5–7 раз · пауза в нижней точке</p>
-        </div>
-        <div class="ex__muscles">
-          <span class="m m--red">поясница</span>
-          <span class="m m--green">длинные спины</span>
-        </div>
-      </header>
-      <div class="ex__body">
-        <div class="steps">
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Встаём в проём">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="18" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="124" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="18" y="12" width="114" height="8" fill="#7a7266"/>
-              <circle cx="40" cy="42" r="9" fill="#3d3a35"/>
-              <path d="M40 51v32" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M40 60h70" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M40 83l-8 35M40 83l12 35" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="48" cy="78" rx="7" ry="9" fill="#e63946" opacity=".9"/>
-              <path d="M44 62v22" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">1 · боком к косяку</text>
-            </svg>
-            <figcaption>Плотно к одной стороне проёма</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Опускаемся в проёме">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="18" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="124" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="18" y="12" width="114" height="8" fill="#7a7266"/>
-              <circle cx="55" cy="55" r="9" fill="#3d3a35"/>
-              <path d="M55 64v28" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M55 72c-18 8-28 18-32 28M55 72c28 6 48 12 62 18" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M55 92l-10 30M55 92l12 30" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="55" cy="88" rx="9" ry="11" fill="#e63946"/>
-              <path d="M50 70v24" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M60 70v24" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M55 40v-14M55 26l-4 5M55 26l4 5" stroke="#457b9d" stroke-width="2"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">2 · опускаемся руками</text>
-            </svg>
-            <figcaption>Максимально низко за счёт рук</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 150 150" aria-label="Пауза внизу в проёме">
-              <rect width="150" height="150" fill="#f4f1ea"/>
-              <rect x="18" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="124" y="12" width="8" height="118" fill="#9a9184"/>
-              <rect x="18" y="12" width="114" height="8" fill="#7a7266"/>
-              <circle cx="60" cy="68" r="9" fill="#3d3a35"/>
-              <path d="M60 77v22" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <path d="M60 84c-22 10-32 20-36 28M60 84c30 8 50 14 64 18" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M60 99l-10 26M60 99l12 26" stroke="#3d3a35" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="60" cy="98" rx="10" ry="12" fill="#e63946"/>
-              <path d="M55 82v22" stroke="#2d6a4f" stroke-width="3.5" stroke-linecap="round"/>
-              <text x="8" y="118" font-size="8" fill="#e63946" font-family="Manrope,sans-serif" font-weight="800">пауза · пресс расслаблен</text>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">3 · пауза → вверх перехватом</text>
-            </svg>
-            <figcaption>Пауза внизу → поднимайтесь перехватом</figcaption>
-          </figure>
-        </div>
-        <div class="ex__how">
-          <p><b>Как:</b> упор руками в противоположную сторону проёма → опускаетесь низко → расслабляете живот → плавно вверх. ×5–7.</p>
-          <p><b>Тот же принцип, что со стулом:</b> вытянуть поясницу без сжатия.</p>
-        </div>
+    <section class="block exercise">
+      <div class="block__label">Блок 6 · Ягодицы и поясница · 5–7 на сторону</div>
+      <div class="exercise__head">
+        <h2>Скручивание лёжа</h2>
+        <p class="exercise__meta">Без рывков · до комфортного натяжения</p>
       </div>
-    </article>
-  </section>
-
-  <!-- ========== PAGE 3 ========== -->
-  <section class="sheet sheet--3">
-    <div class="sheet-label">Страница 3 · ягодицы + итог</div>
-
-    <!-- Exercise 4 -->
-    <article class="ex">
-      <header class="ex__head">
-        <span class="ex__num">4</span>
-        <div>
-          <h3>Скручивание лёжа</h3>
-          <p>5–7 на каждую сторону</p>
-        </div>
-        <div class="ex__muscles">
-          <span class="m m--orange">ягодицы</span>
-          <span class="m m--red">поясница</span>
-        </div>
-      </header>
-      <div class="ex__body">
-        <div class="steps">
-          <figure class="step">
-            <svg viewBox="0 0 160 150" aria-label="Лёжа на спине">
-              <rect width="160" height="150" fill="#f4f1ea"/>
-              <ellipse cx="80" cy="95" rx="70" ry="12" fill="#e5ded2"/>
-              <circle cx="28" cy="78" r="9" fill="#3d3a35"/>
-              <ellipse cx="70" cy="82" rx="36" ry="14" fill="#3d3a35"/>
-              <path d="M40 78c-14-10-24-8-30-2M95 78c18 2 30 12 40 22" stroke="#3d3a35" stroke-width="4" stroke-linecap="round"/>
-              <path d="M95 85c16 14 28 22 42 24" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <path d="M90 88c8-18 18-28 28-26" stroke="#3d3a35" stroke-width="5" stroke-linecap="round"/>
-              <ellipse cx="88" cy="92" rx="12" ry="9" fill="#f4a261"/>
-              <ellipse cx="72" cy="86" rx="8" ry="7" fill="#e63946" opacity=".85"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">1 · спина на полу, руки в стороны</text>
-            </svg>
-            <figcaption>Руки крестом, плечи прижаты</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 160 150" aria-label="Тянем колено">
-              <rect width="160" height="150" fill="#f4f1ea"/>
-              <ellipse cx="80" cy="100" rx="70" ry="12" fill="#e5ded2"/>
-              <circle cx="30" cy="82" r="9" fill="#3d3a35"/>
-              <ellipse cx="72" cy="86" rx="34" ry="13" fill="#3d3a35"/>
-              <path d="M42 82c-16-12-26-10-32-4" stroke="#3d3a35" stroke-width="4" stroke-linecap="round"/>
-              <path d="M95 84c22 2 38 18 48 32" stroke="#3d3a35" stroke-width="4" stroke-linecap="round"/>
-              <path d="M98 88c12-28 28-40 42-36" stroke="#e63946" stroke-width="6" stroke-linecap="round"/>
-              <path d="M140 52c8 4 12 14 8 24" stroke="#e63946" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="100" cy="90" rx="14" ry="10" fill="#f4a261"/>
-              <ellipse cx="78" cy="88" rx="8" ry="7" fill="#e63946"/>
-              <path d="M120 40l10-8M130 32l-2 8M130 32l-8 2" stroke="#457b9d" stroke-width="2" stroke-linecap="round"/>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">2 · колено вверх и в сторону</text>
-            </svg>
-            <figcaption>Правой рукой — левое колено вправо‑вверх</figcaption>
-          </figure>
-          <span class="arrow">→</span>
-          <figure class="step">
-            <svg viewBox="0 0 160 150" aria-label="Максимальное растяжение">
-              <rect width="160" height="150" fill="#f4f1ea"/>
-              <ellipse cx="80" cy="102" rx="70" ry="12" fill="#e5ded2"/>
-              <circle cx="32" cy="84" r="9" fill="#3d3a35"/>
-              <ellipse cx="70" cy="88" rx="32" ry="12" fill="#3d3a35"/>
-              <path d="M42 84c-18-14-28-12-34-6" stroke="#3d3a35" stroke-width="4" stroke-linecap="round"/>
-              <path d="M92 86c24 0 42 16 52 30" stroke="#3d3a35" stroke-width="4" stroke-linecap="round"/>
-              <path d="M95 88c18-36 40-48 55-40" stroke="#e63946" stroke-width="6" stroke-linecap="round"/>
-              <path d="M150 48c6 8 4 20-2 28" stroke="#e63946" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="102" cy="92" rx="16" ry="11" fill="#f4a261"/>
-              <ellipse cx="76" cy="90" rx="9" ry="8" fill="#e63946"/>
-              <text x="8" y="118" font-size="8" fill="#c45c26" font-family="Manrope,sans-serif" font-weight="800">ягодица тянется · плечо прижато</text>
-              <text x="8" y="142" font-size="9" fill="#5c564e" font-family="Manrope,sans-serif" font-weight="700">3 · пауза → другая сторона</text>
-            </svg>
-            <figcaption>Без рывков, до комфортного натяжения</figcaption>
-          </figure>
-        </div>
-        <div class="ex__how">
-          <p><b>Как:</b> лёжа на спине, руки в стороны → тяните колено противоположной рукой вверх и вбок → другое плечо прижимайте к полу. ×5–7 на сторону.</p>
-          <p><b>Цель:</b> растянуть ягодицу и мягко скрутить поясницу — снять зажим.</p>
-        </div>
+      <div class="exercise__row">
+        <figure class="exercise__photo">
+          <img src="assets/img/ex4-twist.jpg" alt="Скручивание лёжа с растяжением ягодицы" />
+        </figure>
+        <ul class="steps-list">
+          <li><b>Техника:</b> на спине, руки крестом в стороны, плечи плотно к полу.</li>
+          <li><b>Движение:</b> правой рукой возьмите левую ногу под коленом и тяните вверх и вправо — скручивая поясницу и растягивая ягодицу. Левое плечо удерживайте на полу.</li>
+          <li><b>Смена стороны:</b> то же левой рукой для правой ноги (вверх и влево).</li>
+          <li><b>Дозировка:</b> 5–7 повторений на каждую сторону.</li>
+        </ul>
       </div>
-    </article>
-
-    <div class="legend">
-      <h3>Цвета на схемах</h3>
-      <ul>
-        <li><i class="dot dot--red"></i> Поясница — зона, которую вытягиваем / расслабляем</li>
-        <li><i class="dot dot--orange"></i> Ягодицы — растягиваем</li>
-        <li><i class="dot dot--green"></i> Длинные мышцы спины — снимаем спазм</li>
-        <li><i class="dot dot--blue"></i> Стрелки — куда идёт движение / куда уходит вес</li>
-      </ul>
-    </div>
+    </section>
 
     <footer class="finale">
-      <div class="finale__item">
-        <strong>Каждый день</strong>
-        <span>все 4 упражнения подряд</span>
+      <div class="finale__grid">
+        <div>
+          <strong>⏱ 10–15 минут в день</strong>
+          <p>Все блоки подряд, каждый день</p>
+        </div>
+        <div>
+          <strong>Итог</strong>
+          <p>Ежедневная рутина возвращает свободу движений без боли</p>
+        </div>
+        <div>
+          <strong>@a.cheremisin_fitness</strong>
+          <p>Artur Cheremisin · Fitness</p>
+        </div>
       </div>
-      <div class="finale__item">
-        <strong>5–7 повторов</strong>
-        <span>в упражнениях 2–4</span>
-      </div>
-      <div class="finale__item">
-        <strong>Кор расслаблен</strong>
-        <span>поясница без нагрузки</span>
-      </div>
-      <div class="finale__item">
-        <strong>Без боли</strong>
-        <span>при острой боли — к врачу</span>
-      </div>
+      <p class="disclaimer">Материал носит образовательный характер и дополняет рекомендации вашего лечащего врача.</p>
     </footer>
-
-    <p class="disclaimer">Памятка носит образовательный характер и не заменяет консультацию врача. Artur Cheremisin · Fitness</p>
   </section>
 </body>
 </html>
