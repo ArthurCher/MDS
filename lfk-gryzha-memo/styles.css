@@ -1,4 +1,4 @@
-/* Premium 4-page A4 memo — full photos, no clipping */
+/* Premium 4-page A4 memo */
 
 :root {
   --ink: #171411;
@@ -48,10 +48,10 @@ html, body {
 
 .sheet {
   width: 210mm;
-  min-height: 297mm;
   height: 297mm;
+  min-height: 297mm;
   margin: 14px auto;
-  padding: 10mm 12mm 10mm;
+  padding: 10mm 12mm 9mm;
   background:
     radial-gradient(800px 400px at 100% 0%, rgba(155, 34, 38, .05), transparent 50%),
     radial-gradient(700px 380px at 0% 100%, rgba(45, 106, 79, .06), transparent 50%),
@@ -60,7 +60,7 @@ html, body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 4mm;
+  gap: 3.5mm;
   page-break-after: always;
   position: relative;
 }
@@ -78,20 +78,9 @@ html, body {
   color: var(--muted);
 }
 
-/* highlights */
-.cue {
-  color: var(--cue);
-  font-weight: 800;
-}
+.cue { color: var(--cue); font-weight: 800; }
+.reps { color: var(--reps); font-weight: 800; }
 
-.reps {
-  color: var(--reps);
-  font-weight: 800;
-}
-
-.reps--light { color: #7ddec8; }
-
-/* mast */
 .mast__row {
   display: flex;
   justify-content: space-between;
@@ -120,7 +109,7 @@ html, body {
 
 .mast h1 {
   font-family: var(--display);
-  font-size: 26px;
+  font-size: 25px;
   line-height: 1.12;
   letter-spacing: -0.02em;
   max-width: 18ch;
@@ -128,10 +117,10 @@ html, body {
 }
 
 .mast__lead {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--muted);
   font-weight: 600;
-  max-width: 54ch;
+  max-width: 56ch;
 }
 
 .mast--compact {
@@ -144,12 +133,11 @@ html, body {
   letter-spacing: .08em;
 }
 
-/* blocks */
 .block h2 {
   font-family: var(--display);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.2;
-  margin: 2mm 0 3mm;
+  margin: 1.8mm 0 2.5mm;
 }
 
 .block__label {
@@ -168,25 +156,24 @@ html, body {
   background: var(--accent);
 }
 
-/* rules */
 .rules {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3mm;
+  gap: 2.8mm;
 }
 
 .rule {
   display: grid;
-  grid-template-columns: 30px 1fr;
-  gap: 2.5mm;
+  grid-template-columns: 28px 1fr;
+  gap: 2.4mm;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3.5mm;
+  padding: 3mm;
 }
 
 .rule__icon {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
@@ -194,7 +181,7 @@ html, body {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .rule__icon--ban { background: #5c4033; }
@@ -202,32 +189,31 @@ html, body {
 .rule__icon--loop { background: #3d5a80; }
 
 .rule h3 {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
-  margin-bottom: 1.2mm;
+  margin-bottom: 1mm;
 }
 
 .rule p {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
-/* anatomy */
 .anatomy__grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 5mm;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 4mm;
   align-items: center;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 4mm;
+  padding: 3.5mm;
 }
 
 .anatomy__figure {
   overflow: hidden;
   background: #efe8dc;
-  height: 95mm;
+  height: 88mm;
 }
 
 .anatomy__figure img {
@@ -241,23 +227,23 @@ html, body {
 .anatomy__list {
   list-style: none;
   display: grid;
-  gap: 5mm;
+  gap: 4mm;
 }
 
 .anatomy__list li {
   display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 3mm;
+  grid-template-columns: 34px 1fr;
+  gap: 2.5mm;
 }
 
 .chip {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   color: #fff;
 }
@@ -267,51 +253,50 @@ html, body {
 .chip--red { background: var(--accent); }
 
 .anatomy__list h3 {
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 1mm;
 }
 
 .anatomy__list p {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--muted);
+  line-height: 1.38;
 }
 
 .note {
-  margin-top: 3mm;
-  font-size: 12px;
+  margin-top: 2.5mm;
+  font-size: 11.5px;
   color: var(--muted);
   background: rgba(155, 34, 38, .06);
   border-left: 3px solid var(--accent);
   padding: 2.5mm 3mm;
+  line-height: 1.4;
 }
 
-/* exercise heads */
 .exercise__head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 3mm;
+  margin-bottom: 2.5mm;
 }
 
 .exercise__head h2 { margin: 0; }
 
 .exercise__meta {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--muted);
   text-align: right;
+  max-width: 48%;
 }
 
-/* pose photos — full, not clipped awkwardly */
 .pose-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4mm;
-  margin-bottom: 3.5mm;
+  gap: 3.5mm;
+  margin-bottom: 2.8mm;
 }
-
-.pose-grid--single { grid-template-columns: 1fr; }
 
 .pose {
   background: var(--card);
@@ -322,11 +307,9 @@ html, body {
 .pose__frame {
   position: relative;
   background: #ebe4d8;
-  height: 92mm;
+  height: 78mm;
   overflow: hidden;
 }
-
-.pose__frame--wide { height: 88mm; }
 
 .pose__frame img {
   width: 100%;
@@ -337,21 +320,13 @@ html, body {
   background: #ebe4d8;
 }
 
-.amp {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
 .badge-pose {
   position: absolute;
-  left: 3mm;
-  top: 3mm;
+  left: 2.5mm;
+  top: 2.5mm;
   background: rgba(23, 20, 17, .82);
   color: #fff;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 800;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -359,92 +334,111 @@ html, body {
 }
 
 .pose figcaption {
-  padding: 2.5mm 3mm;
-  font-size: 11.5px;
+  padding: 2.2mm 2.8mm;
+  font-size: 11px;
   color: var(--muted);
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
 .pose figcaption b {
   display: block;
   color: var(--ink);
-  font-size: 12px;
-  margin-bottom: 0.8mm;
+  font-size: 11.5px;
+  margin-bottom: 0.6mm;
 }
 
-/* steps */
 .steps {
   list-style: none;
   display: grid;
-  gap: 2.2mm;
+  gap: 1.8mm;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3.5mm 4mm;
+  padding: 3mm 3.5mm;
 }
 
 .steps li {
-  font-size: 12px;
+  font-size: 11.5px;
   padding-left: 3mm;
   border-left: 2.5px solid rgba(155, 34, 38, .35);
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .steps b { font-weight: 800; }
 
 .tip {
-  margin-top: 2.5mm;
-  font-size: 12px;
+  margin-top: 2mm;
+  font-size: 11.5px;
   background: rgba(155, 34, 38, .07);
   border: 1px solid rgba(155, 34, 38, .18);
-  padding: 2.5mm 3mm;
+  padding: 2.2mm 3mm;
+  line-height: 1.38;
 }
 
-.tip--ok {
-  background: rgba(15, 107, 92, .08);
-  border-color: rgba(15, 107, 92, .2);
-}
-
-/* finale */
-.finale {
+/* brand footer */
+.brand-foot {
   margin-top: auto;
   background: #1a1714;
   color: #f6f1e8;
-  padding: 5mm 5mm 3.5mm;
-}
-
-.finale__grid {
+  padding: 4.5mm 5mm 3.5mm;
   display: grid;
-  grid-template-columns: 1.1fr 1.4fr 1fr;
-  gap: 4mm;
-  margin-bottom: 3mm;
+  grid-template-columns: 1.4fr auto;
+  gap: 4mm 6mm;
+  align-items: end;
 }
 
-.finale strong {
-  display: block;
+.brand-foot__name {
   font-family: var(--display);
-  font-size: 12px;
-  color: #f0a070;
-  margin-bottom: 1.2mm;
+  font-size: 15px;
+  margin-bottom: 1mm;
 }
 
-.finale p { font-size: 12px; opacity: .9; }
+.brand-foot__offer {
+  font-size: 12px;
+  opacity: .9;
+  margin-bottom: 2mm;
+}
+
+.brand-foot__title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #f0a070;
+}
+
+.brand-foot__title-en {
+  font-size: 9.5px;
+  opacity: .55;
+  margin-top: 0.8mm;
+}
+
+.brand-foot__ig {
+  display: flex;
+  align-items: center;
+  gap: 2.5mm;
+  font-size: 13px;
+  font-weight: 700;
+  justify-self: end;
+  align-self: center;
+}
+
+.ig-icon {
+  width: 22px;
+  height: 22px;
+  color: #f0a070;
+}
 
 .disclaimer {
+  grid-column: 1 / -1;
   font-size: 9.5px;
   opacity: .55;
   border-top: 1px solid rgba(255,255,255,.12);
-  padding-top: 2.5mm;
+  padding-top: 2.2mm;
 }
 
-/* page 2: taller photos for single exercise */
-.sheet:nth-of-type(2) .pose__frame { height: 110mm; }
-
-/* page 3: two exercises — slightly shorter photos */
-.sheet:nth-of-type(3) .pose__frame { height: 58mm; }
-.sheet:nth-of-type(3) { gap: 3.5mm; }
-
-/* page 4 */
-.sheet:nth-of-type(4) .pose__frame--wide { height: 100mm; }
+/* per-page photo heights */
+.sheet:nth-of-type(2) .pose__frame { height: 105mm; }
+.sheet:nth-of-type(3) .pose__frame { height: 48mm; }
+.sheet:nth-of-type(3) { gap: 3mm; }
+.sheet:nth-of-type(4) .pose__frame { height: 72mm; }
 
 @media screen and (max-width: 860px) {
   .sheet {
@@ -457,17 +451,17 @@ html, body {
   .rules,
   .anatomy__grid,
   .pose-grid,
-  .finale__grid {
+  .brand-foot {
     grid-template-columns: 1fr;
   }
   .pose__frame,
-  .pose__frame--wide,
   .anatomy__figure,
   .sheet:nth-of-type(2) .pose__frame,
   .sheet:nth-of-type(3) .pose__frame,
-  .sheet:nth-of-type(4) .pose__frame--wide {
+  .sheet:nth-of-type(4) .pose__frame {
     height: 260px;
   }
+  .brand-foot__ig { justify-self: start; }
 }
 
 @page { size: A4; margin: 0; }
