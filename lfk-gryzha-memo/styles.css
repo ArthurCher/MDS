@@ -1,4 +1,20 @@
-/* Premium 4-page A4 memo */
+/* Premium 5-page A4 memo */
+
+@font-face {
+  font-family: "Manrope";
+  src: url("assets/fonts/Manrope-Variable.woff2") format("woff2");
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Unbounded";
+  src: url("assets/fonts/Unbounded-Variable.woff2") format("woff2");
+  font-weight: 600 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --ink: #171411;
@@ -299,6 +315,20 @@ html, body {
   margin-bottom: 2.8mm;
 }
 
+.pose-grid--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.8mm;
+}
+
+.pose-grid--3 .pose__frame { height: 72mm; }
+
+.pose-grid--3 figcaption {
+  font-size: 10.5px;
+  padding: 2mm 2.2mm;
+}
+
+.pose-grid--3 figcaption b { font-size: 11px; }
+
 .pose {
   background: var(--card);
   border: 1px solid var(--line);
@@ -439,12 +469,18 @@ html, body {
 .pose__frame--wide { height: 70mm; }
 
 /* per-page photo heights */
-.sheet:nth-of-type(2) .pose__frame { height: 105mm; }
+.sheet:nth-of-type(2) .pose__frame { height: 88mm; }
+.sheet:nth-of-type(2) .pose-grid--3 .pose__frame { height: 88mm; }
+.sheet:nth-of-type(2) .steps { gap: 1.4mm; padding: 2.5mm 3mm; }
+.sheet:nth-of-type(2) .steps li { font-size: 11px; }
 .sheet:nth-of-type(3) .pose__frame { height: 48mm; }
 .sheet:nth-of-type(3) { gap: 3mm; }
-.sheet:nth-of-type(4) .pose__frame { height: 52mm; }
-.sheet:nth-of-type(4) .pose__frame--wide { height: 62mm; }
-.sheet:nth-of-type(4) { gap: 3mm; }
+.sheet:nth-of-type(4) .pose__frame { height: 46mm; }
+.sheet:nth-of-type(4) .pose-grid--3 .pose__frame { height: 46mm; }
+.sheet:nth-of-type(4) { gap: 2.5mm; }
+.sheet:nth-of-type(4) .steps { gap: 1.3mm; padding: 2.2mm 3mm; }
+.sheet:nth-of-type(4) .steps li { font-size: 10.5px; }
+.sheet:nth-of-type(4) .block h2 { font-size: 14.5px; }
 .sheet:nth-of-type(5) .pose__frame { height: 78mm; }
 
 @media screen and (max-width: 860px) {
@@ -458,6 +494,7 @@ html, body {
   .rules,
   .anatomy__grid,
   .pose-grid,
+  .pose-grid--3,
   .brand-foot {
     grid-template-columns: 1fr;
   }
