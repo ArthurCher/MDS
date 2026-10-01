@@ -125,15 +125,15 @@ html, body {
 
 .mast h1 {
   font-family: var(--display);
-  font-size: 25px;
+  font-size: 22px;
   line-height: 1.12;
   letter-spacing: -0.02em;
   max-width: 18ch;
-  margin-bottom: 2.5mm;
+  margin-bottom: 2mm;
 }
 
 .mast__lead {
-  font-size: 12.5px;
+  font-size: 11.5px;
   color: var(--muted);
   font-weight: 600;
   max-width: 56ch;
@@ -175,16 +175,16 @@ html, body {
 .rules {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.8mm;
+  gap: 2.2mm;
 }
 
 .rule {
   display: grid;
   grid-template-columns: 28px 1fr;
-  gap: 2.4mm;
+  gap: 2.2mm;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3mm;
+  padding: 2.4mm;
 }
 
 .rule__icon {
@@ -205,38 +205,44 @@ html, body {
 .rule__icon--loop { background: #3d5a80; }
 
 .rule h3 {
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 800;
-  margin-bottom: 1mm;
+  margin-bottom: 0.8mm;
 }
 
 .rule p {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--muted);
-  line-height: 1.38;
+  line-height: 1.32;
 }
+
+.sheet:nth-of-type(1) { gap: 2.8mm; }
+.sheet:nth-of-type(1) .block h2 { font-size: 14.5px; margin: 1.2mm 0 2mm; }
+.sheet:nth-of-type(1) .anatomy__list { gap: 3mm; }
+.sheet:nth-of-type(1) .anatomy__list p { font-size: 11px; }
+.sheet:nth-of-type(1) .note { font-size: 10.5px; margin-top: 2mm; padding: 2mm 2.5mm; }
 
 .anatomy__grid {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 1.25fr 0.85fr;
   gap: 4mm;
   align-items: center;
   background: var(--card);
   border: 1px solid var(--line);
-  padding: 3.5mm;
+  padding: 3mm;
 }
 
 .anatomy__figure {
   overflow: hidden;
   background: #efe8dc;
-  height: 88mm;
+  height: 118mm;
 }
 
 .anatomy__figure img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center center;
   display: block;
 }
 
