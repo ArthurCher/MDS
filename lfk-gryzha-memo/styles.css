@@ -435,11 +435,17 @@ html, body {
   padding-top: 2.2mm;
 }
 
+.pose-grid--single { grid-template-columns: 1fr; }
+.pose__frame--wide { height: 70mm; }
+
 /* per-page photo heights */
 .sheet:nth-of-type(2) .pose__frame { height: 105mm; }
 .sheet:nth-of-type(3) .pose__frame { height: 48mm; }
 .sheet:nth-of-type(3) { gap: 3mm; }
-.sheet:nth-of-type(4) .pose__frame { height: 72mm; }
+.sheet:nth-of-type(4) .pose__frame { height: 52mm; }
+.sheet:nth-of-type(4) .pose__frame--wide { height: 62mm; }
+.sheet:nth-of-type(4) { gap: 3mm; }
+.sheet:nth-of-type(5) .pose__frame { height: 78mm; }
 
 @media screen and (max-width: 860px) {
   .sheet {
@@ -459,7 +465,9 @@ html, body {
   .anatomy__figure,
   .sheet:nth-of-type(2) .pose__frame,
   .sheet:nth-of-type(3) .pose__frame,
-  .sheet:nth-of-type(4) .pose__frame {
+  .sheet:nth-of-type(4) .pose__frame,
+  .sheet:nth-of-type(4) .pose__frame--wide,
+  .sheet:nth-of-type(5) .pose__frame {
     height: 260px;
   }
   .brand-foot__ig { justify-self: start; }
