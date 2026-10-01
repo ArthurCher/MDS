@@ -469,10 +469,9 @@ html, body {
 .pose__frame--wide { height: 70mm; }
 
 /* per-page photo heights */
-.sheet:nth-of-type(2) .pose__frame { height: 88mm; }
-.sheet:nth-of-type(2) .pose-grid--3 .pose__frame { height: 88mm; }
-.sheet:nth-of-type(2) .steps { gap: 1.4mm; padding: 2.5mm 3mm; }
-.sheet:nth-of-type(2) .steps li { font-size: 11px; }
+.sheet:nth-of-type(2) .pose__frame { height: 105mm; }
+.sheet:nth-of-type(2) .steps { gap: 1.6mm; padding: 2.8mm 3mm; }
+.sheet:nth-of-type(2) .steps li { font-size: 11.5px; }
 .sheet:nth-of-type(3) .pose__frame { height: 48mm; }
 .sheet:nth-of-type(3) { gap: 3mm; }
 .sheet:nth-of-type(4) .pose__frame { height: 46mm; }
