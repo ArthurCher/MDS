@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
-"""Instagram Stories slide — refined for a.cheremisin_fitness brand."""
+"""
+Premium Instagram Stories slide.
+Dark editorial underlay + Noto Serif Display (high-contrast Didone from refs).
+"""
 
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 from pathlib import Path
 
 W, H = 1080, 1920
@@ -12,20 +15,24 @@ ART = Path("/opt/cursor/artifacts")
 OUT.mkdir(exist_ok=True)
 ART.mkdir(parents=True, exist_ok=True)
 
-YELLOW = (255, 214, 0)
-WHITE = (255, 255, 255)
-CREAM = (248, 244, 236)
-MUTED = (190, 190, 190)
+CREAM = (244, 236, 220)
+CREAM_DIM = (210, 200, 184)
+GOLD = (220, 178, 96)
+GOLD_SOFT = (196, 158, 84)
+MUTED = (138, 132, 122)
 
-font_hook = ImageFont.truetype(str(FONTS / "Cormorant-700.ttf"), 62)
-font_accent = ImageFont.truetype(str(FONTS / "Cormorant-700.ttf"), 62)
-font_body = ImageFont.truetype(str(FONTS / "Montserrat-500.ttf"), 29)
-font_label = ImageFont.truetype(str(FONTS / "Montserrat-600.ttf"), 20)
-font_close = ImageFont.truetype(str(FONTS / "Montserrat-600.ttf"), 29)
-font_close_em = ImageFont.truetype(str(FONTS / "Montserrat-700.ttf"), 31)
+# High-contrast Didone display — fashion/editorial look from references
+NOTO = Path("/usr/share/fonts/truetype/noto")
+font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 56)
+font_hook_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 58)
+font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 32)
+font_close_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 34)
+font_body = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 26)
+font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 17)
+font_handle = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 16)
 
 
-def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.55, 0.32)) -> Image.Image:
+def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.65, 0.28)) -> Image.Image:
     img = img.convert("RGB")
     sw, sh = img.size
     scale = max(tw / sw, th / sh)
@@ -38,43 +45,50 @@ def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.55, 0.32)) -> Image.
     return img.crop((left, top, left + tw, top + th))
 
 
-def prepare_bg(photo: Image.Image, focus) -> Image.Image:
+def make_underlay(photo: Image.Image, focus) -> Image.Image:
+    """
+    Dark story underlay:
+    - photo pushed to the right (subject visible)
+    - left text column stays deep black
+    - overall moody grade, not crushed black
+    """
     base = cover_crop(photo, W, H, focus=focus)
-    # Keep subject a bit brighter
-    base = ImageEnhance.Brightness(base).enhance(0.88)
-    base = ImageEnhance.Contrast(base).enhance(1.1)
-    base = base.convert("RGBA")
 
-    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(overlay)
+    # Keep subject readable, then grade moody (not crushed)
+    base = ImageEnhance.Brightness(base).enhance(0.82)
+    base = ImageEnhance.Color(base).enhance(0.68)
+    base = ImageEnhance.Contrast(base).enhance(1.22)
 
-    # Left-weighted dark panel for text (keep right side of subject visible)
-    for x in range(0, W):
-        # stronger on left 70%, fade to right
+    # Warm dark blend (editorial) — light touch so photo stays present
+    warm = Image.new("RGB", (W, H), (12, 9, 7))
+    base = Image.blend(base, warm, 0.18)
+    rgba = base.convert("RGBA")
+
+    # Left text panel: deep dark for type; right stays open so YOU are visible
+    panel = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    pd = ImageDraw.Draw(panel)
+    for x in range(W):
         t = x / W
-        if t < 0.58:
-            side_a = 70
+        if t < 0.48:
+            a = 200
+        elif t < 0.68:
+            a = int(200 - (t - 0.48) / 0.20 * 155)
         else:
-            side_a = int(70 * (1 - (t - 0.58) / 0.42) ** 1.3)
-        d.line([(x, 0), (x, H)], fill=(5, 6, 8, max(0, side_a)))
+            a = int(45 - (t - 0.68) / 0.32 * 25)
+        pd.line([(x, 0), (x, H)], fill=(5, 4, 3, max(12, a)))
 
-    # Vertical readability bands
-    band = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    bd = ImageDraw.Draw(band)
-    for y in range(0, 520):
-        a = int(130 * (1 - y / 520) ** 0.7)
-        bd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
-    for y in range(480, 1600):
-        t = (y - 480) / 1120
-        peak = 1 - abs(t - 0.4) * 0.9
-        a = int(85 + 55 * max(0, peak))
-        bd.line([(0, y), (W, y)], fill=(6, 7, 9, min(155, a)))
-    for y in range(1520, H):
-        a = int(180 * ((y - 1520) / (H - 1520)) ** 0.8)
-        bd.line([(0, y), (W, y)], fill=(0, 0, 0, min(210, a)))
+    # Soft top/bottom vignette only
+    vig = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    vd = ImageDraw.Draw(vig)
+    for y in range(0, 280):
+        a = int(110 * (1 - y / 280) ** 1.1)
+        vd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
+    for y in range(1680, H):
+        a = int(150 * ((y - 1680) / (H - 1680)) ** 0.9)
+        vd.line([(0, y), (W, y)], fill=(0, 0, 0, min(190, a)))
 
-    out = Image.alpha_composite(base, overlay)
-    out = Image.alpha_composite(out, band)
+    out = Image.alpha_composite(rgba, panel)
+    out = Image.alpha_composite(out, vig)
     return out.convert("RGB")
 
 
@@ -100,29 +114,38 @@ def shadow_text(draw, xy, text, font, fill, offset=2):
     draw.text((x, y), text, font=font, fill=fill)
 
 
-def build(photo_path: Path, out_name: str, focus=(0.58, 0.30)):
-    base = prepare_bg(Image.open(photo_path), focus)
+def spaced_label(draw, text, font, xy, fill, tracking=5):
+    x, y = xy
+    for ch in text:
+        shadow_text(draw, (x, y), ch, font, fill, offset=1)
+        x += draw.textlength(ch, font=font) + tracking
+    return x
+
+
+def build(photo_path: Path, out_name: str, focus=(0.65, 0.28)):
+    base = make_underlay(Image.open(photo_path), focus)
     canvas = base.convert("RGBA")
     draw = ImageDraw.Draw(canvas)
 
-    margin = 70
-    max_w = W - margin * 2 - 20
-    y = 210
+    margin = 72
+    content_w = 600  # left column — photo visible on right
+    y = 195
 
-    label = "A.CHEREMISIN  ·  FITNESS"
-    shadow_text(draw, (margin, y), label, font_label, MUTED, offset=1)
-    bbox = draw.textbbox((margin, y), label, font=font_label)
-    draw.rectangle([margin, bbox[3] + 6, margin + 108, bbox[3] + 9], fill=YELLOW)
-    y = bbox[3] + 28
+    spaced_label(draw, "PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=6)
+    y += 26
+    draw.rectangle([margin, y, margin + 42, y + 2], fill=GOLD_SOFT)
+    y += 40
 
+    # Large Didone headline
     for line in ("Если вы узнаёте себя", "хотя бы в одном пункте —"):
-        shadow_text(draw, (margin, y), line, font_hook, WHITE, offset=2)
-        y += 66
+        shadow_text(draw, (margin, y), line, font_hook, CREAM, offset=2)
+        y += 62
 
-    shadow_text(draw, (margin, y), "вам сюда:", font_accent, YELLOW, offset=2)
-    y += 72
-    draw.rectangle([margin, y, margin + 56, y + 3], fill=YELLOW)
-    y += 34
+    # Italic gold accent — magazine emphasis
+    shadow_text(draw, (margin, y), "вам сюда", font_hook_it, GOLD, offset=2)
+    aw = draw.textlength("вам сюда", font=font_hook_it)
+    draw.rectangle([margin, y + 64, margin + aw * 0.92, y + 66], fill=GOLD_SOFT)
+    y += 92
 
     bullets = [
         "Хотите изменить тело, но уже устали от универсальных программ",
@@ -134,32 +157,31 @@ def build(photo_path: Path, out_name: str, focus=(0.58, 0.30)):
     ]
 
     for item in bullets:
-        lines = wrap_text(item, font_body, max_w - 34, draw)
-        by = y + 9
-        draw.rectangle([margin, by, margin + 5, by + 18], fill=YELLOW)
-        tx = margin + 26
+        lines = wrap_text(item, font_body, content_w - 24, draw)
+        draw.rectangle([margin, y + 8, margin + 3, y + 22], fill=GOLD_SOFT)
+        tx = margin + 20
         for line in lines:
-            shadow_text(draw, (tx, y), line, font_body, CREAM, offset=1)
-            y += 37
-        y += 20
+            shadow_text(draw, (tx, y), line, font_body, CREAM_DIM, offset=1)
+            y += 33
+        y += 16
 
-    y += 8
-    draw.rectangle([margin, y, margin + 56, y + 3], fill=YELLOW)
+    y += 6
+    draw.rectangle([margin, y, margin + 42, y + 2], fill=GOLD_SOFT)
     y += 26
-    shadow_text(draw, (margin, y), "Не «для идеальных».", font_close_em, WHITE, offset=2)
+    shadow_text(draw, (margin, y), "Не «для идеальных».", font_close, CREAM, offset=2)
     y += 42
     shadow_text(
         draw,
         (margin, y),
         "Для реальных людей с реальной физиологией.",
-        font_close,
-        YELLOW,
+        font_close_it,
+        GOLD,
         offset=2,
     )
 
-    handle = "@a.cheremisin_fitness"
-    hw = draw.textlength(handle, font=font_label)
-    shadow_text(draw, ((W - hw) / 2, H - 118), handle, font_label, MUTED, offset=1)
+    handle = "@A.CHEREMISIN_FITNESS"
+    total = sum(draw.textlength(ch, font=font_handle) + 3 for ch in handle) - 3
+    spaced_label(draw, handle, font_handle, ((W - total) / 2, H - 108), MUTED, tracking=3)
 
     final = canvas.convert("RGB")
     for dest in (OUT / out_name, ART / out_name):
@@ -172,11 +194,10 @@ if __name__ == "__main__":
     build(
         ASSETS / "fc132508-741c-4fd8-84fd-e0942788c9f4.jpg",
         "cheremisin_story_slide.png",
-        focus=(0.58, 0.30),
+        focus=(0.62, 0.28),
     )
-    # Bonus alt on beach — more lifestyle
     build(
-        ASSETS / "4149701a-c32f-4dfe-91b5-3b1c2202743c.jpg",
-        "cheremisin_story_slide_beach.png",
-        focus=(0.52, 0.58),
+        ASSETS / "a84e4e80-0540-4281-af77-7a25b5ded17f.jpg",
+        "cheremisin_story_slide_alt.png",
+        focus=(0.58, 0.40),
     )
