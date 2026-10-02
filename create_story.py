@@ -1,87 +1,98 @@
 #!/usr/bin/env python3
 """
-Instagram Stories — layout by annotated zones:
-1) header  2) list+close  3) free CTA zone  4) handle
-All-caps editorial serif (like ТАРИФ «ПЛАН» ref) + Manrope body.
+Instagram Stories slide — filled page, ALL CAPS body, Artur cutout on dark.
 """
 
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance, ImageFilter
 from pathlib import Path
 
 W, H = 1080, 1920
-ASSETS = Path("/home/ubuntu/.cursor/projects/workspace/assets")
+CUTOUTS = Path("/workspace/story-assets/cutouts")
 FONTS = Path("/workspace/story-assets/fonts")
+NOTO = Path("/usr/share/fonts/truetype/noto")
 OUT = Path("/workspace/output")
 ART = Path("/opt/cursor/artifacts")
 OUT.mkdir(exist_ok=True)
 ART.mkdir(parents=True, exist_ok=True)
 
-CREAM = (246, 242, 232)
-CREAM_DIM = (226, 220, 208)
-GOLD = (226, 184, 92)
-GOLD_SOFT = (200, 162, 80)
-MUTED = (160, 152, 140)
+CREAM = (244, 236, 220)
+CREAM_DIM = (218, 208, 190)
+GOLD = (222, 180, 98)
+GOLD_SOFT = (196, 158, 84)
+MUTED = (140, 134, 124)
 
-NOTO = Path("/usr/share/fonts/truetype/noto")
-# Expensive all-caps serif like ТАРИФ «ПЛАН»
-font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 52)
-font_accent = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 56)
-font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 32)
-font_close_em = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 32)
-# Body — clean geometric sans, all caps, larger for readability
-font_body = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 30)
-font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 18)
-font_handle = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 17)
-
-
-def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.60, 0.32)) -> Image.Image:
-    img = img.convert("RGB")
-    sw, sh = img.size
-    scale = max(tw / sw, th / sh)
-    nw, nh = int(sw * scale), int(sh * scale)
-    img = img.resize((nw, nh), Image.Resampling.LANCZOS)
-    left = int((nw - tw) * focus[0])
-    top = int((nh - th) * focus[1])
-    left = max(0, min(left, nw - tw))
-    top = max(0, min(top, nh - th))
-    return img.crop((left, top, left + tw, top + th))
+# Headline — high-contrast Didone (premium)
+font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 54)
+font_hook_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 56)
+font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 34)
+font_close_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 36)
+# Body — modern sans ALL CAPS (как в тарифе «ПЛАН»)
+font_body = ImageFont.truetype(str(FONTS / "Montserrat-700.ttf"), 33)
+font_label = ImageFont.truetype(str(FONTS / "Montserrat-600.ttf"), 18)
+font_handle = ImageFont.truetype(str(FONTS / "Montserrat-500.ttf"), 16)
 
 
-def make_underlay(photo: Image.Image, focus) -> Image.Image:
-    base = cover_crop(photo, W, H, focus=focus)
-    # Slightly darker than previous pass
-    base = ImageEnhance.Brightness(base).enhance(0.40)
-    base = ImageEnhance.Color(base).enhance(0.45)
-    base = ImageEnhance.Contrast(base).enhance(1.20)
+def load_cutout(path: Path, max_h: int = 1500) -> Image.Image:
+    im = Image.open(path).convert("RGBA")
+    bbox = im.getbbox()
+    im = im.crop(bbox)
+    # scale to height
+    ratio = max_h / im.height
+    im = im.resize((int(im.width * ratio), max_h), Image.Resampling.LANCZOS)
+    # Visible through dark veil — enough presence to fill lower page
+    rgb = im.convert("RGB")
+    rgb = ImageEnhance.Brightness(rgb).enhance(0.52)
+    rgb = ImageEnhance.Color(rgb).enhance(0.42)
+    rgb = ImageEnhance.Contrast(rgb).enhance(1.22)
+    out = rgb.convert("RGBA")
+    out.putalpha(im.split()[-1])
+    # soft edge
+    alpha = out.split()[-1].filter(ImageFilter.GaussianBlur(0.6))
+    out.putalpha(alpha)
+    return out
 
-    warm = Image.new("RGB", (W, H), (5, 3, 2))
-    base = Image.blend(base, warm, 0.42)
-    rgba = base.convert("RGBA")
 
-    panel = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    pd = ImageDraw.Draw(panel)
-    for x in range(W):
-        t = x / W
-        if t < 0.58:
-            a = 225
-        elif t < 0.78:
-            a = int(225 - (t - 0.58) / 0.20 * 140)
-        else:
-            a = int(85 - (t - 0.78) / 0.22 * 25)
-        pd.line([(x, 0), (x, H)], fill=(2, 2, 2, max(50, a)))
+def place_cutout(canvas: Image.Image, cutout: Image.Image, anchor="bottom-center"):
+    """Place Artur on the right/lower half so he shows beside/behind type."""
+    cw, ch = cutout.size
+    if anchor == "bottom-center":
+        x = W - cw + 20
+        y = H - ch + 60
+    elif anchor == "bottom-right":
+        x = W - cw + 40
+        y = H - ch + 80
+    else:
+        x, y = 100, H - ch
+    # soft glow behind figure
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    g = cutout.copy()
+    # expand alpha for glow
+    ga = g.split()[-1].filter(ImageFilter.GaussianBlur(28))
+    glow_layer = Image.new("RGBA", g.size, (40, 32, 22, 0))
+    glow_layer.putalpha(ga.point(lambda a: min(90, a // 3)))
+    glow.paste(glow_layer, (x, y), glow_layer)
+    canvas = Image.alpha_composite(canvas, glow)
+    canvas.paste(cutout, (x, y), cutout)
+    return canvas
 
-    vig = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    vd = ImageDraw.Draw(vig)
-    for y in range(0, 200):
-        a = int(130 * (1 - y / 200))
-        vd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
-    for y in range(1600, H):
-        a = int(170 * ((y - 1600) / (H - 1600)) ** 0.85)
-        vd.line([(0, y), (W, y)], fill=(0, 0, 0, min(210, a)))
 
-    out = Image.alpha_composite(rgba, panel)
-    out = Image.alpha_composite(out, vig)
-    return out.convert("RGB")
+def dark_veil(canvas: Image.Image) -> Image.Image:
+    """Extra darken so Artur reads through darkness; text stays crisp."""
+    veil = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(veil)
+    # Darker overall; keep mid-lower a bit more open so Artur reads
+    d.rectangle([0, 0, W, H], fill=(0, 0, 0, 125))
+    for y in range(0, 900):
+        a = int(60 * (1 - y / 900) ** 0.7)
+        d.line([(0, y), (W, y)], fill=(0, 0, 0, a))
+    # lighter veil where figure sits (mid-lower)
+    for y in range(1100, 1650):
+        a = 35
+        d.line([(0, y), (W, y)], fill=(0, 0, 0, a))
+    for y in range(1650, H):
+        a = int(90 * ((y - 1650) / (H - 1650)))
+        d.line([(0, y), (W, y)], fill=(0, 0, 0, min(140, a)))
+    return Image.alpha_composite(canvas, veil)
 
 
 def wrap_text(text, font, max_width, draw):
@@ -106,106 +117,107 @@ def shadow_text(draw, xy, text, font, fill, offset=2):
     draw.text((x, y), text, font=font, fill=fill)
 
 
-def spaced(draw, text, font, xy, fill, tracking=3, offset=1):
+def spaced_label(draw, text, font, xy, fill, tracking=5):
     x, y = xy
     for ch in text:
-        shadow_text(draw, (x, y), ch, font, fill, offset=offset)
+        shadow_text(draw, (x, y), ch, font, fill, offset=1)
         x += draw.textlength(ch, font=font) + tracking
-    return x
 
 
-def build(photo_path: Path, out_name: str, focus=(0.60, 0.32)):
-    base = make_underlay(Image.open(photo_path), focus)
-    canvas = base.convert("RGBA")
+def build(cutout_path: Path, out_name: str, max_h=1480, anchor="bottom-center"):
+    # Near-black base
+    canvas = Image.new("RGBA", (W, H), (6, 5, 4, 255))
+    cut = load_cutout(cutout_path, max_h=max_h)
+    canvas = place_cutout(canvas, cut, anchor=anchor)
+    canvas = dark_veil(canvas)
+
     draw = ImageDraw.Draw(canvas)
+    margin = 64
+    content_w = W - margin * 2 - 10
 
-    # Full-width column with comfortable side margins (zones fill width)
-    margin = 56
-    content_w = W - margin * 2 - 8
-
-    # Zone boundaries from annotated layout (approx)
-    # Zone1 header ~160–480, Zone2 list ~500–1380, Zone3 CTA free ~1400–1750
-    y = 155
-
-    # ════════ ZONE 1 — HEADER ════════
-    spaced(draw, "PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=6)
-    y += 24
-    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
-    y += 26
-
-    for line in ("ЕСЛИ ВЫ УЗНАЁТЕ СЕБЯ", "ХОТЯ БЫ В ОДНОМ ПУНКТЕ —"):
+    # Flow top → middle → bottom continuously (как разметка: 3 блока без дыр)
+    y = 108
+    spaced_label(draw, "—  PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=4)
+    y += 28
+    for line in ("Если вы узнаёте себя", "хотя бы в одном пункте —"):
         shadow_text(draw, (margin, y), line, font_hook, CREAM, offset=2)
         y += 58
+    shadow_text(draw, (margin, y), "вам сюда", font_hook_it, GOLD, offset=2)
+    aw = draw.textlength("вам сюда", font=font_hook_it)
+    draw.rectangle([margin, y + 60, margin + aw * 0.95, y + 62], fill=GOLD_SOFT)
+    y += 68
 
-    shadow_text(draw, (margin, y), "ВАМ СЮДА", font_accent, GOLD, offset=2)
-    aw = draw.textlength("ВАМ СЮДА", font=font_accent)
-    draw.rectangle([margin, y + 60, margin + aw, y + 63], fill=GOLD_SOFT)
-    y += 82  # short bridge into list
-
-    # ════════ ZONE 2 — LIST + CLOSE (fill middle, leave bottom for sticker) ════════
     bullets = [
-        "ХОТИТЕ ИЗМЕНИТЬ ТЕЛО, НО УЖЕ УСТАЛИ ОТ УНИВЕРСАЛЬНЫХ ПРОГРАММ",
-        "ЕСТЬ ОГРАНИЧЕНИЯ: КОЛЕНИ, СПИНА, ГРЫЖИ, ВОССТАНОВЛЕНИЕ ПОСЛЕ ОПЕРАЦИЙ",
-        "ЛИШНИЙ ВЕС, И ОТ ТИПОВЫХ ПРОГРАММ БОЛЬШЕ ТРЕВОГИ, ЧЕМ ПОЛЬЗЫ: НЕПОНЯТНО, КАК НАГРУЖАТЬСЯ БЕЗ РИСКА",
-        "ПОСЛЕ ИЗМЕНЕНИЙ В ОРГАНИЗМЕ (В Т.Ч. ГОРМОНАЛЬНЫЕ ИЗМЕНЕНИЯ) ПРЕЖНИЕ СХЕМЫ ПЕРЕСТАЛИ РАБОТАТЬ",
-        "ПРИНИМАЕТЕ ПОДДЕРЖКУ (В Т.Ч. ПЕПТИДЫ) И ХОТИТЕ, ЧТОБЫ НАГРУЗКА И ПИТАНИЕ ЭТО УЧИТЫВАЛИ",
-        "НУЖЕН ЧЕЛОВЕК, КОТОРЫЙ ВИДИТ КАРТИНУ ЦЕЛИКОМ: ТРЕНИРОВКИ, ЕДА, АНАЛИЗЫ, САМОЧУВСТВИЕ, РЕЖИМ",
+        "Хотите изменить тело, но уже устали от универсальных программ",
+        "Есть ограничения: колени, спина, грыжи, восстановление после операций",
+        "Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска",
+        "После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать",
+        "Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали",
+        "Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим",
     ]
 
-    line_h = 40      # readable air inside wrapped lines
-    item_gap = 20    # air between points — no giant voids
+    # Larger type + wrap → taller middle block; comfortable air, no giant gaps
+    # Slightly narrower column → more wraps → taller filled middle
+    # Left column (~70%) so Artur reads on the right through the dark
+    wrapped = [wrap_text(b.upper(), font_body, 720, draw) for b in bullets]
+    total_lines = sum(len(w) for w in wrapped)
+    # Pack into band ending ~1600 with air, no voids
+    target = 1600
+    avail = target - y
+    n_gaps = len(bullets) - 1
+    line_h = 40
+    item_gap = max(14, min(22, (avail - total_lines * line_h) // n_gaps))
+    # Prefer growing line_h a bit over huge gaps
+    while total_lines * line_h + n_gaps * item_gap < avail - 30 and line_h < 44:
+        line_h += 1
+    item_gap = max(14, min(22, (avail - total_lines * line_h) // n_gaps))
+    print(f"layout lines={total_lines} line_h={line_h} gap={item_gap} y0={y}")
 
-    for item in bullets:
-        lines = wrap_text(item, font_body, content_w - 28, draw)
-        draw.rectangle([margin, y + 8, margin + 4, y + 28], fill=GOLD_SOFT)
-        tx = margin + 20
+    for lines in wrapped:
+        draw.rectangle([margin, y + 10, margin + 4, y + 32], fill=GOLD_SOFT)
+        tx = margin + 24
         for line in lines:
             shadow_text(draw, (tx, y), line, font_body, CREAM_DIM, offset=1)
             y += line_h
         y += item_gap
 
-    y += 6
-    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
-    y += 24
-    shadow_text(draw, (margin, y), "НЕ «ДЛЯ ИДЕАЛЬНЫХ».", font_close, CREAM, offset=2)
-    y += 40
-    shadow_text(
-        draw,
-        (margin, y),
-        "ДЛЯ РЕАЛЬНЫХ ЛЮДЕЙ С РЕАЛЬНОЙ ФИЗИОЛОГИЕЙ.",
-        font_close_em,
-        GOLD,
-        offset=2,
-    )
-    # ZONE 3 below (~200–280px) free for link / CTA sticker
+    # Closing directly under list (small air) — no empty band
+    y += 10
+    draw.rectangle([margin, y, margin + 48, y + 2], fill=GOLD_SOFT)
+    y += 18
+    shadow_text(draw, (margin, y), "Не «для идеальных».", font_close, CREAM, offset=2)
+    y += 42
+    close2 = "Для реальных людей с реальной физиологией."
+    for line in wrap_text(close2, font_close_it, content_w - 40, draw):
+        shadow_text(draw, (margin, y), line, font_close_it, GOLD, offset=2)
+        y += 40
 
-    # ════════ FOOTER ════════
+    print(f"content_end={y}")
+
     handle = "@A.CHEREMISIN_FITNESS"
     total = sum(draw.textlength(ch, font=font_handle) + 3 for ch in handle) - 3
-    spaced(
-        draw,
-        handle,
-        font_handle,
-        ((W - total) / 2, H - 96),
-        MUTED,
-        tracking=3,
-    )
+    # Keep handle close under closing — no dead footer zone
+    handle_y = min(H - 90, y + 36)
+    spaced_label(draw, handle, font_handle, ((W - total) / 2, handle_y), MUTED, tracking=3)
 
     final = canvas.convert("RGB")
     for dest in (OUT / out_name, ART / out_name):
         final.save(dest, "PNG")
-        print("saved", dest, "| content ends y≈", y)
+        print("saved", dest, "final_y", y)
     return OUT / out_name
 
 
 if __name__ == "__main__":
+    # Clean cutout — red beanie (no baked text)
     build(
-        ASSETS / "a84e4e80-0540-4281-af77-7a25b5ded17f.jpg",
+        CUTOUTS / "cutout_fc132508-741c-4fd8-84fd-e0942788c9f4.png",
         "cheremisin_story_slide.png",
-        focus=(0.55, 0.42),
+        max_h=1550,
+        anchor="bottom-center",
     )
     build(
-        ASSETS / "fc132508-741c-4fd8-84fd-e0942788c9f4.jpg",
+        CUTOUTS / "cutout_flex_upper.png",
         "cheremisin_story_slide_alt.png",
-        focus=(0.60, 0.30),
+        max_h=1250,
+        anchor="bottom-center",
     )
