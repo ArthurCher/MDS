@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <title>Тариф «План»</title>
+  <link rel="stylesheet" href="fonts/fonts-local.css" />
+  <style>
+    :root {
+      --cream: #F3EBDD;
+      --cream-soft: rgba(243, 235, 221, 0.82);
+      --accent: #C9A66B;
+      --accent-bright: #E2C48A;
+      --line: rgba(243, 235, 221, 0.32);
+      --card: rgba(6, 6, 6, 0.48);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    .story {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: var(--cream);
+      font-family: "Manrope", sans-serif;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,0.82) 0%,
+          rgba(0,0,0,0.72) 26%,
+          rgba(0,0,0,0.68) 52%,
+          rgba(0,0,0,0.42) 76%,
+          rgba(0,0,0,0.78) 100%
+        ),
+        url("bg-story-plan.jpg") center 18% / cover no-repeat;
+    }
+
+    .story::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 85% 50% at 78% 90%, rgba(0,0,0,0.1) 0%, transparent 58%),
+        linear-gradient(90deg, rgba(0,0,0,0.28) 0%, transparent 58%);
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 90px 68px 82px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--cream-soft);
+      margin-bottom: 40px;
+    }
+
+    .top-row .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      margin: 0 14px;
+      vertical-align: middle;
+    }
+
+    .header {
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: 90px;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .price {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      background: linear-gradient(90deg, rgba(201,166,107,0.26), rgba(201,166,107,0.1));
+      border: 1px solid rgba(201,166,107,0.6);
+      border-radius: 999px;
+      padding: 13px 28px 15px;
+      font-size: 33px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--accent-bright);
+    }
+
+    .price span {
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--card);
+      backdrop-filter: blur(7px);
+      padding: 22px 26px 24px;
+    }
+
+    .card.main {
+      border-color: rgba(201,166,107,0.42);
+      background: rgba(6, 6, 6, 0.56);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-label h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 33px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--accent-bright);
+    }
+
+    .section-label .rule {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201,166,107,0.5), transparent);
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 25px;
+      line-height: 1.27;
+      font-weight: 500;
+      color: var(--cream);
+    }
+
+    li .mark {
+      margin-top: 7px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent);
+      box-shadow: inset 0 0 0 3px transparent;
+      position: relative;
+    }
+
+    li .mark::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    li.check .mark {
+      border-radius: 4px;
+      border-color: var(--accent-bright);
+      background: rgba(201,166,107,0.15);
+    }
+
+    li.check .mark::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 0px;
+      width: 5px;
+      height: 9px;
+      border: solid var(--accent-bright);
+      border-width: 0 1.8px 1.8px 0;
+      background: none;
+      border-radius: 0;
+      inset: auto;
+      transform: rotate(45deg);
+    }
+
+    .who p {
+      font-size: 24px;
+      line-height: 1.34;
+      font-weight: 500;
+      color: var(--cream);
+    }
+
+    .who p + p {
+      margin-top: 10px;
+      color: var(--cream-soft);
+    }
+
+    .cta {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .cta-text {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--cream);
+      color: #111;
+      border-radius: 999px;
+      padding: 16px 26px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .cta-pill .arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #111;
+      color: var(--cream);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="story">
+    <div class="content">
+      <div class="top-row">
+        <div>Personal training</div>
+        <div><span class="dot"></span>онлайн-сопровождение</div>
+      </div>
+
+      <header class="header">
+        <h1 class="title">Тариф «План»</h1>
+        <div class="price-row">
+          <div class="price">12 000 ₽ <span>/ месяц</span></div>
+        </div>
+      </header>
+
+      <div class="sections">
+        <section class="card">
+          <div class="section-label">
+            <h2>Как стартуем</h2>
+            <div class="rule"></div>
+          </div>
+          <ul>
+            <li><span class="mark"></span><span>Видеосозвон 1–2 часа</span></li>
+            <li><span class="mark"></span><span>Рекомендации по анализам</span></li>
+            <li><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
+          </ul>
+        </section>
+
+        <section class="card main">
+          <div class="section-label">
+            <h2>Что входит</h2>
+            <div class="rule"></div>
+          </div>
+          <ul>
+            <li class="check"><span class="mark"></span><span>Онлайн-сопровождение в переписке</span></li>
+            <li class="check"><span class="mark"></span><span>Индивидуальная программа тренировок под запрос и ограничения</span></li>
+            <li class="check"><span class="mark"></span><span>Программа питания под ваш режим и цель</span></li>
+            <li class="check"><span class="mark"></span><span>Разбор еженедельных отчётов</span></li>
+            <li class="check"><span class="mark"></span><span>Корректировки плана по самочувствию и прогрессу</span></li>
+            <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
+            <li class="check"><span class="mark"></span><span>1–2 видеосозвона в месяц</span></li>
+          </ul>
+        </section>
+
+        <section class="card who">
+          <div class="section-label">
+            <h2>Кому подойдёт</h2>
+            <div class="rule"></div>
+          </div>
+          <p>Уже есть дисциплина — нужен умный план и регулярные правки.</p>
+          <p>Не хотите или не можете созваниваться каждую неделю, но хотите, чтобы работу собрали грамотно и вели по делу.</p>
+        </section>
+      </div>
+
+      <div class="cta">
+        <div class="cta-text">Готовы начать</div>
+        <div class="cta-pill">
+          Напиши в директ
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
