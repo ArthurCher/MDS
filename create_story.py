@@ -208,16 +208,17 @@ def build(cutout_path: Path, out_name: str, max_h=1480, anchor="bottom-center"):
 
 
 if __name__ == "__main__":
-    # Clean cutout — red beanie (no baked text)
-    build(
-        CUTOUTS / "cutout_fc132508-741c-4fd8-84fd-e0942788c9f4.png",
-        "cheremisin_story_slide.png",
-        max_h=1550,
-        anchor="bottom-center",
-    )
+    # Primary — flex cutout (clean subject, like tariff reference)
     build(
         CUTOUTS / "cutout_flex_upper.png",
+        "cheremisin_story_slide.png",
+        max_h=1350,
+        anchor="bottom-center",
+    )
+    # Alt — red beanie cutout
+    build(
+        CUTOUTS / "cutout_fc132508-741c-4fd8-84fd-e0942788c9f4.png",
         "cheremisin_story_slide_alt.png",
-        max_h=1250,
+        max_h=1550,
         anchor="bottom-center",
     )
