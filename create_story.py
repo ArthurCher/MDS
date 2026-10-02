@@ -50,12 +50,12 @@ def make_underlay(photo: Image.Image, focus) -> Image.Image:
     base = cover_crop(photo, W, H, focus=focus)
 
     # Slightly darker than previous pass
-    base = ImageEnhance.Brightness(base).enhance(0.68)
-    base = ImageEnhance.Color(base).enhance(0.60)
-    base = ImageEnhance.Contrast(base).enhance(1.20)
+    base = ImageEnhance.Brightness(base).enhance(0.60)
+    base = ImageEnhance.Color(base).enhance(0.55)
+    base = ImageEnhance.Contrast(base).enhance(1.18)
 
-    warm = Image.new("RGB", (W, H), (10, 8, 6))
-    base = Image.blend(base, warm, 0.26)
+    warm = Image.new("RGB", (W, H), (8, 6, 5))
+    base = Image.blend(base, warm, 0.32)
     rgba = base.convert("RGBA")
 
     panel = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -174,15 +174,16 @@ def build(photo_path: Path, out_name: str, focus=(0.65, 0.28)):
     draw.rectangle([margin, y + 76, margin + aw * 0.92, y + 78], fill=GOLD_SOFT)
     y += accent_h
 
-    for lines in wrapped:
+    for i, lines in enumerate(wrapped):
         draw.rectangle([margin, y + 11, margin + 4, y + 30], fill=GOLD_SOFT)
         tx = margin + 24
         for line in lines:
             shadow_text(draw, (tx, y), line, font_body, CREAM_DIM, offset=1)
             y += line_h
-        y += block_gap
+        # full gap between points; smaller step into closing block
+        y += block_gap if i < len(wrapped) - 1 else max(10, block_gap // 2)
 
-    y += 10
+    y += 6
     draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
     y += 28
     shadow_text(draw, (margin, y), "Не «для идеальных».", font_close, CREAM, offset=2)
