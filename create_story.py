@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-Premium Instagram Stories slide.
-Dark editorial underlay + Noto Serif Display (high-contrast Didone from refs).
-Larger type, even density — air between lines/blocks, no huge empty gaps.
+Instagram Stories slide — all-caps modern sans (ref style),
+3 tight zones, larger type, darker underlay.
 """
 
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
@@ -16,24 +15,23 @@ ART = Path("/opt/cursor/artifacts")
 OUT.mkdir(exist_ok=True)
 ART.mkdir(parents=True, exist_ok=True)
 
-CREAM = (244, 236, 220)
-CREAM_DIM = (218, 208, 192)
-GOLD = (220, 178, 96)
-GOLD_SOFT = (196, 158, 84)
-MUTED = (138, 132, 122)
+CREAM = (245, 240, 230)
+CREAM_DIM = (220, 214, 202)
+GOLD = (222, 180, 88)
+GOLD_SOFT = (198, 160, 78)
+MUTED = (155, 148, 138)
 
-NOTO = Path("/usr/share/fonts/truetype/noto")
-# Larger, more readable type
-font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 70)
-font_hook_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 72)
-font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 42)
-font_close_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 44)
-font_body = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 34)
-font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 19)
-font_handle = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 18)
+# All-caps modern sans — Manrope (clean geometric, like ref templates)
+font_hook = ImageFont.truetype(str(FONTS / "MR-700.ttf"), 42)
+font_accent = ImageFont.truetype(str(FONTS / "MR-700.ttf"), 46)
+font_body = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 31)
+font_close = ImageFont.truetype(str(FONTS / "MR-700.ttf"), 32)
+font_close_em = ImageFont.truetype(str(FONTS / "MR-700.ttf"), 32)
+font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 18)
+font_handle = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 18)
 
 
-def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.65, 0.28)) -> Image.Image:
+def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.62, 0.30)) -> Image.Image:
     img = img.convert("RGB")
     sw, sh = img.size
     scale = max(tw / sw, th / sh)
@@ -48,35 +46,34 @@ def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.65, 0.28)) -> Image.
 
 def make_underlay(photo: Image.Image, focus) -> Image.Image:
     base = cover_crop(photo, W, H, focus=focus)
-
-    # Slightly darker than previous pass
-    base = ImageEnhance.Brightness(base).enhance(0.60)
-    base = ImageEnhance.Color(base).enhance(0.55)
+    # Darker underlay — text pops harder
+    base = ImageEnhance.Brightness(base).enhance(0.48)
+    base = ImageEnhance.Color(base).enhance(0.48)
     base = ImageEnhance.Contrast(base).enhance(1.18)
 
-    warm = Image.new("RGB", (W, H), (8, 6, 5))
-    base = Image.blend(base, warm, 0.32)
+    warm = Image.new("RGB", (W, H), (6, 4, 3))
+    base = Image.blend(base, warm, 0.38)
     rgba = base.convert("RGBA")
 
     panel = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     pd = ImageDraw.Draw(panel)
     for x in range(W):
         t = x / W
-        if t < 0.50:
+        if t < 0.55:
             a = 215
-        elif t < 0.72:
-            a = int(215 - (t - 0.50) / 0.22 * 150)
+        elif t < 0.75:
+            a = int(215 - (t - 0.55) / 0.20 * 130)
         else:
-            a = int(65 - (t - 0.72) / 0.28 * 30)
-        pd.line([(x, 0), (x, H)], fill=(4, 3, 2, max(20, a)))
+            a = int(85 - (t - 0.75) / 0.25 * 30)
+        pd.line([(x, 0), (x, H)], fill=(3, 2, 2, max(40, a)))
 
     vig = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     vd = ImageDraw.Draw(vig)
-    for y in range(0, 260):
-        a = int(120 * (1 - y / 260) ** 1.05)
+    for y in range(0, 220):
+        a = int(120 * (1 - y / 220) ** 1.0)
         vd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
     for y in range(1650, H):
-        a = int(165 * ((y - 1650) / (H - 1650)) ** 0.85)
+        a = int(160 * ((y - 1650) / (H - 1650)) ** 0.85)
         vd.line([(0, y), (W, y)], fill=(0, 0, 0, min(200, a)))
 
     out = Image.alpha_composite(rgba, panel)
@@ -106,101 +103,94 @@ def shadow_text(draw, xy, text, font, fill, offset=2):
     draw.text((x, y), text, font=font, fill=fill)
 
 
-def spaced_label(draw, text, font, xy, fill, tracking=5):
+def spaced(draw, text, font, xy, fill, tracking=3, offset=1):
     x, y = xy
     for ch in text:
-        shadow_text(draw, (x, y), ch, font, fill, offset=1)
+        shadow_text(draw, (x, y), ch, font, fill, offset=offset)
         x += draw.textlength(ch, font=font) + tracking
     return x
 
 
-def build(photo_path: Path, out_name: str, focus=(0.65, 0.28)):
+def build(photo_path: Path, out_name: str, focus=(0.62, 0.30)):
     base = make_underlay(Image.open(photo_path), focus)
     canvas = base.convert("RGBA")
     draw = ImageDraw.Draw(canvas)
 
-    margin = 56
-    content_w = 800
-    y0 = 140
-    target_bottom = 1765
+    margin = 58
+    content_w = 960
+    y = 155
 
-    bullets = [
-        "Хотите изменить тело, но уже устали от универсальных программ",
-        "Есть ограничения: колени, спина, грыжи, восстановление после операций",
-        "Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска",
-        "После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать",
-        "Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали",
-        "Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим",
-    ]
-    wrapped = [wrap_text(item, font_body, content_w - 30, draw) for item in bullets]
-    close_lines = wrap_text(
-        "Для реальных людей с реальной физиологией.", font_close_it, content_w, draw
-    )
-    body_lines = sum(len(lines) for lines in wrapped)
-
-    # Base metrics, then absorb leftover into line_h + modest block gaps
-    hook_lh, accent_h, close_lh = 74, 98, 50
-    header_h = 56
-    close_block = 10 + 28 + 52 + close_lh * len(close_lines)
-    base_line_h, base_gap = 40, 14
-    fixed_base = (
-        header_h
-        + hook_lh * 2
-        + accent_h
-        + body_lines * base_line_h
-        + len(bullets) * base_gap
-        + close_block
-    )
-    leftover = max(0, target_bottom - y0 - fixed_base - 55)
-    # Prefer readable leading over big empty gaps
-    extra_line = min(10, leftover // max(1, body_lines))
-    leftover -= extra_line * body_lines
-    extra_gap = min(10, leftover // max(1, len(bullets)))
-    line_h = base_line_h + extra_line
-    block_gap = base_gap + extra_gap
-
-    y = y0
-    spaced_label(draw, "PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=5)
+    # ── ZONE 1: header ──────────────────────────────────────────
+    spaced(draw, "PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=5)
+    y += 22
+    draw.rectangle([margin, y, margin + 40, y + 2], fill=GOLD_SOFT)
     y += 26
-    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
-    y += 30
 
-    for line in ("Если вы узнаёте себя", "хотя бы в одном пункте —"):
+    hook_lines = [
+        "ЕСЛИ ВЫ УЗНАЁТЕ СЕБЯ",
+        "ХОТЯ БЫ В ОДНОМ ПУНКТЕ —",
+    ]
+    for line in hook_lines:
         shadow_text(draw, (margin, y), line, font_hook, CREAM, offset=2)
-        y += hook_lh
+        y += 50
 
-    shadow_text(draw, (margin, y), "вам сюда", font_hook_it, GOLD, offset=2)
-    aw = draw.textlength("вам сюда", font=font_hook_it)
-    draw.rectangle([margin, y + 76, margin + aw * 0.92, y + 78], fill=GOLD_SOFT)
-    y += accent_h
+    shadow_text(draw, (margin, y), "ВАМ СЮДА", font_accent, GOLD, offset=2)
+    aw = draw.textlength("ВАМ СЮДА", font=font_accent)
+    draw.rectangle([margin, y + 52, margin + aw, y + 55], fill=GOLD_SOFT)
+    y += 72
 
-    for i, lines in enumerate(wrapped):
-        draw.rectangle([margin, y + 11, margin + 4, y + 30], fill=GOLD_SOFT)
-        tx = margin + 24
+    # ── ZONE 2: body list — air between lines, compact between items
+    bullets = [
+        "ХОТИТЕ ИЗМЕНИТЬ ТЕЛО, НО УЖЕ УСТАЛИ ОТ УНИВЕРСАЛЬНЫХ ПРОГРАММ",
+        "ЕСТЬ ОГРАНИЧЕНИЯ: КОЛЕНИ, СПИНА, ГРЫЖИ, ВОССТАНОВЛЕНИЕ ПОСЛЕ ОПЕРАЦИЙ",
+        "ЛИШНИЙ ВЕС, И ОТ ТИПОВЫХ ПРОГРАММ БОЛЬШЕ ТРЕВОГИ, ЧЕМ ПОЛЬЗЫ: НЕПОНЯТНО, КАК НАГРУЖАТЬСЯ БЕЗ РИСКА",
+        "ПОСЛЕ ИЗМЕНЕНИЙ В ОРГАНИЗМЕ (В Т.Ч. ГОРМОНАЛЬНЫЕ ИЗМЕНЕНИЯ) ПРЕЖНИЕ СХЕМЫ ПЕРЕСТАЛИ РАБОТАТЬ",
+        "ПРИНИМАЕТЕ ПОДДЕРЖКУ (В Т.Ч. ПЕПТИДЫ) И ХОТИТЕ, ЧТОБЫ НАГРУЗКА И ПИТАНИЕ ЭТО УЧИТЫВАЛИ",
+        "НУЖЕН ЧЕЛОВЕК, КОТОРЫЙ ВИДИТ КАРТИНУ ЦЕЛИКОМ: ТРЕНИРОВКИ, ЕДА, АНАЛИЗЫ, САМОЧУВСТВИЕ, РЕЖИМ",
+    ]
+
+    line_h = 37   # air inside wrapped lines
+    item_gap = 16  # air between points — no giant voids
+
+    for item in bullets:
+        lines = wrap_text(item, font_body, content_w - 30, draw)
+        draw.rectangle([margin, y + 8, margin + 4, y + 26], fill=GOLD_SOFT)
+        tx = margin + 22
         for line in lines:
             shadow_text(draw, (tx, y), line, font_body, CREAM_DIM, offset=1)
             y += line_h
-        # full gap between points; smaller step into closing block
-        y += block_gap if i < len(wrapped) - 1 else max(10, block_gap // 2)
+        y += item_gap
 
-    y += 6
-    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
-    y += 28
-    shadow_text(draw, (margin, y), "Не «для идеальных».", font_close, CREAM, offset=2)
-    y += 52
-    for line in close_lines:
-        shadow_text(draw, (margin, y), line, font_close_it, GOLD, offset=2)
-        y += close_lh
+    y += 2
+    draw.rectangle([margin, y, margin + 40, y + 2], fill=GOLD_SOFT)
+    y += 24
+    shadow_text(draw, (margin, y), "НЕ «ДЛЯ ИДЕАЛЬНЫХ».", font_close, CREAM, offset=2)
+    y += 40
+    shadow_text(
+        draw,
+        (margin, y),
+        "ДЛЯ РЕАЛЬНЫХ ЛЮДЕЙ С РЕАЛЬНОЙ ФИЗИОЛОГИЕЙ.",
+        font_close_em,
+        GOLD,
+        offset=2,
+    )
 
+    # ── ZONE 3: footer ──────────────────────────────────────────
     handle = "@A.CHEREMISIN_FITNESS"
     total = sum(draw.textlength(ch, font=font_handle) + 3 for ch in handle) - 3
-    handle_y = min(H - 86, y + 22)
-    spaced_label(draw, handle, font_handle, ((W - total) / 2, handle_y), MUTED, tracking=3)
+    spaced(
+        draw,
+        handle,
+        font_handle,
+        ((W - total) / 2, H - 100),
+        MUTED,
+        tracking=3,
+    )
 
     final = canvas.convert("RGB")
     for dest in (OUT / out_name, ART / out_name):
         final.save(dest, "PNG")
-        print("saved", dest, "end=", y, "gap=", block_gap)
+        print("saved", dest)
     return OUT / out_name
 
 
@@ -208,7 +198,7 @@ if __name__ == "__main__":
     build(
         ASSETS / "fc132508-741c-4fd8-84fd-e0942788c9f4.jpg",
         "cheremisin_story_slide.png",
-        focus=(0.62, 0.28),
+        focus=(0.62, 0.30),
     )
     build(
         ASSETS / "a84e4e80-0540-4281-af77-7a25b5ded17f.jpg",
