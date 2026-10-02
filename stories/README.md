@@ -4,16 +4,24 @@
 
 ## Файлы для публикации
 
-- `tarif-plan.png` — PNG, максимальное качество
-- `tarif-plan.jpg` — JPG, удобнее для загрузки в Stories
+- `tarif-plan.jpg` — удобнее для Stories
+- `tarif-plan.png` — максимальное качество
+
+## Что на слайде
+
+- Фон: Артур (без текста на фото)
+- Современные шрифты: Montserrat + Manrope
+- Блоки: как стартуем / что входит / кому подойдёт
+- Цена: 12 000 ₽ / месяц
+- CTA: «Напиши в директ»
 
 ## Исходники
 
-- `tarif-plan.html` — вёрстка слайда (можно править текст и экспортнуть заново)
-- `bg-story-plan.jpg` — фон
-- `fonts/` — локальные шрифты Cormorant Garamond + Manrope
+- `tarif-plan.html` — вёрстка
+- `bg-artur-1080.jpg` — фон 1080×1920
+- `fonts/` — локальные шрифты
 
-## Как пересобрать PNG
+## Пересборка PNG
 
 ```bash
 google-chrome --headless=new --no-sandbox --disable-gpu \
