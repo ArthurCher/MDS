@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1080" />
-  <title>Тариф «План»</title>
-  <link rel="stylesheet" href="fonts/fonts-modern.css" />
+  <title>ТАРИФ «ПЛАН»</title>
+  <link rel="stylesheet" href="fonts/fonts-ref.css" />
   <style>
     :root {
       --text: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.84);
-      --accent: #D4FF3A;
-      --accent-soft: rgba(212, 255, 58, 0.18);
-      --line: rgba(255, 255, 255, 0.28);
-      --card: rgba(0, 0, 0, 0.72);
+      --muted: rgba(255, 255, 255, 0.88);
+      --accent: #D45B8C;
+      --line: rgba(255, 255, 255, 0.92);
+      --card: rgba(0, 0, 0, 0.22);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,20 +29,20 @@
       height: 1920px;
       overflow: hidden;
       color: var(--text);
-      font-family: "Manrope", sans-serif;
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
       background: #050505;
     }
 
     .story-bg {
       position: absolute;
       left: 50%;
-      /* push photo down so face lands near vertical middle */
-      top: 420px;
+      top: 380px;
       width: 1240px;
       height: auto;
       transform: translateX(-50%);
       z-index: 0;
-      filter: brightness(0.62) contrast(1.06) saturate(0.88);
+      filter: brightness(0.95) contrast(1.04) saturate(0.95);
     }
 
     .story-dim {
@@ -52,11 +51,11 @@
       z-index: 1;
       background: linear-gradient(
         180deg,
-        rgba(0,0,0,0.90) 0%,
-        rgba(0,0,0,0.84) 30%,
-        rgba(0,0,0,0.78) 52%,
-        rgba(0,0,0,0.84) 74%,
-        rgba(0,0,0,0.93) 100%
+        rgba(0,0,0,0.52) 0%,
+        rgba(0,0,0,0.38) 34%,
+        rgba(0,0,0,0.32) 56%,
+        rgba(0,0,0,0.45) 78%,
+        rgba(0,0,0,0.62) 100%
       );
     }
 
@@ -64,54 +63,54 @@
       position: relative;
       z-index: 2;
       height: 100%;
-      padding: 64px 48px 54px;
+      padding: 64px 56px 54px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    /* ===== BLOCK 1: title + start — more air ===== */
     .block-one {
       flex: 0 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 34px;
-      padding: 10px 2px 10px;
+      gap: 30px;
+      padding: 8px 2px 6px;
     }
 
     .top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 18px;
-      font-weight: 700;
+      letter-spacing: 0.18em;
+      font-size: 17px;
+      font-weight: 600;
       color: var(--muted);
     }
 
     .top-row .tag {
-      color: #111;
+      color: #fff;
       background: var(--accent);
       border-radius: 999px;
-      padding: 10px 18px;
-      letter-spacing: 0.08em;
-      font-size: 17px;
-      font-weight: 800;
+      padding: 10px 20px;
+      letter-spacing: 0.12em;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: lowercase;
     }
 
     .header {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 20px;
     }
 
     .title {
-      font-family: "Montserrat", "Manrope", sans-serif;
-      font-weight: 800;
-      font-size: 72px;
-      line-height: 1.02;
-      letter-spacing: -0.03em;
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-weight: 400;
+      font-size: 90px;
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
 
     .price {
@@ -120,45 +119,35 @@
       gap: 12px;
       align-self: flex-start;
       background: var(--accent);
-      color: #111;
-      border-radius: 16px;
-      padding: 14px 22px 15px;
-      font-family: "Montserrat", "Manrope", sans-serif;
-      font-size: 38px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      color: #fff;
+      border-radius: 999px;
+      padding: 14px 26px 15px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
     }
 
     .price span {
-      font-family: "Manrope", sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      opacity: 0.72;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      opacity: 0.92;
     }
 
+    /* outlined boxes like reference */
     .card {
-      border: 1px solid var(--line);
-      border-radius: 22px;
+      position: relative;
+      border: 2px solid var(--line);
+      border-radius: 28px;
       background: var(--card);
-      backdrop-filter: blur(10px);
-      padding: 26px 26px 28px;
+      padding: 26px 28px 28px;
     }
 
     .card.start {
-      margin-top: 6px;
-      padding: 32px 30px 34px;
+      padding: 30px 30px 32px;
     }
 
-    .card.start ul {
-      gap: 22px;
-    }
-
-    /* ===== BLOCK 2: what's included only ===== */
     .card.main {
-      border-color: rgba(212, 255, 58, 0.55);
-      background: rgba(0, 0, 0, 0.78);
       flex: 1;
       min-height: 0;
       display: flex;
@@ -166,31 +155,53 @@
       padding: 24px 26px 26px;
     }
 
+    .card.who {
+      flex-shrink: 0;
+      padding: 22px 24px 24px;
+    }
+
+    .card-arrow {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      background: rgba(0,0,0,0.35);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .card.start .card-arrow { left: -18px; top: 28px; }
+    .card.main .card-arrow { left: -18px; top: 26px; }
+    .card.who .card-arrow { right: -18px; top: 24px; }
+
     .section-label {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
       flex-shrink: 0;
     }
 
-    .card.start .section-label {
-      margin-bottom: 24px;
-    }
+    .card.start .section-label { margin-bottom: 22px; }
 
     .section-label h2 {
-      font-family: "Montserrat", "Manrope", sans-serif;
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--accent);
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-size: 40px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #fff;
       text-transform: uppercase;
     }
 
     .section-label .rule {
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, rgba(212,255,58,0.55), transparent);
+      background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
     }
 
     ul {
@@ -199,6 +210,8 @@
       flex-direction: column;
       gap: 14px;
     }
+
+    .card.start ul { gap: 20px; }
 
     .card.main ul {
       flex: 1;
@@ -209,57 +222,55 @@
 
     li {
       display: grid;
-      grid-template-columns: 30px 1fr;
+      grid-template-columns: 28px 1fr;
       gap: 12px;
       align-items: start;
-      font-size: 30px;
-      line-height: 1.22;
+      font-size: 26px;
+      line-height: 1.25;
       font-weight: 600;
+      letter-spacing: 0.02em;
       color: var(--text);
+      text-transform: uppercase;
     }
 
     li .mark {
-      margin-top: 8px;
-      width: 18px;
-      height: 18px;
+      margin-top: 7px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--accent-soft);
+      border: 2px solid #fff;
+      background: transparent;
     }
 
     li.check .mark {
-      border-radius: 6px;
+      border-radius: 4px;
       position: relative;
-      background: var(--accent);
+      background: transparent;
     }
 
     li.check .mark::after {
       content: "";
       position: absolute;
-      left: 5px;
-      top: 2px;
-      width: 5px;
-      height: 10px;
-      border: solid #111;
-      border-width: 0 2.5px 2.5px 0;
+      left: 4px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
 
-    /* ===== BOTTOM: keep as is ===== */
-    .card.who {
-      flex-shrink: 0;
-      padding: 22px 24px 24px;
-    }
-
     .who p {
-      font-size: 28px;
-      line-height: 1.28;
+      font-size: 24px;
+      line-height: 1.3;
       font-weight: 600;
+      letter-spacing: 0.02em;
       color: var(--text);
+      text-transform: uppercase;
     }
 
     .who p + p {
-      margin-top: 12px;
+      margin-top: 14px;
       color: var(--muted);
       font-weight: 500;
     }
@@ -273,9 +284,8 @@
     }
 
     .cta-text {
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 20px;
+      letter-spacing: 0.16em;
+      font-size: 18px;
       font-weight: 700;
       color: var(--muted);
     }
@@ -284,26 +294,27 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--text);
-      color: #111;
+      border: 2px solid #fff;
+      background: rgba(0,0,0,0.28);
+      color: #fff;
       border-radius: 999px;
-      padding: 18px 28px;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
+      padding: 16px 26px;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
     }
 
     .cta-pill .arrow {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: #111;
-      color: var(--accent);
+      border: 2px solid #fff;
+      color: #fff;
       display: grid;
       place-items: center;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 1;
-      font-weight: 700;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -312,7 +323,6 @@
     <img class="story-bg" src="bg-artur.jpg" alt="" />
     <div class="story-dim"></div>
     <div class="content">
-      <!-- BLOCK 1 -->
       <div class="block-one">
         <div class="top-row">
           <div>Personal training</div>
@@ -325,6 +335,7 @@
         </header>
 
         <section class="card start">
+          <div class="card-arrow">→</div>
           <div class="section-label">
             <h2>Как стартуем</h2>
             <div class="rule"></div>
@@ -337,8 +348,8 @@
         </section>
       </div>
 
-      <!-- BLOCK 2: only "Что входит" -->
       <section class="card main">
+        <div class="card-arrow">→</div>
         <div class="section-label">
           <h2>Что входит</h2>
           <div class="rule"></div>
@@ -354,8 +365,8 @@
         </ul>
       </section>
 
-      <!-- BOTTOM: unchanged structure -->
       <section class="card who">
+        <div class="card-arrow">←</div>
         <div class="section-label">
           <h2>Кому подойдёт</h2>
           <div class="rule"></div>
