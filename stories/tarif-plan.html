@@ -66,7 +66,7 @@
       padding: 64px 56px 54px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .block-one {
@@ -148,16 +148,17 @@
     }
 
     .card.main {
-      flex: 1;
-      min-height: 0;
+      flex: 0 0 auto;
       display: flex;
       flex-direction: column;
-      padding: 26px 28px 28px;
+      padding: 22px 26px 24px;
+      margin-top: -2px;
     }
 
     .card.who {
       flex-shrink: 0;
-      padding: 20px 24px 22px;
+      padding: 18px 24px 20px;
+      margin-top: -2px;
     }
 
     .card-arrow {
@@ -190,11 +191,13 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       flex-shrink: 0;
     }
 
-    .card.start .section-label { margin-bottom: 22px; }
+    .card.start .section-label { margin-bottom: 20px; }
+    .card.main .section-label { margin-bottom: 12px; }
+    .card.who .section-label { margin-bottom: 12px; }
 
     .section-label h2 {
       font-family: "Oranienbaum", "Playfair Display", serif;
@@ -218,13 +221,11 @@
       gap: 14px;
     }
 
-    .card.start ul { gap: 22px; }
+    .card.start ul { gap: 20px; }
 
     .card.main ul {
-      flex: 1;
-      justify-content: space-between;
-      gap: 0;
-      min-height: 0;
+      flex: 0 0 auto;
+      gap: 8px;
     }
 
     li {
@@ -232,12 +233,17 @@
       grid-template-columns: 28px 1fr;
       gap: 12px;
       align-items: start;
-      font-size: 28px;
-      line-height: 1.24;
+      font-size: 27px;
+      line-height: 1.18;
       font-weight: 600;
       letter-spacing: 0.02em;
       color: var(--text);
       text-transform: uppercase;
+    }
+
+    .card.main li {
+      font-size: 26px;
+      line-height: 1.15;
     }
 
     li .mark {
@@ -282,6 +288,7 @@
       justify-content: space-between;
       gap: 18px;
       flex-shrink: 0;
+      margin-top: auto;
     }
 
     .cta-text {
