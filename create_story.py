@@ -24,13 +24,13 @@ MUTED = (138, 132, 122)
 
 NOTO = Path("/usr/share/fonts/truetype/noto")
 # Larger, more readable type
-font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 62)
-font_hook_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 64)
-font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 36)
-font_close_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 38)
-font_body = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 30)
-font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 18)
-font_handle = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 17)
+font_hook = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 68)
+font_hook_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 70)
+font_close = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-Bold.ttf"), 40)
+font_close_it = ImageFont.truetype(str(NOTO / "NotoSerifDisplay-BoldItalic.ttf"), 42)
+font_body = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 33)
+font_label = ImageFont.truetype(str(FONTS / "MR-600.ttf"), 19)
+font_handle = ImageFont.truetype(str(FONTS / "MR-500.ttf"), 18)
 
 
 def cover_crop(img: Image.Image, tw: int, th: int, focus=(0.65, 0.28)) -> Image.Image:
@@ -119,24 +119,23 @@ def build(photo_path: Path, out_name: str, focus=(0.65, 0.28)):
     canvas = base.convert("RGBA")
     draw = ImageDraw.Draw(canvas)
 
-    margin = 64
-    content_w = 720  # wider column → fewer wraps, larger readable lines
-    y = 155  # start higher — less empty top
+    margin = 58
+    content_w = 780  # wide readable lines
+    y = 148
 
     spaced_label(draw, "PERSONAL TRAINER", font_label, (margin, y), MUTED, tracking=5)
-    y += 24
-    draw.rectangle([margin, y, margin + 40, y + 2], fill=GOLD_SOFT)
-    y += 28
+    y += 26
+    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
+    y += 30
 
-    # Headline — tighter leading, still airy
     for line in ("Если вы узнаёте себя", "хотя бы в одном пункте —"):
         shadow_text(draw, (margin, y), line, font_hook, CREAM, offset=2)
-        y += 66
+        y += 72
 
     shadow_text(draw, (margin, y), "вам сюда", font_hook_it, GOLD, offset=2)
     aw = draw.textlength("вам сюда", font=font_hook_it)
-    draw.rectangle([margin, y + 68, margin + aw * 0.92, y + 70], fill=GOLD_SOFT)
-    y += 84  # was 92 — less empty before list
+    draw.rectangle([margin, y + 74, margin + aw * 0.92, y + 76], fill=GOLD_SOFT)
+    y += 96
 
     bullets = [
         "Хотите изменить тело, но уже устали от универсальных программ",
@@ -147,34 +146,31 @@ def build(photo_path: Path, out_name: str, focus=(0.65, 0.28)):
         "Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим",
     ]
 
-    line_h = 38       # air inside wrapped lines
-    block_gap = 14    # air between bullets — not huge
+    line_h = 42      # breathable leading
+    block_gap = 18   # even gap between points — no huge voids
 
     for item in bullets:
-        lines = wrap_text(item, font_body, content_w - 28, draw)
-        draw.rectangle([margin, y + 9, margin + 4, y + 26], fill=GOLD_SOFT)
-        tx = margin + 22
+        lines = wrap_text(item, font_body, content_w - 30, draw)
+        draw.rectangle([margin, y + 10, margin + 4, y + 28], fill=GOLD_SOFT)
+        tx = margin + 24
         for line in lines:
             shadow_text(draw, (tx, y), line, font_body, CREAM_DIM, offset=1)
             y += line_h
         y += block_gap
 
-    y += 4
-    draw.rectangle([margin, y, margin + 40, y + 2], fill=GOLD_SOFT)
-    y += 22
+    y += 8
+    draw.rectangle([margin, y, margin + 44, y + 2], fill=GOLD_SOFT)
+    y += 26
     shadow_text(draw, (margin, y), "Не «для идеальных».", font_close, CREAM, offset=2)
-    y += 44
-    # Closing may wrap on one long line — keep as one if fits
+    y += 50
     close = "Для реальных людей с реальной физиологией."
-    close_lines = wrap_text(close, font_close_it, content_w, draw)
-    for line in close_lines:
+    for line in wrap_text(close, font_close_it, content_w, draw):
         shadow_text(draw, (margin, y), line, font_close_it, GOLD, offset=2)
-        y += 42
+        y += 48
 
     handle = "@A.CHEREMISIN_FITNESS"
     total = sum(draw.textlength(ch, font=font_handle) + 3 for ch in handle) - 3
-    # Place handle closer to content (less empty bottom)
-    handle_y = min(H - 96, y + 36)
+    handle_y = min(H - 90, max(y + 28, H - 120))
     spaced_label(draw, handle, font_handle, ((W - total) / 2, handle_y), MUTED, tracking=3)
 
     final = canvas.convert("RGB")
