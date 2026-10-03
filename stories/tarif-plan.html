@@ -13,6 +13,15 @@
       --ink: #111111;
       --line: rgba(255, 255, 255, 0.94);
       --card: rgba(0, 0, 0, 0.42);
+      /* Red-guide zones scaled from annotation 462×795 → 1080×1920 */
+      --box1-top: 374px;
+      --box1-h: 254px;
+      --box2-top: 671px;
+      --box2-h: 831px;
+      --box3-top: 1548px;
+      --box3-h: 135px;
+      --box-x: 61px;
+      --box-w: 958px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,18 +75,12 @@
         );
     }
 
-    /* Stories grid: safe top → offer → 3 blocks → CTA */
-    .content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      padding: 78px 56px 72px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
     .top-row {
+      position: absolute;
+      z-index: 2;
+      left: 56px;
+      right: 56px;
+      top: 78px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -85,10 +88,8 @@
       font-size: 18px;
       font-weight: 600;
       color: var(--muted);
-      flex-shrink: 0;
     }
 
-    /* Lime accent block: онлайн */
     .tag-online {
       color: var(--ink);
       background: var(--accent);
@@ -102,17 +103,20 @@
     }
 
     .header {
+      position: absolute;
+      z-index: 2;
+      left: 56px;
+      right: 56px;
+      top: 140px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      flex-shrink: 0;
-      margin-bottom: 4px;
+      gap: 16px;
     }
 
     .title {
       font-family: "Oranienbaum", "Playfair Display", serif;
       font-weight: 400;
-      font-size: 86px;
+      font-size: 82px;
       line-height: 0.96;
       letter-spacing: 0.01em;
       text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
@@ -126,44 +130,52 @@
       background: var(--accent);
       color: var(--ink);
       border-radius: 999px;
-      padding: 15px 28px 16px;
-      font-size: 30px;
+      padding: 14px 26px 15px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: 0.04em;
     }
 
     .price span {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: 0.12em;
       opacity: 0.72;
     }
 
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      flex: 1;
-      min-height: 0;
-      justify-content: space-between;
-      padding-top: 6px;
-    }
-
+    /* Cards pinned to red guide zones */
     .card {
-      position: relative;
+      position: absolute;
+      z-index: 2;
+      left: var(--box-x);
+      width: var(--box-w);
       border: 2px solid var(--line);
       border-radius: 26px;
       background: var(--card);
-      padding: 28px 28px 26px;
-      flex: 0 0 auto;
       backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
     }
 
-    .card.start { padding: 30px 28px 28px; }
-    .card.main { padding: 28px 28px 26px; }
-    .card.who { padding: 26px 28px 24px; }
+    .card.start {
+      top: var(--box1-top);
+      height: var(--box1-h);
+      padding: 32px 32px 26px;
+    }
 
-    /* Round markers on card corners — lime */
+    .card.main {
+      top: var(--box2-top);
+      height: var(--box2-h);
+      padding: 34px 32px 30px;
+    }
+
+    .card.who {
+      top: var(--box3-top);
+      height: var(--box3-h);
+      padding: 24px 32px 22px;
+    }
+
     .card-mark {
       position: absolute;
       width: 38px;
@@ -185,17 +197,14 @@
 
     .card.who .card-mark { right: -15px; top: -15px; }
 
-    /* Title sits on the top border like the reference */
     .section-label {
       position: absolute;
       left: 36px;
       top: -18px;
       display: inline-flex;
       align-items: center;
-      gap: 0;
       padding: 0 12px;
       background: #0a0a0a;
-      max-width: calc(100% - 72px);
     }
 
     .section-label h2 {
@@ -211,39 +220,42 @@
       list-style: none;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      min-height: 0;
       margin-top: 8px;
+      height: 100%;
     }
-
-    .card.start ul { gap: 14px; }
-    .card.main ul { gap: 12px; }
 
     li {
       display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 12px;
-      align-items: start;
-      font-size: 24px;
-      line-height: 1.28;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+      align-items: center;
       font-weight: 600;
-      letter-spacing: 0.015em;
+      letter-spacing: 0.02em;
       color: var(--text);
     }
 
+    .card.start li {
+      font-size: 28px;
+      line-height: 1.28;
+    }
+
     .card.main li {
-      font-size: 22px;
+      font-size: 27px;
       line-height: 1.26;
     }
 
-    /* Round / square list markers — lime */
     li .mark {
-      width: 15px;
-      height: 15px;
-      margin-top: 6px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2.5px solid var(--accent);
       background: transparent;
       justify-self: center;
       box-shadow: 0 0 10px rgba(217, 255, 80, 0.18);
+      flex-shrink: 0;
     }
 
     li.check .mark {
@@ -255,8 +267,8 @@
     li.check .mark::after {
       content: "";
       position: absolute;
-      left: 3.5px;
-      top: 0.5px;
+      left: 4px;
+      top: 1px;
       width: 4px;
       height: 8px;
       border: solid var(--accent);
@@ -265,22 +277,27 @@
     }
 
     .who-text {
-      margin-top: 10px;
-      font-size: 24px;
-      line-height: 1.35;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      line-height: 1.32;
       font-weight: 600;
       letter-spacing: 0.02em;
       color: var(--text);
-      max-width: 920px;
+      padding-top: 6px;
     }
 
     .cta {
-      margin-top: 6px;
+      position: absolute;
+      z-index: 2;
+      left: 56px;
+      right: 56px;
+      bottom: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      flex-shrink: 0;
     }
 
     .cta-text {
@@ -290,7 +307,6 @@
       color: var(--muted);
     }
 
-    /* Lime accent block: директ */
     .cta-pill {
       display: inline-flex;
       align-items: center;
@@ -312,6 +328,7 @@
       padding: 8px 16px 9px;
       letter-spacing: 0.06em;
       box-shadow: 0 0 0 1px rgba(217, 255, 80, 0.35);
+      text-transform: lowercase;
     }
 
     .cta-pill .arrow {
@@ -333,62 +350,56 @@
   <div class="story">
     <img class="story-bg" src="bg-artur-studio.jpg" alt="" />
     <div class="story-dim"></div>
-    <div class="content">
-      <div class="top-row">
-        <div>Personal training</div>
-        <div class="tag-online">онлайн</div>
-      </div>
 
-      <header class="header">
-        <h1 class="title">Тариф «План»</h1>
-        <div class="price">12 000 ₽ <span>/ месяц</span></div>
-      </header>
+    <div class="top-row">
+      <div>Personal training</div>
+      <div class="tag-online">онлайн</div>
+    </div>
 
-      <div class="cards">
-        <section class="card start">
-          <div class="card-mark">+</div>
-          <div class="section-label">
-            <h2>Как стартуем</h2>
-          </div>
-          <ul>
-            <li><span class="mark"></span><span>Видеосозвон 1–2 часа</span></li>
-            <li><span class="mark"></span><span>Рекомендации по анализам</span></li>
-            <li><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
-          </ul>
-        </section>
+    <header class="header">
+      <h1 class="title">Тариф «План»</h1>
+      <div class="price">12 000 ₽ <span>/ месяц</span></div>
+    </header>
 
-        <section class="card main">
-          <div class="card-mark">+</div>
-          <div class="section-label">
-            <h2>Что входит</h2>
-          </div>
-          <ul>
-            <li class="check"><span class="mark"></span><span>Онлайн-сопровождение в переписке</span></li>
-            <li class="check"><span class="mark"></span><span>Индивидуальная программа тренировок под запрос и ограничения</span></li>
-            <li class="check"><span class="mark"></span><span>Программа питания под ваш режим и цель</span></li>
-            <li class="check"><span class="mark"></span><span>Разбор еженедельных отчётов</span></li>
-            <li class="check"><span class="mark"></span><span>Корректировки плана по самочувствию и прогрессу</span></li>
-            <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
-            <li class="check"><span class="mark"></span><span>1–2 видеосозвона в месяц</span></li>
-          </ul>
-        </section>
+    <!-- 1 -->
+    <section class="card start">
+      <div class="card-mark">+</div>
+      <div class="section-label"><h2>Как стартуем</h2></div>
+      <ul>
+        <li><span class="mark"></span><span>Видеосозвон 1–2 часа</span></li>
+        <li><span class="mark"></span><span>Рекомендации по анализам</span></li>
+        <li><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
+      </ul>
+    </section>
 
-        <section class="card who">
-          <div class="card-mark">+</div>
-          <div class="section-label">
-            <h2>Кому подойдёт</h2>
-          </div>
-          <p class="who-text">Уже есть дисциплина, нужен умный план и регулярные правки.</p>
-        </section>
-      </div>
+    <!-- 2 -->
+    <section class="card main">
+      <div class="card-mark">+</div>
+      <div class="section-label"><h2>Что входит</h2></div>
+      <ul>
+        <li class="check"><span class="mark"></span><span>Онлайн-сопровождение в переписке</span></li>
+        <li class="check"><span class="mark"></span><span>Индивидуальная программа тренировок под запрос и ограничения</span></li>
+        <li class="check"><span class="mark"></span><span>Программа питания под ваш режим и цель</span></li>
+        <li class="check"><span class="mark"></span><span>Разбор еженедельных отчётов</span></li>
+        <li class="check"><span class="mark"></span><span>Корректировки плана по самочувствию и прогрессу</span></li>
+        <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
+        <li class="check"><span class="mark"></span><span>1–2 видеосозвона в месяц</span></li>
+      </ul>
+    </section>
 
-      <div class="cta">
-        <div class="cta-text">Готовы начать</div>
-        <div class="cta-pill">
-          Напиши в
-          <span class="direct">директ</span>
-          <span class="arrow">→</span>
-        </div>
+    <!-- 3 -->
+    <section class="card who">
+      <div class="card-mark">+</div>
+      <div class="section-label"><h2>Кому подойдёт</h2></div>
+      <p class="who-text">Уже есть дисциплина, нужен умный план и регулярные правки.</p>
+    </section>
+
+    <div class="cta">
+      <div class="cta-text">Готовы начать</div>
+      <div class="cta-pill">
+        Напиши в
+        <span class="direct">директ</span>
+        <span class="arrow">→</span>
       </div>
     </div>
   </div>
