@@ -164,6 +164,7 @@
       top: var(--box1-top);
       height: var(--box1-h);
       padding: 30px 28px 22px;
+      justify-content: center;
     }
 
     .card.main {
@@ -230,13 +231,22 @@
       height: 100%;
     }
 
+    /* 1-й блок: 2 пункта по центру */
+    .card.start ul {
+      justify-content: center;
+      flex: 0 1 auto;
+      height: auto;
+      margin-top: 14px;
+      gap: 28px;
+    }
+
     /* 2-й блок: −20% к интервалу, список по центру */
     .card.main ul {
       justify-content: center;
       flex: 0 1 auto;
       height: auto;
       margin-top: 14px;
-      gap: 36px; /* плотнее из‑за большего кегля = как у Плана */
+      gap: 32px;
     }
 
     li {
@@ -391,18 +401,8 @@
       <div class="card-mark">+</div>
       <div class="section-label"><h2>Как стартуем</h2></div>
       <ul>
-        <li>
-          <span class="mark"></span>
-          <span>Видеосозвон 1–2 часа: цель, опыт, ограничения, режим, питание, что уже пробовали</span>
-        </li>
-        <li>
-          <span class="mark"></span>
-          <span>Рекомендации по анализам — что сдать именно вам</span>
-        </li>
-        <li>
-          <span class="mark"></span>
-          <span>Разбор анализов и схема закрытия дефицитов</span>
-        </li>
+        <li><span class="mark"></span><span>Видеосозвон 1–2 часа</span></li>
+        <li><span class="mark"></span><span>Рекомендации по анализам — что сдать именно вам</span></li>
       </ul>
     </section>
 
@@ -411,20 +411,15 @@
       <div class="card-mark">+</div>
       <div class="section-label"><h2>Что входит</h2></div>
       <ul>
+        <li class="check"><span class="mark"></span><span>Еженедельный видеосозвон</span></li>
+        <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
         <li class="check"><span class="mark"></span><span>Онлайн-сопровождение в переписке</span></li>
+        <li class="check"><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
         <li class="check"><span class="mark"></span><span>Индивидуальная программа тренировок под запрос и ограничения</span></li>
         <li class="check"><span class="mark"></span><span>Программа питания под ваш режим и цель</span></li>
-        <li class="check">
-          <span class="mark"></span>
-          <span>
-            Контроль питания по ходу месяца
-            <span class="sub">разбираем, как схема идёт в жизни: где нехватка, где срыв, что упростить, чем заменить</span>
-          </span>
-        </li>
+        <li class="check"><span class="mark"></span><span>Контроль питания по ходу месяца</span></li>
         <li class="check"><span class="mark"></span><span>Разбор еженедельных отчётов</span></li>
         <li class="check"><span class="mark"></span><span>Корректировки по еде, нагрузке и самочувствию</span></li>
-        <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
-        <li class="check"><span class="mark"></span><span>Еженедельный видеосозвон</span></li>
       </ul>
     </section>
 
