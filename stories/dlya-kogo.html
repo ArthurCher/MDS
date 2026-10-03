@@ -7,16 +7,22 @@
   <link rel="stylesheet" href="fonts/fonts-ref.css" />
   <style>
     :root {
-      /* Coolors 177ae3-9b3441-b355eb-ab6d78-25c5df */
+      /* Coolors 177ae3-9b3441-b355eb-ab6d78-25c5df — все цвета в UI */
+      --blue: #177AE3;
+      --burgundy: #9B3441;
+      --purple: #B355EB;
+      --rose: #AB6D78;
+      --cyan: #25C5DF;
+
       --text: #FFFFFF;
       --muted: rgba(255, 255, 255, 0.88);
-      --accent: #25C5DF;
-      --accent-2: #177AE3;
-      --accent-3: #B355EB;
-      --rose: #AB6D78;
-      --burgundy: #9B3441;
+      --accent: var(--cyan);
+      --accent-2: var(--blue);
+      --accent-3: var(--purple);
+      --accent-4: var(--rose);
+      --accent-5: var(--burgundy);
       --line: rgba(255, 255, 255, 0.92);
-      --card: rgba(5, 8, 14, 0.48);
+      --card: rgba(5, 8, 14, 0.42);
       --ink: #061018;
       --bg: #05070b;
     }
@@ -39,23 +45,24 @@
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       background:
-        radial-gradient(ellipse 70% 50% at 82% 48%, rgba(23, 122, 227, 0.16) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 40% at 12% 78%, rgba(179, 85, 235, 0.10) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 35% at 40% 0%, rgba(37, 197, 223, 0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #0a1018 0%, #05070b 45%, #030508 100%);
+        radial-gradient(ellipse 65% 55% at 88% 42%, rgba(23, 122, 227, 0.20) 0%, transparent 58%),
+        radial-gradient(ellipse 50% 40% at 8% 82%, rgba(179, 85, 235, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 30% at 35% 0%, rgba(37, 197, 223, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 28% at 70% 92%, rgba(155, 52, 65, 0.16) 0%, transparent 55%),
+        linear-gradient(180deg, #0a1018 0%, #05070b 48%, #030508 100%);
     }
 
-    /* Artur — right side, same visual weight as the girl on the B&W reference */
+    /* Artur справа — тот же визуальный вес, что девушка на B&W-референсе */
     .story-bg {
       position: absolute;
-      left: 280px;
-      bottom: -30px;
-      height: 1680px;
+      right: -120px;
+      bottom: -20px;
+      height: 1750px;
       width: auto;
       z-index: 0;
       pointer-events: none;
       user-select: none;
-      filter: contrast(1.2) brightness(1.35) grayscale(1);
+      filter: contrast(1.12) brightness(1.22) saturate(1.05);
     }
 
     .story-dim {
@@ -65,19 +72,19 @@
       background:
         linear-gradient(
           90deg,
-          rgba(5, 7, 11, 0.90) 0%,
-          rgba(5, 7, 11, 0.55) 26%,
-          rgba(5, 7, 11, 0.12) 48%,
-          rgba(5, 7, 11, 0.00) 68%,
-          rgba(5, 7, 11, 0.22) 100%
+          rgba(5, 7, 11, 0.88) 0%,
+          rgba(5, 7, 11, 0.48) 30%,
+          rgba(5, 7, 11, 0.08) 55%,
+          rgba(5, 7, 11, 0.00) 72%,
+          rgba(5, 7, 11, 0.10) 100%
         ),
         linear-gradient(
           180deg,
-          rgba(5, 7, 11, 0.50) 0%,
-          rgba(5, 7, 11, 0.04) 14%,
+          rgba(5, 7, 11, 0.48) 0%,
+          rgba(5, 7, 11, 0.06) 14%,
           rgba(5, 7, 11, 0.00) 40%,
-          rgba(5, 7, 11, 0.10) 72%,
-          rgba(5, 7, 11, 0.58) 100%
+          rgba(5, 7, 11, 0.08) 76%,
+          rgba(5, 7, 11, 0.50) 100%
         );
     }
 
@@ -133,7 +140,7 @@
     .title-accent {
       display: inline-flex;
       align-self: flex-start;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
       color: var(--ink);
       border-radius: 999px;
       padding: 12px 22px 13px;
@@ -159,63 +166,97 @@
       background: var(--card);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      padding: 28px 24px 20px;
+      padding: 20px 24px 22px;
       flex: 0 0 auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     }
 
+    .card.start { padding: 22px 24px 24px; }
+
     .card.main {
-      padding: 28px 22px 18px;
+      padding: 18px 22px 20px;
       flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       min-height: 0;
     }
 
-    .card.who {
-      padding: 26px 24px 18px;
-    }
-
-    .card-label {
-      position: absolute;
-      top: -15px;
-      left: 28px;
-      padding: 0 14px;
-      background: #05070b;
-      font-family: "Montserrat", sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: #fff;
-      white-space: nowrap;
-    }
+    .card.who { padding: 18px 24px 20px; }
 
     .card-arrow {
       position: absolute;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
+      border: 2px solid var(--accent);
       background: var(--accent);
-      color: var(--ink);
       display: grid;
       place-items: center;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 700;
+      color: var(--ink);
       line-height: 1;
       box-shadow: 0 0 0 3px rgba(5, 7, 11, 0.95);
     }
 
-    .card.start .card-arrow,
+    .card.start .card-arrow {
+      left: -16px;
+      top: 22px;
+      background: var(--cyan);
+      border-color: var(--cyan);
+    }
+
     .card.main .card-arrow {
-      left: -14px;
-      top: -14px;
+      left: -16px;
+      top: 22px;
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
     }
 
     .card.who .card-arrow {
-      right: -14px;
-      top: -14px;
-      background: var(--accent-3);
+      right: -16px;
+      top: 18px;
+      background: var(--purple);
+      border-color: var(--purple);
       color: #fff;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+
+    .card.main .section-label { margin-bottom: 12px; }
+    .card.who .section-label { margin-bottom: 10px; }
+
+    .section-label h2 {
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+      white-space: nowrap;
+    }
+
+    .section-label .rule {
+      flex: 1;
+      height: 2px;
+      border-radius: 2px;
+    }
+
+    .card.start .section-label .rule {
+      background: linear-gradient(90deg, var(--cyan), rgba(37, 197, 223, 0));
+    }
+    .card.main .section-label .rule {
+      background: linear-gradient(90deg, var(--blue), rgba(23, 122, 227, 0));
+    }
+    .card.who .section-label .rule {
+      background: linear-gradient(90deg, var(--purple), var(--rose), rgba(171, 109, 120, 0));
     }
 
     .lead {
@@ -254,11 +295,17 @@
       height: 16px;
       margin-top: 4px;
       border-radius: 3px;
-      border: 2px solid var(--accent);
+      border: 2px solid var(--cyan);
       background: rgba(37, 197, 223, 0.12);
       position: relative;
       justify-self: center;
     }
+
+    li:nth-child(2) .mark { border-color: var(--blue); background: rgba(23, 122, 227, 0.14); }
+    li:nth-child(3) .mark { border-color: var(--purple); background: rgba(179, 85, 235, 0.14); }
+    li:nth-child(4) .mark { border-color: var(--rose); background: rgba(171, 109, 120, 0.18); }
+    li:nth-child(5) .mark { border-color: var(--burgundy); background: rgba(155, 52, 65, 0.18); }
+    li:nth-child(6) .mark { border-color: var(--cyan); background: rgba(37, 197, 223, 0.12); }
 
     li .mark::after {
       content: "";
@@ -267,10 +314,16 @@
       top: 0px;
       width: 4px;
       height: 8px;
-      border: solid var(--accent);
+      border: solid var(--cyan);
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
+
+    li:nth-child(2) .mark::after { border-color: var(--blue); }
+    li:nth-child(3) .mark::after { border-color: var(--purple); }
+    li:nth-child(4) .mark::after { border-color: #E8C4CA; }
+    li:nth-child(5) .mark::after { border-color: #E89AA3; }
+    li:nth-child(6) .mark::after { border-color: var(--cyan); }
 
     .who p {
       font-size: 24px;
@@ -281,9 +334,8 @@
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
     }
 
-    .who p .em {
-      color: var(--accent);
-    }
+    .who p .em { color: var(--cyan); }
+    .who p .em2 { color: var(--rose); }
 
     .cta {
       margin-top: 4px;
@@ -306,8 +358,8 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      border: 2px solid var(--accent);
-      background: var(--accent);
+      border: 2px solid var(--cyan);
+      background: linear-gradient(90deg, var(--cyan), #4FD0E8);
       color: var(--ink);
       border-radius: 999px;
       padding: 16px 26px;
@@ -322,12 +374,29 @@
       height: 32px;
       border-radius: 50%;
       background: var(--ink);
-      color: var(--accent);
+      color: var(--cyan);
       display: grid;
       place-items: center;
       font-size: 15px;
       line-height: 1;
       font-weight: 700;
+    }
+
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 6px;
+      z-index: 3;
+      background: linear-gradient(
+        90deg,
+        var(--blue) 0%,
+        var(--cyan) 25%,
+        var(--purple) 50%,
+        var(--rose) 75%,
+        var(--burgundy) 100%
+      );
     }
   </style>
 </head>
@@ -348,14 +417,20 @@
 
       <div class="cards">
         <section class="card start">
-          <div class="card-arrow">+</div>
-          <div class="card-label">Узнаёте себя</div>
+          <div class="card-arrow">→</div>
+          <div class="section-label">
+            <h2>Узнаёте себя</h2>
+            <div class="rule"></div>
+          </div>
           <p class="lead">Если вы узнаёте себя хотя бы в одном пункте :</p>
         </section>
 
         <section class="card main">
-          <div class="card-arrow">+</div>
-          <div class="card-label">Вам сюда</div>
+          <div class="card-arrow">→</div>
+          <div class="section-label">
+            <h2>Вам сюда</h2>
+            <div class="rule"></div>
+          </div>
           <ul>
             <li>
               <span class="mark"></span>
@@ -385,9 +460,12 @@
         </section>
 
         <section class="card who">
-          <div class="card-arrow">+</div>
-          <div class="card-label">Главное</div>
-          <p>Не «для идеальных». <span class="em">Для реальных людей</span> с реальной физиологией.</p>
+          <div class="card-arrow">←</div>
+          <div class="section-label">
+            <h2>Главное</h2>
+            <div class="rule"></div>
+          </div>
+          <p>Не «для идеальных». <span class="em">Для реальных людей</span> с <span class="em2">реальной физиологией</span>.</p>
         </section>
       </div>
 
@@ -399,6 +477,7 @@
         </div>
       </div>
     </div>
+    <div class="accent-bar" aria-hidden="true"></div>
   </div>
 </body>
 </html>
