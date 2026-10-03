@@ -170,6 +170,7 @@
       top: var(--box2-top);
       height: var(--box2-h);
       padding: 30px 28px 22px;
+      justify-content: center;
     }
 
     .card.who {
@@ -227,6 +228,15 @@
       min-height: 0;
       margin-top: 8px;
       height: 100%;
+    }
+
+    /* 2-й блок: −20% к интервалу, список по центру */
+    .card.main ul {
+      justify-content: center;
+      flex: 0 1 auto;
+      height: auto;
+      margin-top: 14px;
+      gap: 50px; /* было ~62–69px «воздуха» → −20% */
     }
 
     li {
