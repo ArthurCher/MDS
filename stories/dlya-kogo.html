@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <title>Для кого это</title>
+  <link rel="stylesheet" href="fonts/fonts-ref.css" />
+  <style>
+    :root {
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.88);
+      --accent: #25C5DF;
+      --accent-2: #177AE3;
+      --accent-3: #B355EB;
+      --rose: #AB6D78;
+      --burgundy: #9B3441;
+      --line: rgba(255, 255, 255, 0.92);
+      --card: rgba(5, 10, 18, 0.62);
+      --ink: #061018;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #03070c;
+    }
+
+    .story {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: var(--text);
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      background:
+        radial-gradient(ellipse 90% 55% at 78% 42%, rgba(23, 122, 227, 0.22) 0%, transparent 58%),
+        radial-gradient(ellipse 70% 45% at 20% 80%, rgba(179, 85, 235, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(37, 197, 223, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #07111c 0%, #03070c 48%, #050308 100%);
+    }
+
+    .story-bg {
+      position: absolute;
+      left: 50%;
+      top: 40px;
+      width: 1180px;
+      height: auto;
+      transform: translateX(-42%);
+      z-index: 0;
+      filter: brightness(0.88) contrast(1.14) saturate(0.82);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .story-dim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(
+          105deg,
+          rgba(3, 7, 12, 0.82) 0%,
+          rgba(3, 7, 12, 0.58) 36%,
+          rgba(3, 7, 12, 0.28) 64%,
+          rgba(3, 7, 12, 0.40) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(3, 7, 12, 0.70) 0%,
+          rgba(3, 7, 12, 0.22) 24%,
+          rgba(3, 7, 12, 0.30) 50%,
+          rgba(3, 7, 12, 0.62) 76%,
+          rgba(3, 7, 12, 0.88) 100%
+        );
+    }
+
+
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 72px 52px 68px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.18em;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .top-row .tag {
+      color: var(--ink);
+      background: var(--accent);
+      border-radius: 999px;
+      padding: 10px 20px;
+      letter-spacing: 0.12em;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: lowercase;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-weight: 400;
+      font-size: 78px;
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+    }
+
+    .title-accent {
+      display: inline-flex;
+      align-self: flex-start;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 12px 22px 13px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+      min-height: 0;
+      justify-content: space-between;
+    }
+
+    .card {
+      position: relative;
+      border: 2px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      backdrop-filter: blur(2px);
+      padding: 28px 24px 20px;
+      flex: 0 0 auto;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    .card.main {
+      padding: 28px 22px 18px;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .card.who {
+      padding: 26px 24px 18px;
+    }
+
+    .card-label {
+      position: absolute;
+      top: -15px;
+      left: 28px;
+      padding: 0 14px;
+      background: #03070c;
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .card-arrow {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 0 0 3px rgba(3, 7, 12, 0.95);
+    }
+
+    .card.start .card-arrow,
+    .card.main .card-arrow {
+      left: -14px;
+      top: -14px;
+    }
+
+    .card.who .card-arrow {
+      right: -14px;
+      top: -14px;
+      background: var(--accent-3);
+      color: #fff;
+    }
+
+    .lead {
+      font-size: 26px;
+      line-height: 1.28;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 21px;
+      line-height: 1.22;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+    }
+
+    li .mark {
+      width: 16px;
+      height: 16px;
+      margin-top: 4px;
+      border-radius: 3px;
+      border: 2px solid var(--accent);
+      background: rgba(37, 197, 223, 0.12);
+      position: relative;
+      justify-self: center;
+    }
+
+    li .mark::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 0px;
+      width: 4px;
+      height: 8px;
+      border: solid var(--accent);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .who p {
+      font-size: 24px;
+      line-height: 1.28;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .who p .em {
+      color: var(--accent);
+    }
+
+    .cta {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-shrink: 0;
+    }
+
+    .cta-text {
+      letter-spacing: 0.16em;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 2px solid var(--accent);
+      background: var(--accent);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 16px 26px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 28px rgba(37, 197, 223, 0.28);
+    }
+
+    .cta-pill .arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      line-height: 1;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="story">
+    <img class="story-bg" src="assets/artur-cutout.png" alt="" />
+    <div class="story-dim"></div>
+    <div class="content">
+      <div class="top-row">
+        <div>Personal training</div>
+        <div class="tag">онлайн</div>
+      </div>
+
+      <header class="header">
+        <h1 class="title">Для кого это</h1>
+        <div class="title-accent">реальная физиология</div>
+      </header>
+
+      <div class="cards">
+        <section class="card start">
+          <div class="card-arrow">+</div>
+          <div class="card-label">Узнаёте себя</div>
+          <p class="lead">Если вы узнаёте себя хотя бы в одном пункте :</p>
+        </section>
+
+        <section class="card main">
+          <div class="card-arrow">+</div>
+          <div class="card-label">Вам сюда</div>
+          <ul>
+            <li>
+              <span class="mark"></span>
+              <span>Хотите изменить тело, но уже устали от универсальных программ</span>
+            </li>
+            <li>
+              <span class="mark"></span>
+              <span>Есть ограничения: колени, спина, грыжи, восстановление после операций</span>
+            </li>
+            <li>
+              <span class="mark"></span>
+              <span>Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска</span>
+            </li>
+            <li>
+              <span class="mark"></span>
+              <span>После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать</span>
+            </li>
+            <li>
+              <span class="mark"></span>
+              <span>Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали</span>
+            </li>
+            <li>
+              <span class="mark"></span>
+              <span>Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="card who">
+          <div class="card-arrow">+</div>
+          <div class="card-label">Главное</div>
+          <p>Не «для идеальных». <span class="em">Для реальных людей</span> с реальной физиологией.</p>
+        </section>
+      </div>
+
+      <div class="cta">
+        <div class="cta-text">Готовы начать</div>
+        <div class="cta-pill">
+          Напиши в директ
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
