@@ -1,7 +1,11 @@
-# YourSEOAgent WordPress theme
+# YourSEOAgent — WordPress
 
-В репозитории добавлена тема WordPress для сайта [yourseoagent.pro](https://yourseoagent.pro/).
+Порт [yourseoagent.pro](https://yourseoagent.pro/) в тему WordPress.
 
-Путь: `wp-content/themes/yourseoagent/`
+## Скачать тему (ZIP)
 
-Инструкция по установке — в `wp-content/themes/yourseoagent/README.md`.
+https://github.com/ArthurCher/MDS/raw/cursor/wordpress-theme-yourseoagent-9e3b/dist/yourseoagent-theme.zip
+
+Полная инструкция: [INSTALL.md](./INSTALL.md)
+
+Тема в репозитории: `wp-content/themes/yourseoagent/`
