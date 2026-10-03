@@ -7,17 +7,16 @@
   <link rel="stylesheet" href="fonts/fonts-ref.css" />
   <style>
     /*
-      Композиция как референс с девушкой:
-      — левая колонка ~48%: крупный чистый текст на светлом фоне, по всей высоте
-      — правая половина: Артур-герой во всю высоту (по пояс/грудь)
-      — БЕЗ плашек, рамок, обводок, подложек
-      — от тарифа только шрифты/размеры: Oranienbaum + Montserrat
+      Как референс с девушкой:
+      — Артур с байком справа, масштаб ~как девушка (правый нижний/средний план)
+      — текст слева на светлом фоне, без плашек; блок 2 отцентрован
+      — отступы соблюдены: текст не заходит на тёмный силуэт
     */
     :root {
       --ink: #111111;
-      --muted: #333333;
+      --muted: #2E2E2E;
       --soft: #6A6A6A;
-      --line: rgba(17, 17, 17, 0.35);
+      --line: rgba(17, 17, 17, 0.28);
       --bg-hi: #F6F6F6;
       --bg: #EAEAEA;
       --bg-lo: #D8D8D8;
@@ -41,26 +40,26 @@
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       background:
-        linear-gradient(118deg, transparent 0%, transparent 40%, rgba(255,255,255,0.5) 48%, transparent 56%),
-        linear-gradient(132deg, transparent 0%, transparent 58%, rgba(255,255,255,0.22) 65%, transparent 72%),
+        linear-gradient(118deg, transparent 0%, transparent 40%, rgba(255,255,255,0.48) 48%, transparent 56%),
+        linear-gradient(132deg, transparent 0%, transparent 58%, rgba(255,255,255,0.2) 65%, transparent 72%),
         radial-gradient(ellipse 90% 50% at 8% 0%, #FFFFFF 0%, transparent 55%),
         linear-gradient(170deg, var(--bg-hi) 0%, var(--bg) 48%, var(--bg-lo) 100%);
     }
 
-    /* Артур — крупный герой справа, 50–60% ширины, во всю высоту */
+    /* Артур с байком — правая половина, масштаб как девушка на референсе */
     .photo {
       position: absolute;
-      right: -100px;
-      bottom: -30px;
-      height: 1780px;
+      right: -90px;
+      bottom: 60px;
+      height: 1120px;
       width: auto;
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      filter: contrast(1.05) brightness(1.12);
+      filter: contrast(1.05) brightness(1.1);
     }
 
-    /* лёгкая вуаль только слева для читаемости — не подложка под текст */
+    /* сильная светлая зона слева — блок 2 читается, не размазывается по фото */
     .veil {
       position: absolute;
       inset: 0;
@@ -68,44 +67,55 @@
       pointer-events: none;
       background: linear-gradient(
         90deg,
-        rgba(246,246,246,0.28) 0%,
-        rgba(246,246,246,0.10) 42%,
-        transparent 62%
+        rgba(246,246,246,0.97) 0%,
+        rgba(246,246,246,0.94) 42%,
+        rgba(246,246,246,0.55) 54%,
+        rgba(246,246,246,0.12) 66%,
+        transparent 80%
       );
     }
 
-    /* левая колонка 45–50%, равномерно по высоте */
     .col {
       position: relative;
       z-index: 3;
-      width: 520px;
+      width: 470px;
       height: 100%;
-      padding: 70px 0 64px 48px;
+      margin-left: 56px;
+      padding: 72px 24px 68px 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
+      text-align: center;
     }
 
     .eyebrow {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       color: var(--soft);
+      width: 100%;
     }
 
     .title {
       font-family: "Oranienbaum", "Playfair Display", serif;
       font-weight: 400;
-      font-size: 78px;
+      font-size: 72px;
       line-height: 0.96;
       letter-spacing: 0.02em;
       color: var(--ink);
-      margin-top: 18px;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .intro {
+      width: 100%;
+      padding: 0 12px;
     }
 
     .block-label {
       font-family: "Oranienbaum", "Playfair Display", serif;
-      font-size: 36px;
+      font-size: 34px;
       font-weight: 400;
       letter-spacing: 0.04em;
       line-height: 1.05;
@@ -114,58 +124,74 @@
 
     .block-lead {
       margin-top: 10px;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       letter-spacing: 0.04em;
-      line-height: 1.25;
-      color: var(--ink);
-      max-width: 460px;
+      line-height: 1.3;
+      color: var(--muted);
     }
 
     .rule {
-      width: 56px;
+      width: 52px;
       height: 1.5px;
       background: var(--ink);
-      opacity: 0.55;
-      margin: 6px 0 0;
+      opacity: 0.5;
+      margin: 10px auto 0;
     }
 
+    /* Блок 2 — по центру колонки, отступы, читаемый */
     .list {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
       min-height: 0;
-      margin: 22px 0;
-      gap: 0;
+      width: 100%;
+      margin: 16px 0;
+      padding: 0 8px;
     }
 
     .item {
-      font-size: 23px;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: 0.02em;
-      line-height: 1.22;
+      line-height: 1.3;
       color: var(--ink);
-      max-width: 470px;
-      padding: 14px 0;
-      border-top: 1px solid var(--line);
+      padding: 16px 8px 14px;
+      width: 100%;
+      position: relative;
+    }
+
+    .item::before {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 1.5px;
+      background: var(--ink);
+      opacity: 0.45;
+      margin: 0 auto 12px;
     }
 
     .item:last-child {
-      border-bottom: 1px solid var(--line);
+      border-bottom: none;
+    }
+
+    .finale {
+      width: 100%;
+      padding: 0 12px;
     }
 
     .finale .block-label {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .finale p {
-      font-size: 24px;
+      margin-top: 10px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: 0.03em;
-      line-height: 1.28;
+      line-height: 1.3;
       color: var(--ink);
-      max-width: 470px;
     }
 
     .finale p .em {
@@ -174,14 +200,13 @@
     }
 
     .cta {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: var(--ink);
-      align-self: flex-start;
       border-bottom: 2px solid var(--ink);
       padding-bottom: 4px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -196,7 +221,7 @@
         <h1 class="title">Для кого это</h1>
       </header>
 
-      <section>
+      <section class="intro">
         <div class="block-label">Узнаёте себя</div>
         <div class="rule"></div>
         <p class="block-lead">Если вы узнаёте себя хотя бы в одном пункте:</p>
