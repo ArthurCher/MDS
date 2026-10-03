@@ -53,7 +53,6 @@
       object-fit: cover;
       transform: translateX(-50%);
       z-index: 0;
-      /* Lifted studio plate — figure readable, still moody */
       filter: brightness(1.05) contrast(1.04) saturate(0.94);
     }
 
@@ -61,21 +60,21 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      /* Soft top/bottom shade for type; open mid for Arthur */
+      /* ~40% darken on Arthur + stronger shade for title/CTA */
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.48) 0%,
-          rgba(0, 0, 0, 0.14) 16%,
-          rgba(0, 0, 0, 0.04) 36%,
-          rgba(0, 0, 0, 0.08) 58%,
-          rgba(0, 0, 0, 0.32) 82%,
-          rgba(0, 0, 0, 0.68) 100%
+          rgba(0, 0, 0, 0.62) 0%,
+          rgba(0, 0, 0, 0.42) 18%,
+          rgba(0, 0, 0, 0.40) 40%,
+          rgba(0, 0, 0, 0.40) 60%,
+          rgba(0, 0, 0, 0.52) 82%,
+          rgba(0, 0, 0, 0.78) 100%
         ),
         radial-gradient(
           80% 48% at 50% 38%,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0.14) 100%
+          rgba(0, 0, 0, 0.08) 0%,
+          rgba(0, 0, 0, 0.28) 100%
         );
     }
 
