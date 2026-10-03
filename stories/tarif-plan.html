@@ -53,30 +53,30 @@
       object-fit: cover;
       transform: translateX(-50%);
       z-index: 0;
-      /* Мощный силуэт: контур мышц есть, детали лица нет */
-      filter: brightness(0.70) contrast(1.32) saturate(0.50);
+      /* +20% visibility vs silhouette, still moody */
+      filter: brightness(0.84) contrast(1.26) saturate(0.58);
     }
 
     .story-dim {
       position: absolute;
       inset: 0;
       z-index: 1;
-      /* ~40% по телу + доп. вуаль на лицо/голову */
+      /* чуть светлее (~20%), лицо всё ещё в мягкой тени */
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.62) 0%,
-          rgba(0, 0, 0, 0.48) 12%,
-          rgba(0, 0, 0, 0.40) 38%,
-          rgba(0, 0, 0, 0.40) 62%,
-          rgba(0, 0, 0, 0.55) 82%,
-          rgba(0, 0, 0, 0.82) 100%
+          rgba(0, 0, 0, 0.55) 0%,
+          rgba(0, 0, 0, 0.38) 12%,
+          rgba(0, 0, 0, 0.32) 38%,
+          rgba(0, 0, 0, 0.32) 62%,
+          rgba(0, 0, 0, 0.48) 82%,
+          rgba(0, 0, 0, 0.78) 100%
         ),
         radial-gradient(
           48% 28% at 50% 18%,
-          rgba(0, 0, 0, 0.55) 0%,
-          rgba(0, 0, 0, 0.22) 70%,
-          rgba(0, 0, 0, 0.30) 100%
+          rgba(0, 0, 0, 0.42) 0%,
+          rgba(0, 0, 0, 0.16) 70%,
+          rgba(0, 0, 0, 0.24) 100%
         );
     }
 
