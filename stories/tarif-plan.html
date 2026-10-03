@@ -232,6 +232,18 @@
       height: 100%;
     }
 
+    /* 2 пункта в старте — держим по центру, без растяжки */
+    .card.start {
+      justify-content: center;
+    }
+    .card.start ul {
+      justify-content: center;
+      flex: 0 1 auto;
+      height: auto;
+      margin-top: 14px;
+      gap: 28px;
+    }
+
     li {
       display: grid;
       grid-template-columns: 32px 1fr;
@@ -373,7 +385,6 @@
       <ul>
         <li><span class="mark"></span><span>Видеосозвон 1–2 часа</span></li>
         <li><span class="mark"></span><span>Рекомендации по анализам</span></li>
-        <li><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
       </ul>
     </section>
 
@@ -382,13 +393,14 @@
       <div class="card-mark">+</div>
       <div class="section-label"><h2>Что входит</h2></div>
       <ul>
+        <li class="check"><span class="mark"></span><span>1–2 видеосозвона в месяц</span></li>
         <li class="check"><span class="mark"></span><span>Онлайн-сопровождение в переписке</span></li>
         <li class="check"><span class="mark"></span><span>Индивидуальная программа тренировок под запрос и ограничения</span></li>
+        <li class="check"><span class="mark"></span><span>Разбор анализов и схема закрытия дефицитов</span></li>
         <li class="check"><span class="mark"></span><span>Программа питания под ваш режим и цель</span></li>
         <li class="check"><span class="mark"></span><span>Разбор еженедельных отчётов</span></li>
         <li class="check"><span class="mark"></span><span>Корректировки плана по самочувствию и прогрессу</span></li>
         <li class="check"><span class="mark"></span><span>Разбор техники по видео</span></li>
-        <li class="check"><span class="mark"></span><span>1–2 видеосозвона в месяц</span></li>
       </ul>
     </section>
 
