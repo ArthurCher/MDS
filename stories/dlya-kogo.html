@@ -7,19 +7,21 @@
   <link rel="stylesheet" href="fonts/fonts-ref.css" />
   <style>
     /*
-      Как референс с девушкой:
-      — Артур с байком справа, масштаб ~как девушка (правый нижний/средний план)
-      — текст слева на светлом фоне, без плашек; блок 2 отцентрован
-      — отступы соблюдены: текст не заходит на тёмный силуэт
+      Промпт v3:
+      — без горизонтальных линий над пунктами
+      — список Sentence case, капс только у заголовков
+      — левое выравнивание, воздух между пунктами
+      — ярко-белый high-key фон, без серых виньеток
+      — Артур справа 50–55%, с байком
+      — CTA салатовая плашка как у тарифа
     */
     :root {
       --ink: #111111;
-      --muted: #2E2E2E;
-      --soft: #6A6A6A;
-      --line: rgba(17, 17, 17, 0.28);
-      --bg-hi: #F6F6F6;
-      --bg: #EAEAEA;
-      --bg-lo: #D8D8D8;
+      --muted: #3A3A3A;
+      --soft: #7A7A7A;
+      --accent: #DDFE62;
+      --bg: #FFFFFF;
+      --bg-soft: #F7F7F7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,28 +40,26 @@
       overflow: hidden;
       color: var(--ink);
       font-family: "Montserrat", sans-serif;
-      text-transform: uppercase;
       background:
-        linear-gradient(118deg, transparent 0%, transparent 40%, rgba(255,255,255,0.48) 48%, transparent 56%),
-        linear-gradient(132deg, transparent 0%, transparent 58%, rgba(255,255,255,0.2) 65%, transparent 72%),
-        radial-gradient(ellipse 90% 50% at 8% 0%, #FFFFFF 0%, transparent 55%),
-        linear-gradient(170deg, var(--bg-hi) 0%, var(--bg) 48%, var(--bg-lo) 100%);
+        linear-gradient(115deg, transparent 42%, rgba(255,255,255,0.65) 50%, transparent 58%),
+        radial-gradient(ellipse 80% 45% at 15% 0%, #FFFFFF 0%, transparent 60%),
+        linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 55%, #F2F2F2 100%);
     }
 
-    /* Артур с байком — правая половина, масштаб как девушка на референсе */
+    /* Артур с байком — правая половина ~50–55% */
     .photo {
       position: absolute;
-      right: -90px;
-      bottom: 60px;
-      height: 1120px;
+      right: -70px;
+      bottom: 0;
+      height: 1680px;
       width: auto;
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      filter: contrast(1.05) brightness(1.1);
+      filter: contrast(1.08) brightness(1.12);
     }
 
-    /* сильная светлая зона слева — блок 2 читается, не размазывается по фото */
+    /* светлая зона слева для читаемости — без мрачной виньетки */
     .veil {
       position: absolute;
       inset: 0;
@@ -67,146 +67,152 @@
       pointer-events: none;
       background: linear-gradient(
         90deg,
-        rgba(246,246,246,0.97) 0%,
-        rgba(246,246,246,0.94) 42%,
-        rgba(246,246,246,0.55) 54%,
-        rgba(246,246,246,0.12) 66%,
-        transparent 80%
+        rgba(255,255,255,0.96) 0%,
+        rgba(255,255,255,0.88) 40%,
+        rgba(255,255,255,0.35) 54%,
+        rgba(255,255,255,0.05) 68%,
+        transparent 82%
       );
     }
 
     .col {
       position: relative;
       z-index: 3;
-      width: 470px;
+      width: 500px;
       height: 100%;
-      margin-left: 56px;
-      padding: 72px 24px 68px 0;
+      padding: 68px 24px 56px 52px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      text-align: center;
+      text-align: left;
     }
 
     .eyebrow {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       color: var(--soft);
-      width: 100%;
+      text-transform: uppercase;
     }
 
     .title {
       font-family: "Oranienbaum", "Playfair Display", serif;
       font-weight: 400;
-      font-size: 72px;
+      font-size: 76px;
       line-height: 0.96;
       letter-spacing: 0.02em;
       color: var(--ink);
-      margin-top: 14px;
-      width: 100%;
+      text-transform: uppercase;
+      margin-top: 16px;
     }
 
     .intro {
-      width: 100%;
-      padding: 0 12px;
+      margin-top: 8px;
     }
 
-    .block-label {
+    .intro h2 {
       font-family: "Oranienbaum", "Playfair Display", serif;
-      font-size: 34px;
+      font-size: 40px;
       font-weight: 400;
-      letter-spacing: 0.04em;
-      line-height: 1.05;
+      letter-spacing: 0.01em;
+      line-height: 1.1;
       color: var(--ink);
+      text-transform: none;
     }
 
-    .block-lead {
-      margin-top: 10px;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.3;
+    .intro p {
+      margin-top: 12px;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
       color: var(--muted);
+      text-transform: none;
+      max-width: 440px;
     }
 
-    .rule {
-      width: 52px;
-      height: 1.5px;
-      background: var(--ink);
-      opacity: 0.5;
-      margin: 10px auto 0;
-    }
-
-    /* Блок 2 — по центру колонки, отступы, читаемый */
     .list {
+      list-style: none;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       flex: 1;
       min-height: 0;
-      width: 100%;
-      margin: 16px 0;
-      padding: 0 8px;
+      margin: 28px 0;
+      gap: 8px;
+      padding: 0;
     }
 
-    .item {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      line-height: 1.3;
+    .list li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 1.38;
+      letter-spacing: 0.005em;
       color: var(--ink);
-      padding: 16px 8px 14px;
-      width: 100%;
-      position: relative;
+      text-transform: none;
+      max-width: 450px;
+      padding: 6px 0;
     }
 
-    .item::before {
-      content: "";
-      display: block;
-      width: 48px;
-      height: 1.5px;
+    .list li .dot {
+      width: 8px;
+      height: 8px;
+      margin-top: 11px;
+      border-radius: 50%;
       background: var(--ink);
-      opacity: 0.45;
-      margin: 0 auto 12px;
-    }
-
-    .item:last-child {
-      border-bottom: none;
+      opacity: 0.85;
+      justify-self: center;
     }
 
     .finale {
-      width: 100%;
-      padding: 0 12px;
-    }
-
-    .finale .block-label {
-      margin-bottom: 4px;
+      max-width: 450px;
     }
 
     .finale p {
-      margin-top: 10px;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      line-height: 1.3;
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
       color: var(--ink);
+      text-transform: none;
     }
 
     .finale p .em {
-      border-bottom: 2px solid var(--ink);
-      padding-bottom: 1px;
+      font-weight: 800;
     }
 
     .cta {
-      font-size: 26px;
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 12px;
+      margin-top: 18px;
+      background: var(--accent);
+      color: #111;
+      border-radius: 999px;
+      padding: 18px 28px;
+      font-size: 24px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--ink);
-      border-bottom: 2px solid var(--ink);
-      padding-bottom: 4px;
-      margin-top: 8px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .cta .arrow {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #111;
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
     }
   </style>
 </head>
@@ -219,30 +225,28 @@
       <header>
         <div class="eyebrow">Онлайн · реальная физиология</div>
         <h1 class="title">Для кого это</h1>
+        <div class="intro">
+          <h2>Узнаёте себя?</h2>
+          <p>Если вы узнаёте себя хотя бы в одном пункте:</p>
+        </div>
       </header>
 
-      <section class="intro">
-        <div class="block-label">Узнаёте себя</div>
-        <div class="rule"></div>
-        <p class="block-lead">Если вы узнаёте себя хотя бы в одном пункте:</p>
-      </section>
+      <ul class="list">
+        <li><span class="dot"></span><span>Хотите изменить тело, но уже устали от универсальных программ</span></li>
+        <li><span class="dot"></span><span>Есть ограничения: колени, спина, грыжи, восстановление после операций</span></li>
+        <li><span class="dot"></span><span>Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска</span></li>
+        <li><span class="dot"></span><span>После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать</span></li>
+        <li><span class="dot"></span><span>Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали</span></li>
+        <li><span class="dot"></span><span>Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим</span></li>
+      </ul>
 
-      <div class="list">
-        <div class="item">Хотите изменить тело, но уже устали от универсальных программ</div>
-        <div class="item">Есть ограничения: колени, спина, грыжи, восстановление после операций</div>
-        <div class="item">Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска</div>
-        <div class="item">После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать</div>
-        <div class="item">Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали</div>
-        <div class="item">Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим</div>
-      </div>
-
-      <section class="finale">
-        <div class="block-label">Главное</div>
-        <div class="rule"></div>
+      <div class="finale">
         <p>Не «для идеальных». <span class="em">Для реальных людей</span> с реальной физиологией.</p>
-      </section>
-
-      <div class="cta">Напиши в директ</div>
+        <div class="cta">
+          Напиши в директ
+          <span class="arrow">→</span>
+        </div>
+      </div>
     </div>
   </div>
 </body>
