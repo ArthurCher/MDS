@@ -7,19 +7,20 @@
   <link rel="stylesheet" href="fonts/fonts-ref.css" />
   <style>
     /*
-      Стилистика написания = социальный референс с девушкой:
-      светлый студийный B&W, текст поверх фото, вертикальный стек CAPS,
-      короткие тонкие разделители, плотные интервалы.
-      От тарифа «План» — только шрифты и размеры.
-      Артур по масштабу как девушка на референсе (нижний правый квадрант).
+      Композиция как референс с девушкой:
+      — левая колонка ~48%: крупный чистый текст на светлом фоне, по всей высоте
+      — правая половина: Артур-герой во всю высоту (по пояс/грудь)
+      — БЕЗ плашек, рамок, обводок, подложек
+      — от тарифа только шрифты/размеры: Oranienbaum + Montserrat
     */
     :root {
       --ink: #111111;
-      --muted: #3D3D3D;
+      --muted: #333333;
       --soft: #6A6A6A;
-      --bg-hi: #F5F5F5;
-      --bg: #E8E8E8;
-      --bg-lo: #D6D6D6;
+      --line: rgba(17, 17, 17, 0.35);
+      --bg-hi: #F6F6F6;
+      --bg: #EAEAEA;
+      --bg-lo: #D8D8D8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,199 +41,147 @@
       font-family: "Montserrat", sans-serif;
       text-transform: uppercase;
       background:
-        linear-gradient(118deg, transparent 0%, transparent 38%, rgba(255,255,255,0.45) 46%, transparent 54%),
-        linear-gradient(132deg, transparent 0%, transparent 55%, rgba(255,255,255,0.2) 62%, transparent 70%),
-        radial-gradient(ellipse 90% 55% at 10% 0%, #FFFFFF 0%, transparent 55%),
-        linear-gradient(170deg, var(--bg-hi) 0%, var(--bg) 50%, var(--bg-lo) 100%);
+        linear-gradient(118deg, transparent 0%, transparent 40%, rgba(255,255,255,0.5) 48%, transparent 56%),
+        linear-gradient(132deg, transparent 0%, transparent 58%, rgba(255,255,255,0.22) 65%, transparent 72%),
+        radial-gradient(ellipse 90% 50% at 8% 0%, #FFFFFF 0%, transparent 55%),
+        linear-gradient(170deg, var(--bg-hi) 0%, var(--bg) 48%, var(--bg-lo) 100%);
     }
 
-    /* масштаб как у девушки: компактно в нижнем правом квадранте */
+    /* Артур — крупный герой справа, 50–60% ширины, во всю высоту */
     .photo {
       position: absolute;
-      right: 40px;
-      bottom: 110px;
-      height: 600px;
+      right: -100px;
+      bottom: -30px;
+      height: 1780px;
       width: auto;
       z-index: 1;
       pointer-events: none;
       user-select: none;
-      filter: contrast(1.06) brightness(1.14);
+      filter: contrast(1.05) brightness(1.12);
     }
 
+    /* лёгкая вуаль только слева для читаемости — не подложка под текст */
     .veil {
       position: absolute;
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background:
-        linear-gradient(
-          95deg,
-          rgba(245,245,245,0.16) 0%,
-          rgba(245,245,245,0.05) 42%,
-          transparent 72%
-        ),
-        linear-gradient(
-          180deg,
-          rgba(250,250,250,0.16) 0%,
-          transparent 10%,
-          transparent 78%,
-          rgba(210,210,210,0.32) 100%
-        );
+      background: linear-gradient(
+        90deg,
+        rgba(246,246,246,0.28) 0%,
+        rgba(246,246,246,0.10) 42%,
+        transparent 62%
+      );
     }
 
-    .content {
+    /* левая колонка 45–50%, равномерно по высоте */
+    .col {
       position: relative;
       z-index: 3;
+      width: 520px;
       height: 100%;
-      padding: 72px 52px 64px;
+      padding: 70px 0 64px 48px;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
 
     .eyebrow {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.22em;
       color: var(--soft);
-      margin-bottom: 12px;
     }
 
     .title {
       font-family: "Oranienbaum", "Playfair Display", serif;
       font-weight: 400;
-      font-size: 82px;
-      line-height: 0.95;
+      font-size: 78px;
+      line-height: 0.96;
       letter-spacing: 0.02em;
       color: var(--ink);
-      margin-bottom: 14px;
-      max-width: 720px;
+      margin-top: 18px;
     }
 
-    .stack {
+    .block-label {
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-size: 36px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    .block-lead {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      color: var(--ink);
+      max-width: 460px;
+    }
+
+    .rule {
+      width: 56px;
+      height: 1.5px;
+      background: var(--ink);
+      opacity: 0.55;
+      margin: 6px 0 0;
+    }
+
+    .list {
       display: flex;
       flex-direction: column;
-      width: 620px;
+      justify-content: space-between;
+      flex: 1;
+      min-height: 0;
+      margin: 22px 0;
       gap: 0;
     }
 
-    .row {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 5px 0 0;
-    }
-
-    .row .rule {
-      width: 40px;
-      height: 1.5px;
-      background: var(--ink);
-      margin-bottom: 5px;
-      opacity: 0.9;
-    }
-
-    .row .primary {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      line-height: 1.06;
-      color: var(--ink);
-      text-shadow: 0 0 14px rgba(245,245,245,0.8);
-    }
-
-    .row .secondary {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      line-height: 1.28;
-      color: var(--muted);
-      max-width: 580px;
-      text-shadow: 0 0 12px rgba(245,245,245,0.7);
-    }
-
-    .row.section {
-      padding-top: 2px;
-    }
-
-    .row.section .primary {
-      font-family: "Oranienbaum", "Playfair Display", serif;
-      font-size: 34px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      line-height: 1.02;
-    }
-
-    .row.section .secondary {
-      font-size: 16px;
+    .item {
+      font-size: 23px;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--ink);
+      letter-spacing: 0.02em;
       line-height: 1.22;
+      color: var(--ink);
+      max-width: 470px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
     }
 
-    .row.point {
-      padding-top: 5px;
+    .item:last-child {
+      border-bottom: 1px solid var(--line);
     }
 
-    .row.point .primary {
-      font-size: 16px;
+    .finale .block-label {
+      margin-bottom: 8px;
+    }
+
+    .finale p {
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: 0.03em;
-      line-height: 1.12;
-      max-width: 540px;
-    }
-
-    .row.point .secondary {
-      display: none;
-    }
-
-    .row.finale {
-      padding-top: 10px;
-    }
-
-    .row.finale .primary {
-      font-family: "Oranienbaum", "Playfair Display", serif;
-      font-size: 34px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      line-height: 1.02;
-    }
-
-    .row.finale .secondary {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
+      line-height: 1.28;
       color: var(--ink);
-      line-height: 1.22;
+      max-width: 470px;
     }
 
-    .cta-wrap {
-      margin-top: 36px;
-      padding-top: 0;
-      display: flex;
-      align-items: baseline;
-      gap: 28px;
-    }
-
-    .cta-note {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      color: var(--soft);
+    .finale p .em {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1px;
     }
 
     .cta {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: var(--ink);
-    }
-
-    .cta .direct {
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: lowercase;
-      border-bottom: 1.5px solid var(--ink);
-      padding-bottom: 2px;
+      align-self: flex-start;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 4px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -241,58 +190,34 @@
     <img class="photo" src="assets/artur-cutout.png" alt="" />
     <div class="veil"></div>
 
-    <div class="content">
-      <div class="eyebrow">Онлайн · реальная физиология</div>
-      <h1 class="title">Для кого это</h1>
+    <div class="col">
+      <header>
+        <div class="eyebrow">Онлайн · реальная физиология</div>
+        <h1 class="title">Для кого это</h1>
+      </header>
 
-      <div class="stack">
-        <div class="row section">
-          <div class="rule"></div>
-          <div class="primary">Узнаёте себя</div>
-          <div class="secondary">Если вы узнаёте себя хотя бы в одном пункте:</div>
-        </div>
+      <section>
+        <div class="block-label">Узнаёте себя</div>
+        <div class="rule"></div>
+        <p class="block-lead">Если вы узнаёте себя хотя бы в одном пункте:</p>
+      </section>
 
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">Хотите изменить тело, но уже устали от универсальных программ</div>
-        </div>
-
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">Есть ограничения: колени, спина, грыжи, восстановление после операций</div>
-        </div>
-
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска</div>
-        </div>
-
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать</div>
-        </div>
-
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали</div>
-        </div>
-
-        <div class="row point">
-          <div class="rule"></div>
-          <div class="primary">Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим</div>
-        </div>
-
-        <div class="row finale">
-          <div class="rule"></div>
-          <div class="primary">Главное</div>
-          <div class="secondary">Не «для идеальных». Для реальных людей с реальной физиологией.</div>
-        </div>
+      <div class="list">
+        <div class="item">Хотите изменить тело, но уже устали от универсальных программ</div>
+        <div class="item">Есть ограничения: колени, спина, грыжи, восстановление после операций</div>
+        <div class="item">Лишний вес, и от типовых программ больше тревоги, чем пользы: непонятно, как нагружаться без риска</div>
+        <div class="item">После изменений в организме (в т.ч. гормональные изменения) прежние схемы перестали работать</div>
+        <div class="item">Принимаете поддержку (в т.ч. пептиды) и хотите, чтобы нагрузка и питание это учитывали</div>
+        <div class="item">Нужен человек, который видит картину целиком: тренировки, еда, анализы, самочувствие, режим</div>
       </div>
 
-      <div class="cta-wrap">
-        <div class="cta-note">Готовы начать</div>
-        <div class="cta">Напиши в <span class="direct">директ</span></div>
-      </div>
+      <section class="finale">
+        <div class="block-label">Главное</div>
+        <div class="rule"></div>
+        <p>Не «для идеальных». <span class="em">Для реальных людей</span> с реальной физиологией.</p>
+      </section>
+
+      <div class="cta">Напиши в директ</div>
     </div>
   </div>
 </body>
