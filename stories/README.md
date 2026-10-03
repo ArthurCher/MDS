@@ -1,0 +1,39 @@
+# Сторис: тариф «План»
+
+Слайд для Instagram Stories (1080×1920). Структура как в референсе: шапка → 3 блока → CTA.
+
+## Файлы для публикации
+
+- `tarif-plan.jpg` — удобнее для Stories
+- `tarif-plan.png` — максимальное качество
+- `../Тариф-План-сторис-NEW.jpg` / `.png` — копии в корне
+
+## Акценты (лайм `#D9FF50`)
+
+- бейдж **онлайн**
+- слово **директ** в CTA + круглая стрелка
+- круглые маркеры на углах блоков
+- маркеры списков (круги / чекбоксы)
+
+## Текст блока «Кому подойдёт»
+
+Только одна фраза:
+
+> Уже есть дисциплина, нужен умный план и регулярные правки.
+
+## Исходники
+
+- `tarif-plan.html` — вёрстка
+- `bg-artur-studio.jpg` — фон
+- `fonts/` — локальные шрифты (Montserrat + Oranienbaum)
+
+## Пересборка PNG
+
+```bash
+google-chrome --headless=new --no-sandbox --disable-gpu \
+  --user-data-dir=/tmp/chrome-story \
+  --hide-scrollbars --window-size=1080,1920 \
+  --virtual-time-budget=5000 \
+  --screenshot="$PWD/tarif-plan.png" \
+  "file://$PWD/tarif-plan.html"
+```
