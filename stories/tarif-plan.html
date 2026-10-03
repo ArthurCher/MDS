@@ -12,7 +12,7 @@
       --accent: #D9FF50;
       --ink: #111111;
       --line: rgba(255, 255, 255, 0.94);
-      --card: rgba(0, 0, 0, 0.42);
+      --card: rgba(0, 0, 0, 0.38);
       /* Red-guide zones scaled from annotation 462×795 → 1080×1920 */
       --box1-top: 374px;
       --box1-h: 254px;
@@ -47,31 +47,35 @@
     .story-bg {
       position: absolute;
       left: 50%;
-      top: 60px;
-      width: 1180px;
-      height: auto;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+      object-fit: cover;
       transform: translateX(-50%);
       z-index: 0;
-      filter: brightness(0.72) contrast(1.12) saturate(0.85);
+      /* Lifted studio plate — figure readable, still moody */
+      filter: brightness(1.05) contrast(1.04) saturate(0.94);
     }
 
     .story-dim {
       position: absolute;
       inset: 0;
       z-index: 1;
+      /* Soft top/bottom shade for type; open mid for Arthur */
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.78) 0%,
-          rgba(0, 0, 0, 0.58) 26%,
-          rgba(0, 0, 0, 0.52) 52%,
-          rgba(0, 0, 0, 0.68) 76%,
-          rgba(0, 0, 0, 0.88) 100%
+          rgba(0, 0, 0, 0.48) 0%,
+          rgba(0, 0, 0, 0.14) 16%,
+          rgba(0, 0, 0, 0.04) 36%,
+          rgba(0, 0, 0, 0.08) 58%,
+          rgba(0, 0, 0, 0.32) 82%,
+          rgba(0, 0, 0, 0.68) 100%
         ),
         radial-gradient(
-          120% 70% at 50% 18%,
-          rgba(0, 0, 0, 0.15) 0%,
-          rgba(0, 0, 0, 0.55) 100%
+          80% 48% at 50% 38%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.14) 100%
         );
     }
 
@@ -348,7 +352,7 @@
 </head>
 <body>
   <div class="story">
-    <img class="story-bg" src="bg-artur-studio.jpg" alt="" />
+    <img class="story-bg" src="bg-artur-studio-lift.jpg" alt="" />
     <div class="story-dim"></div>
 
     <div class="top-row">
