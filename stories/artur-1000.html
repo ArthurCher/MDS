@@ -17,10 +17,22 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      width: 1080px;
-      height: 1920px;
+      width: 100%;
+      height: 100%;
+      margin: 0;
       overflow: hidden;
       background: #0a1218;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .stage {
+      width: 1080px;
+      height: 1920px;
+      transform-origin: center center;
     }
 
     .story {
@@ -30,6 +42,17 @@
       overflow: hidden;
       color: var(--text);
       font-family: "Montserrat", sans-serif;
+    }
+
+    /* Exact canvas for headless export */
+    body.static {
+      width: 1080px;
+      height: 1920px;
+      display: block;
+    }
+
+    body.static .stage {
+      transform: none !important;
     }
 
     .story-bg {
@@ -240,29 +263,43 @@
 </head>
 <body>
   <script>
-    if (new URLSearchParams(location.search).has("static")) {
+    const params = new URLSearchParams(location.search);
+    if (params.has("static")) {
       document.body.classList.add("static");
     }
+
+    function fitStage() {
+      if (document.body.classList.contains("static")) return;
+      const stage = document.querySelector(".stage");
+      if (!stage) return;
+      const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+      stage.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener("resize", fitStage);
+    document.addEventListener("DOMContentLoaded", fitStage);
   </script>
-  <div class="story">
-    <img class="story-bg" src="assets/artur-volcano.jpg" alt="" />
-    <div class="story-dim"></div>
+  <div class="stage">
+    <div class="story">
+      <img class="story-bg" src="assets/artur-volcano.jpg" alt="" />
+      <div class="story-dim"></div>
 
-    <div class="content">
-      <div class="top">
-        <h1 class="brand">Артур</h1>
-        <div class="brand-rule" aria-hidden="true"></div>
-        <div class="milestone">
-          <div class="count">1 000</div>
-          <div class="label">подписчиков</div>
+      <div class="content">
+        <div class="top">
+          <h1 class="brand">Артур</h1>
+          <div class="brand-rule" aria-hidden="true"></div>
+          <div class="milestone">
+            <div class="count">1 000</div>
+            <div class="label">подписчиков</div>
+          </div>
         </div>
-      </div>
 
-      <div class="bottom">
-        <p class="thanks">Спасибо, что вы со мной</p>
-        <div class="cta">
-          Напиши в директ
-          <span class="arrow">→</span>
+        <div class="bottom">
+          <p class="thanks">Спасибо, что вы со мной</p>
+          <div class="cta">
+            Напиши в директ
+            <span class="arrow">→</span>
+          </div>
         </div>
       </div>
     </div>
