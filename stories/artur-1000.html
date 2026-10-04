@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <title>Артур — 1000 подписчиков</title>
+  <link rel="stylesheet" href="fonts/fonts-ref.css" />
+  <style>
+    :root {
+      --text: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.86);
+      --accent: #D9FF50;
+      --ink: #111111;
+      --glow: rgba(217, 255, 80, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #0a1218;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .stage {
+      width: 1080px;
+      height: 1920px;
+      transform-origin: center center;
+    }
+
+    .story {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: var(--text);
+      font-family: "Montserrat", sans-serif;
+    }
+
+    /* Exact canvas for headless export */
+    body.static {
+      width: 1080px;
+      height: 1920px;
+      display: block;
+    }
+
+    body.static .stage {
+      transform: none !important;
+    }
+
+    .story-bg {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      object-fit: cover;
+      object-position: 50% 42%;
+      z-index: 0;
+      transform: scale(1.04);
+      animation: bg-drift 12s ease-in-out infinite alternate;
+      filter: brightness(0.92) contrast(1.12) saturate(1.05);
+    }
+
+    .story-dim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(6, 14, 22, 0.62) 0%,
+          rgba(6, 14, 22, 0.28) 22%,
+          rgba(6, 14, 22, 0.08) 42%,
+          rgba(6, 14, 22, 0.10) 58%,
+          rgba(6, 14, 22, 0.42) 78%,
+          rgba(6, 14, 22, 0.82) 100%
+        ),
+        radial-gradient(
+          70% 38% at 50% 12%,
+          rgba(6, 14, 22, 0.42) 0%,
+          transparent 72%
+        );
+    }
+
+    .content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 92px 64px 88px;
+    }
+
+    .top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .brand {
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-weight: 400;
+      font-size: 132px;
+      line-height: 0.9;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand-rule {
+      width: 84px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 24px var(--glow);
+      animation: pulse-line 2.8s ease-in-out infinite;
+    }
+
+    .milestone {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: rise-in 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    }
+
+    .count {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 176px;
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      text-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.18),
+        0 10px 40px rgba(0, 0, 0, 0.35),
+        0 0 48px var(--glow);
+      animation: count-glow 3.2s ease-in-out infinite;
+    }
+
+    .label {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.45);
+      padding-left: 0.28em;
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 28px;
+      animation: rise-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+    }
+
+    .thanks {
+      max-width: 860px;
+      font-family: "Oranienbaum", "Playfair Display", serif;
+      font-size: 52px;
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--accent);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 20px 30px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .cta .arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bg-drift {
+      from { transform: scale(1.04) translateY(0); }
+      to { transform: scale(1.08) translateY(-10px); }
+    }
+
+    @keyframes pulse-line {
+      0%, 100% { opacity: 0.85; transform: scaleX(1); }
+      50% { opacity: 1; transform: scaleX(1.18); }
+    }
+
+    @keyframes count-glow {
+      0%, 100% {
+        text-shadow:
+          0 2px 0 rgba(0, 0, 0, 0.18),
+          0 10px 40px rgba(0, 0, 0, 0.35),
+          0 0 36px rgba(217, 255, 80, 0.28);
+      }
+      50% {
+        text-shadow:
+          0 2px 0 rgba(0, 0, 0, 0.18),
+          0 10px 40px rgba(0, 0, 0, 0.35),
+          0 0 64px rgba(217, 255, 80, 0.55);
+      }
+    }
+
+    /* Static export: disable motion when ?static=1 */
+    body.static .story-bg,
+    body.static .brand-rule,
+    body.static .count,
+    body.static .top,
+    body.static .milestone,
+    body.static .bottom {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    body.static .story-bg {
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(location.search);
+    if (params.has("static")) {
+      document.body.classList.add("static");
+    }
+
+    function fitStage() {
+      if (document.body.classList.contains("static")) return;
+      const stage = document.querySelector(".stage");
+      if (!stage) return;
+      const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+      stage.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener("resize", fitStage);
+    document.addEventListener("DOMContentLoaded", fitStage);
+  </script>
+  <div class="stage">
+    <div class="story">
+      <img class="story-bg" src="assets/artur-volcano.jpg" alt="" />
+      <div class="story-dim"></div>
+
+      <div class="content">
+        <div class="top">
+          <h1 class="brand">Артур</h1>
+          <div class="brand-rule" aria-hidden="true"></div>
+          <div class="milestone">
+            <div class="count">1 000</div>
+            <div class="label">подписчиков</div>
+          </div>
+        </div>
+
+        <div class="bottom">
+          <p class="thanks">Спасибо, что вы со мной</p>
+          <div class="cta">
+            Напиши в директ
+            <span class="arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
