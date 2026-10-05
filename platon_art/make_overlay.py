@@ -20,8 +20,15 @@ MASK_CACHE = ROOT / "silhouette_mask.png"
 PTS_CACHE = ROOT / "landmarks.json"
 SHIRT_CACHE = ROOT / "shirt_mask.png"
 
-PINK = (255, 32, 168)  # RGB neon magenta
+LIME = (180, 255, 40)  # RGB neon lime
+ACCENT = LIME
 TEXT = "THE BEST LOOKS ARE THE ONES YOU FEEL AMAZING"
+BG_WORD = "Platon"
+BG_COLOR = (236, 236, 234)  # light off-white like the reference
+BG_TEXT_COLOR = (28, 28, 28)
+# Previous stroke widths were 30 / 12 — doubled per request
+OUTLINE_WIDTH = 60
+OUTLINE_WIDTH_INNER = 24
 FONT_CANDIDATES = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -465,41 +472,89 @@ def inflate_path(pts: np.ndarray, px: float) -> np.ndarray:
     return pts + outward_normals(pts) * px
 
 
+def make_platon_text_background(w: int, h: int, mask: np.ndarray) -> Image.Image:
+    """Dense outlined 'Platon' fill behind the subject, like the reference."""
+    del mask  # subject is composited on top; fill the full canvas
+    bg = Image.new("RGB", (w, h), BG_COLOR)
+    draw = ImageDraw.Draw(bg)
+
+    base_size = max(48, int(w * 0.042))
+    word = BG_WORD
+    stroke = max(2, base_size // 16)
+    rng = random.Random(19)
+
+    # Measure nominal glyph box
+    probe = load_font(base_size)
+    bb0 = probe.getbbox(word)
+    gap_x = int((bb0[2] - bb0[0]) * 0.10)
+    gap_y = int((bb0[3] - bb0[1]) * 0.14)
+
+    y = -int((bb0[3] - bb0[1]) * 0.25)
+    row = 0
+    while y < h + base_size:
+        size = int(base_size * rng.uniform(0.94, 1.06))
+        row_font = load_font(size)
+        bb = row_font.getbbox(word)
+        ww = max(bb[2] - bb[0], 1)
+        wh = max(bb[3] - bb[1], 1)
+        x = -int(ww * (0.4 if row % 2 else 0.05))
+        while x < w + ww:
+            # Hollow outlined letters: fill = background, dark stroke
+            draw.text(
+                (x + rng.uniform(-1.2, 1.2), y + rng.uniform(-0.8, 0.8)),
+                word,
+                font=row_font,
+                fill=BG_COLOR,
+                stroke_width=stroke,
+                stroke_fill=BG_TEXT_COLOR,
+            )
+            x += ww + gap_x
+        y += wh + gap_y
+        row += 1
+
+    return bg.convert("RGBA")
+
+
+def cutout_subject(rgb: np.ndarray, mask: np.ndarray) -> Image.Image:
+    """Subject pixels only; photo itself is not recolored."""
+    # Slight feather so the cutout sits cleanly on the text background
+    blur = cv2.GaussianBlur(mask, (5, 5), 0)
+    rgba = np.dstack([rgb, blur])
+    return Image.fromarray(rgba, mode="RGBA")
+
+
 def build_overlay(bgr: np.ndarray, mask: np.ndarray, pts: dict) -> Image.Image:
     h, w = bgr.shape[:2]
     overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(overlay)
 
     contour = largest_contour(mask)
     path = resample_contour(contour, n=1800)
-    # Slight outward offset so stroke sits outside the body (sticker halo)
-    path = inflate_path(path, 10)
+    # Outward offset for sticker halo — a bit more room for the thicker stroke
+    path = inflate_path(path, 18)
 
     random.seed(12)
-    skip = draw_text_integrated(overlay, path, TEXT, PINK, font_size=62)
+    skip = draw_text_integrated(overlay, path, TEXT, ACCENT, font_size=62)
 
-    # Marker silhouette — thick under text gaps; thinner where letters sit
     draw = ImageDraw.Draw(overlay)
-    draw_thick_path(draw, path, PINK, width=30, skip=skip)
-    # Second slightly jittered pass for marker texture (full loop, thinner)
+    draw_thick_path(draw, path, ACCENT, width=OUTLINE_WIDTH, skip=skip)
     rng = np.random.default_rng(5)
-    jitter = path + rng.normal(0, 1.8, path.shape)
-    draw_thick_path(draw, jitter, PINK, width=12, skip=skip)
+    jitter = path + rng.normal(0, 2.2, path.shape)
+    draw_thick_path(draw, jitter, ACCENT, width=OUTLINE_WIDTH_INNER, skip=skip)
 
     random.seed(21)
     le = (pts["left_eye"][0], pts["left_eye"][1])
     re = (pts["right_eye"][0], pts["right_eye"][1])
     draw = ImageDraw.Draw(overlay)
-    draw_eye_lashes(draw, le, PINK, scale=1.25)
-    draw_eye_bursts(draw, re, PINK)
+    draw_eye_lashes(draw, le, ACCENT, scale=1.25)
+    draw_eye_bursts(draw, re, ACCENT)
 
-    draw_paisley(draw, tuple(pts["left_ear"]), PINK, scale=1.35, flip=False)
-    draw_paisley(draw, tuple(pts["right_ear"]), PINK, scale=0.95, flip=True)
+    draw_paisley(draw, tuple(pts["left_ear"]), ACCENT, scale=1.35, flip=False)
+    draw_paisley(draw, tuple(pts["right_ear"]), ACCENT, scale=0.95, flip=True)
 
     shirt = cv2.imread(str(SHIRT_CACHE), 0)
     if shirt is None:
         shirt = np.zeros(mask.shape, np.uint8)
-    fill_stars(draw, shirt, PINK)
+    fill_stars(draw, shirt, ACCENT)
 
     return overlay
 
@@ -513,21 +568,30 @@ def main() -> None:
     mask = segment_subject(bgr)
     pts = detect_landmarks(bgr, mask)
 
+    h, w = mask.shape
+    background = make_platon_text_background(w, h, mask)
+    subject = cutout_subject(original_rgb, mask)
     overlay = build_overlay(bgr, mask, pts)
-    base = Image.fromarray(original_rgb).convert("RGBA")
-    composed = Image.alpha_composite(base, overlay).convert("RGB")
+
+    # Background → original Platon cutout → lime graphics
+    composed = Image.alpha_composite(background, subject)
+    composed = Image.alpha_composite(composed, overlay).convert("RGB")
 
     composed.save(OUT, quality=95)
     preview = composed.copy()
     preview.thumbnail((900, 1400))
     preview.save(OUT_PREVIEW, quality=90)
     overlay.save(ROOT / "overlay_only.png")
+    background.convert("RGB").save(ROOT / "background_platon.jpg", quality=90)
 
-    # Verify photo pixels under opaque overlay regions still match outside pink
-    # (spot-check: background corner unchanged)
-    orig = np.array(Image.fromarray(original_rgb))
-    out = np.array(composed)
-    assert np.array_equal(orig[10, 10], out[10, 10]), "Background corner was altered"
+    # Subject interior (away from edges) must match the original photo
+    ys, xs = np.where(cv2.erode(mask, np.ones((41, 41), np.uint8)) > 0)
+    if len(xs):
+        i = len(xs) // 2
+        y, x = int(ys[i]), int(xs[i])
+        assert np.array_equal(original_rgb[y, x], np.array(composed)[y, x]), (
+            "Subject pixels were altered"
+        )
     print(f"Wrote {OUT}")
     print(f"Wrote {OUT_PREVIEW}")
     print("Landmarks:", json.dumps(pts))
@@ -535,3 +599,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

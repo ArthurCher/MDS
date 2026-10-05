@@ -1,8 +1,8 @@
 # Platon — neon silhouette overlay
 
-Graphics-only treatment in the style of the provided reference: neon-magenta hand-drawn outline, text-on-path, eye accents, paisley ear motifs, and star fill on the shirt.
+Graphics treatment: neon-lime hand-drawn outline (2× thick), text-on-path, eye accents, paisley ear motifs, star fill on the shirt, and a reference-style background filled with outlined **Platon** lettering.
 
-The original photograph is not color-graded or otherwise edited — pink graphics are alpha-composited on top.
+The photograph of Platon is not recolored — he is cut out and composited over the text background; lime graphics sit on top.
 
 ## Generate
 
@@ -15,3 +15,4 @@ Outputs:
 - `platon_neon_overlay.jpg` — final composite
 - `platon_neon_overlay_preview.jpg` — smaller preview
 - `overlay_only.png` — transparent graphic layer
+- `background_platon.jpg` — text background alone
