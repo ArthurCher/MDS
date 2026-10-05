@@ -243,18 +243,52 @@ def build_wavy_paths(mask: np.ndarray, pts: dict) -> tuple[list[np.ndarray], lis
 def draw_eye_starburst(
     draw: ImageDraw.ImageDraw, eye: tuple[int, int], scale: float = 1.0
 ) -> None:
+    """Reference-style pink star + rays beside the eye — eyeball stays fully visible."""
     ex, ey = eye
-    r = 95 * scale
-    draw_filled_star(draw, ex, ey, r, HOT_PINK, outline=BLACK, points=11, width=5)
-    # Radiating black lashes / spikes
-    for i in range(14):
-        a = -math.pi / 2 - 0.9 + i * 1.8 / 13 + random.uniform(-0.04, 0.04)
-        L = r * random.uniform(1.35, 1.85)
-        x1 = ex + math.cos(a) * r * 0.85
-        y1 = ey + math.sin(a) * r * 0.85
-        x2 = ex + math.cos(a) * L
-        y2 = ey + math.sin(a) * L
-        draw.line([(x1, y1), (x2, y2)], fill=BLACK + (255,), width=int(7 * scale))
+    # Park the star clearly above the brow / on the beanie edge, left of the eye
+    star_cx = ex - 120 * scale
+    star_cy = ey - 200 * scale
+    r = 78 * scale
+    draw_filled_star(
+        draw, star_cx, star_cy, r, HOT_PINK, outline=BLACK, points=11, width=5
+    )
+    # Rays only around the star itself (not across the eyeball)
+    for i in range(12):
+        a = i * (2 * math.pi / 12) + random.uniform(-0.04, 0.04)
+        # Bias rays upward/outward — skip angles that point down toward the eye
+        # Down toward eye is roughly southeast from this star position
+        if math.pi * 0.05 < a < math.pi * 0.65:
+            continue
+        L = r * random.uniform(1.2, 1.55)
+        draw.line(
+            [
+                (star_cx + math.cos(a) * r * 0.78, star_cy + math.sin(a) * r * 0.78),
+                (star_cx + math.cos(a) * L, star_cy + math.sin(a) * L),
+            ],
+            fill=BLACK + (255,),
+            width=max(4, int(5 * scale)),
+        )
+    # Lash strokes only above the eye, starting from the brow line
+    brow_y = ey - 55 * scale
+    for i in range(8):
+        t = i / 7
+        x1 = ex - 55 * scale + t * 110 * scale
+        y1 = brow_y
+        a = -math.pi / 2 - 0.35 + t * 0.7
+        L = 70 * scale * random.uniform(0.8, 1.15)
+        x2 = x1 + math.cos(a) * L
+        y2 = y1 + math.sin(a) * L
+        draw.line([(x1, y1), (x2, y2)], fill=BLACK + (255,), width=max(4, int(5 * scale)))
+
+
+def clear_eye_windows(layer: Image.Image, pts: dict, radius: int = 110) -> Image.Image:
+    """Punch transparent ellipses so both eyes (and lids) stay fully visible."""
+    arr = np.array(layer)
+    for key in ("left_eye", "right_eye"):
+        cx, cy = int(pts[key][0]), int(pts[key][1])
+        # Wide ellipse covering iris + lids
+        cv2.ellipse(arr, (cx, cy), (radius, int(radius * 0.72)), 0, 0, 360, (0, 0, 0, 0), -1)
+    return Image.fromarray(arr)
 
 
 def draw_lip_highlights(
@@ -433,16 +467,20 @@ def build_layers(
     # Colorful corner starbursts
     draw_corner_starbursts(draw_f, w, h, pts)
 
-    # Eye starburst on viewer's-left eye (subject's right) like reference
-    draw_eye_starburst(draw_f, tuple(pts["left_eye"]), scale=1.35)
-    # Small accent star near other eye
+    # Eye graphic like the reference, but eyes stay open (star + rays around, not over pupil)
+    draw_eye_starburst(draw_f, tuple(pts["left_eye"]), scale=1.25)
+    # Small accent near the other eye (offset, not covering)
     re = pts["right_eye"]
-    draw_asterisk(draw_f, re[0] + 70, re[1] - 60, 22, BLACK, width=4)
-    draw_five_star(draw_f, re[0] + 70, re[1] - 60, 10, WHITE, fill=True)
+    draw_asterisk(draw_f, re[0] + 90, re[1] - 85, 24, BLACK, width=4)
+    draw_five_star(draw_f, re[0] + 90, re[1] - 85, 11, WHITE, fill=True)
 
     draw_lip_highlights(draw_f, pts["mouth"])
     draw_clothing_stars(draw_f, mask, pts)
     draw_galaxy_blob(front, w, h, corner="br")
+
+    # Ensure no stroke/star accidentally covers the eyeballs
+    front = clear_eye_windows(front, pts, radius=120)
+    behind = clear_eye_windows(behind, pts, radius=120)
 
     return behind, front
 
