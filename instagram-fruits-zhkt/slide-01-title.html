@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Inter+Tight:wght@800;900&family=Playfair+Display:ital,wght@1,700;1,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -19,7 +19,7 @@
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      font-family: "Golos Text", Arial, sans-serif;
+      font-family: "Manrope", Arial, sans-serif;
       color: #ffffff;
       background: #8a694d;
     }
@@ -50,48 +50,68 @@
       filter: brightness(.86);
     }
 
-    .headline {
+    .title {
       position: absolute;
       z-index: 5;
-      top: 296px;
+      top: 72px;
       left: 58px;
       right: 40px;
-      font-family: "Inter Tight", sans-serif;
-      font-size: 74px;
-      font-weight: 900;
-      line-height: .98;
-      letter-spacing: -.03em;
-      white-space: nowrap;
-      text-transform: uppercase;
-      text-shadow: 0 2px 22px rgba(40, 10, 5, .55);
     }
-    .headline span { display: inline-block; }
-    .headline .accent { color: #eaff72; padding: 0 4px; margin-left: 14px; }
-    .headline .serif {
+    .headline {
+      font-family: "Manrope", sans-serif;
+      font-size: 84px;
+      font-weight: 800;
+      line-height: .95;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .headline .accent { color: #eaff72; }
+
+    .subhead {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 2px 18px 8px 14px;
+      background: #eaff72;
+      color: #2a0f08;
       font-family: "Playfair Display", serif;
       font-style: italic;
-      font-weight: 800;
+      font-weight: 600;
       font-size: 76px;
+      line-height: 1;
       letter-spacing: -.01em;
+      text-transform: uppercase;
+      transform: rotate(-1.5deg);
+      transform-origin: left center;
     }
 
-    .sub {
-      position: absolute;
-      z-index: 5;
-      top: 238px;
-      left: 58px;
-      font-size: 30px;
-      line-height: 1.27;
-      font-weight: 400;
+    .lead {
+      margin-top: 26px;
+      font-size: 32px;
+      line-height: 1.25;
+      font-weight: 500;
+      text-shadow: 0 1px 14px rgba(40, 10, 5, .6);
     }
-    .sub b { font-weight: 600; color: #eaff72; }
+    .lead b { font-weight: 800; color: #eaff72; }
 
-    .marks {
+    .chip {
       position: absolute;
-      inset: 0;
-      z-index: 6;
-      pointer-events: none;
-      overflow: visible;
+      z-index: 4;
+      transform: translate(-50%, -50%);
+      padding: 9px 16px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #2a0f08;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .chip b {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-right: 6px;
     }
   </style>
 </head>
@@ -100,55 +120,41 @@
     <div class="background"></div>
     <div class="plate"><img src="./cover-fruits-plate.jpg" alt=""></div>
 
-    <h1 class="headline">
-      Как усвоить <span class="accent serif" id="accent">двойную</span><br>
-      порцию белка<br>
-      <span class="serif">без вреда <span id="underline">для ЖКТ</span></span>
-    </h1>
-
-    <p class="sub"><b>5 фруктов</b> с ферментами, которые помогают пищеварению</p>
-
-    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="title">
+      <h1 class="headline">
+        Как усвоить <span class="accent">двойную</span><br>
+        порцию белка
+      </h1>
+      <div class="subhead">без вреда для ЖКТ</div>
+      <p class="lead"><b>5 фруктов</b> с ферментами, которые<br>помогают пищеварению</p>
+    </div>
   </div>
 
   <script>
-    const NS = "http://www.w3.org/2000/svg";
-    const marks = document.getElementById("marks");
+    // Sector centres in the 768×1024 preview of cover-fruits-plate.jpg,
+    // mapped onto the .plate circle (1040px, object-fit: cover, 48%).
+    const K = 1040 / 768;
+    const OFFSET_Y = 330 - (1024 * K - 1040) * 0.48;
+    const toSlide = (x, y) => [20 + x * K, OFFSET_Y + y * K];
+
+    const chips = [
+      { at: [235, 395], name: "Киви",   enzyme: "актинидин" },
+      { at: [545, 395], name: "Ананас", enzyme: "бромелайн" },
+      { at: [600, 610], name: "Манго",  enzyme: "амилазы" },
+      { at: [420, 740], name: "Дыня",   enzyme: "ферменты" },
+      { at: [150, 600], name: "Папайя", enzyme: "папаин" },
+    ];
+
     const slide = document.querySelector(".slide");
-
-    const box = (node) => {
-      const s = slide.getBoundingClientRect();
-      const r = node.getBoundingClientRect();
-      return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height };
-    };
-    const path = (d, attrs) => {
-      const p = document.createElementNS(NS, "path");
-      p.setAttribute("d", d);
-      p.setAttribute("fill", "none");
-      p.setAttribute("stroke-linecap", "round");
-      p.setAttribute("stroke-linejoin", "round");
-      for (const [k, v] of Object.entries(attrs)) p.setAttribute(k, v);
-      marks.appendChild(p);
-    };
-
-    document.fonts.ready.then(() => {
-      // Hand-drawn oval around the accent word.
-      const a = box(document.getElementById("accent"));
-      const cx = a.x + a.w / 2, cy = a.y + a.h / 2 + 2;
-      const rx = a.w / 2 + 22, ry = a.h / 2 + 10;
-      path([
-        `M ${cx - rx * 0.15} ${cy - ry * 1.02}`,
-        `C ${cx + rx * 0.9} ${cy - ry * 1.12}, ${cx + rx * 1.08} ${cy + ry * 0.2}, ${cx + rx * 0.62} ${cy + ry * 0.86}`,
-        `C ${cx + rx * 0.1} ${cy + ry * 1.22}, ${cx - rx * 1.02} ${cy + ry * 1.0}, ${cx - rx * 1.02} ${cy + ry * 0.05}`,
-        `C ${cx - rx * 1.0} ${cy - ry * 0.8}, ${cx - rx * 0.2} ${cy - ry * 1.15}, ${cx + rx * 0.35} ${cy - ry * 0.96}`,
-      ].join(" "), { stroke: "#ffffff", "stroke-width": 3.5 });
-
-      // Lime brush underline.
-      const u = box(document.getElementById("underline"));
-      const y = u.y + u.h - 2;
-      path(`M ${u.x + 2} ${y + 4} C ${u.x + u.w * 0.3} ${y - 2}, ${u.x + u.w * 0.7} ${y + 6}, ${u.x + u.w - 2} ${y}`,
-        { stroke: "#eaff72", "stroke-width": 9 });
-    });
+    for (const c of chips) {
+      const [x, y] = toSlide(...c.at);
+      const el = document.createElement("div");
+      el.className = "chip";
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      el.innerHTML = `<b>${c.name}</b>${c.enzyme}`;
+      slide.appendChild(el);
+    }
   </script>
 </body>
 </html>
