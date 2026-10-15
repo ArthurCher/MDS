@@ -50,26 +50,18 @@
       filter: brightness(.86);
     }
 
-    .marks {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: visible;
-    }
-
     .title {
       position: absolute;
       z-index: 5;
-      top: 44px;
-      left: 0;
-      right: 0;
+      top: 290px;
+      left: 40px;
+      right: 40px;
       text-align: center;
       text-shadow: 0 0 22px rgba(35, 8, 4, .7), 0 2px 6px rgba(35, 8, 4, .45);
     }
     .headline {
       font-family: "Manrope", sans-serif;
-      font-size: 84px;
+      font-size: 80px;
       font-weight: 800;
       line-height: .95;
       letter-spacing: -.045em;
@@ -83,7 +75,7 @@
       font-family: "Playfair Display", serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 84px;
+      font-size: 82px;
       line-height: 1;
       letter-spacing: -.01em;
       text-transform: uppercase;
@@ -103,7 +95,6 @@
   <div class="slide">
     <div class="background"></div>
     <div class="plate"><img src="./cover-fruits-plate.jpg" alt=""></div>
-    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
 
     <div class="title">
       <h1 class="headline">
@@ -114,43 +105,5 @@
       <p class="lead"><b>5 фруктов</b> с ферментами, которые<br>помогают пищеварению</p>
     </div>
   </div>
-
-  <script>
-    // Points in the 768×1024 preview of cover-fruits-plate.jpg, mapped onto
-    // the .plate circle (1040px, object-fit: cover, position 48%).
-    const K = 1040 / 768;
-    const OFFSET_Y = 170 - (1024 * K - 1040) * 0.48;
-    const toSlide = ([x, y]) => [20 + x * K, OFFSET_Y + y * K];
-
-    const centre = toSlide([395, 512]);
-    const borders = [
-      [395, 318],  // kiwi | pineapple, stops below the headline
-      [745, 440],  // pineapple | mango
-      [640, 850],  // mango | melon
-      [180, 790],  // melon | papaya
-      [45, 405],   // papaya | kiwi
-    ].map(toSlide);
-
-    const NS = "http://www.w3.org/2000/svg";
-    const marks = document.getElementById("marks");
-    const add = (tag, attrs) => {
-      const n = document.createElementNS(NS, tag);
-      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
-      marks.appendChild(n);
-    };
-
-    const [cx, cy] = centre;
-    for (const [x, y] of borders) {
-      const a = Math.atan2(y - cy, x - cx);
-      const r0 = 26;
-      add("line", {
-        x1: cx + r0 * Math.cos(a), y1: cy + r0 * Math.sin(a), x2: x, y2: y,
-        stroke: "#ffffff", "stroke-width": 4, "stroke-linecap": "round",
-        "stroke-dasharray": "2 14",
-      });
-      add("circle", { cx: x, cy: y, r: 6, fill: "#ffffff" });
-    }
-    add("circle", { cx, cy, r: 14, fill: "none", stroke: "#ffffff", "stroke-width": 4 });
-  </script>
 </body>
 </html>
