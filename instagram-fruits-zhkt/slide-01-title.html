@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      background: #0f1710;
+    }
+    .slide {
+      position: relative;
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      font-family: "Manrope", sans-serif;
+      color: #f5f8f0;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      background:
+        url("./title-fruits-bg.jpg") center 18% / cover no-repeat;
+      transform: scale(1.04);
+    }
+    .veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(10, 16, 10, 0.18) 0%,
+          rgba(10, 16, 10, 0.22) 38%,
+          rgba(10, 16, 10, 0.72) 62%,
+          rgba(8, 12, 8, 0.94) 100%);
+    }
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 72px 68px 78px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #d6ef7a;
+      margin-bottom: 28px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 3px;
+      background: #d6ef7a;
+      border-radius: 2px;
+    }
+    h1 {
+      font-family: "Unbounded", sans-serif;
+      font-weight: 800;
+      font-size: 86px;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      max-width: 920px;
+      margin-bottom: 28px;
+      text-wrap: balance;
+    }
+    .sub {
+      font-size: 34px;
+      line-height: 1.35;
+      font-weight: 600;
+      color: rgba(245, 248, 240, 0.88);
+      max-width: 820px;
+      margin-bottom: 48px;
+    }
+    .fruits {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: rgba(245, 248, 240, 0.92);
+    }
+    .fruits span {
+      color: #d6ef7a;
+      margin: 0 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="bg"></div>
+    <div class="veil"></div>
+    <div class="grain"></div>
+    <div class="content">
+      <div class="eyebrow">серия про ЖКТ</div>
+      <h1>Фрукты для ЖКТ</h1>
+      <p class="sub">Польза, ферменты и&nbsp;суточные нормы&nbsp;— как добавлять фрукты к&nbsp;еде, чтобы легче переваривался белок и&nbsp;углеводы</p>
+      <p class="fruits">Киви <span>·</span> Папайя <span>·</span> Ананас <span>·</span> Дыня <span>·</span> Манго</p>
+    </div>
+  </div>
+</body>
+</html>
