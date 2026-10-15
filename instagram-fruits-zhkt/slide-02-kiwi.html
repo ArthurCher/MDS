@@ -12,7 +12,7 @@
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      background: #1a2a14;
+      background: #1a1814;
     }
     .slide {
       position: relative;
@@ -25,27 +25,29 @@
     .bg {
       position: absolute;
       inset: 0;
-      background: url("./kiwi-center-hero.jpg") center 40% / cover no-repeat;
+      /* твоё фото порции с киви */
+      background: url("./refs/e0f8292b-9c6f-478b-8554-a095eac253b2.jpg") center 42% / cover no-repeat;
+      transform: scale(1.02);
     }
     .dim {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 48% 38% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0.4) 100%),
-        linear-gradient(180deg, rgba(6,10,4,0.45) 0%, rgba(6,10,4,0.05) 22%, rgba(6,10,4,0.05) 70%, rgba(6,10,4,0.4) 100%);
+        linear-gradient(180deg, rgba(10,8,6,0.55) 0%, rgba(10,8,6,0.12) 24%, rgba(10,8,6,0.08) 58%, rgba(10,8,6,0.55) 100%),
+        radial-gradient(ellipse 42% 34% at 48% 52%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 100%);
     }
     .headline {
       position: absolute;
-      top: 64px;
-      left: 70px;
-      right: 70px;
+      top: 58px;
+      left: 56px;
+      right: 56px;
       z-index: 5;
       text-align: center;
       font-size: 44px;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.18;
       letter-spacing: -0.02em;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 18px rgba(0,0,0,0.65);
     }
     .arrows {
       position: absolute;
@@ -59,12 +61,13 @@
       font-size: 27px;
       font-weight: 700;
       line-height: 1.28;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+      text-shadow: 0 2px 14px rgba(0,0,0,0.7);
     }
-    .c1 { top: 270px; left: 48px; width: 290px; text-align: left; }
-    .c2 { top: 270px; right: 48px; width: 290px; text-align: right; }
-    .c3 { bottom: 120px; left: 48px; width: 300px; text-align: left; }
-    .c4 { bottom: 120px; right: 48px; width: 310px; text-align: right; }
+    /* стрелки целимся в киви примерно в центре тарелки */
+    .c1 { top: 250px; left: 40px; width: 300px; text-align: left; }
+    .c2 { top: 250px; right: 40px; width: 300px; text-align: right; }
+    .c3 { bottom: 110px; left: 40px; width: 310px; text-align: left; }
+    .c4 { bottom: 110px; right: 40px; width: 320px; text-align: right; }
   </style>
 </head>
 <body>
@@ -81,24 +84,21 @@
         </marker>
       </defs>
 
-      <!-- top-left -->
-      <path d="M300 380 C 380 430, 440 500, 500 600"
-            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+      <!-- цель ~ центр киви на тарелке -->
+      <path d="M310 370 C 390 430, 450 520, 500 640"
+            fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round"
             marker-end="url(#arrow)"/>
 
-      <!-- top-right -->
-      <path d="M780 380 C 700 430, 640 500, 580 600"
-            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+      <path d="M770 370 C 690 430, 630 520, 580 640"
+            fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round"
             marker-end="url(#arrow)"/>
 
-      <!-- bottom-left -->
-      <path d="M300 1080 C 380 1020, 450 930, 510 820"
-            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+      <path d="M310 1120 C 390 1040, 460 940, 510 800"
+            fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round"
             marker-end="url(#arrow)"/>
 
-      <!-- bottom-right -->
-      <path d="M780 1080 C 700 1020, 630 930, 570 820"
-            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+      <path d="M770 1120 C 690 1040, 620 940, 570 800"
+            fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round"
             marker-end="url(#arrow)"/>
     </svg>
 
