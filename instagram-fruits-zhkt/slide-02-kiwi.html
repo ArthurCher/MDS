@@ -5,94 +5,211 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      background: #0d1a0c;
+      background: #17100b;
     }
     .slide {
       position: relative;
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      font-family: "Montserrat", sans-serif;
+      font-family: "Manrope", sans-serif;
       color: #ffffff;
+      background: #17100b;
     }
-    .bg {
+    .background {
       position: absolute;
       inset: 0;
-      background: url("./kiwi-center-hero.jpg") center center / cover no-repeat;
+      background: url("./kiwi-plate-new.jpg") center / cover no-repeat;
+      filter: blur(18px) brightness(.28) saturate(.75);
+      transform: scale(1.12);
     }
-    /* лёгкое затемнение краёв, центр фрукта светлее — как в референсе */
-    .vignette {
+    .shade {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 52%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.45) 100%),
-        linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 78%, rgba(0,0,0,0.35) 100%);
+        linear-gradient(180deg, rgba(10,7,4,.82) 0%, rgba(10,7,4,.3) 20%, rgba(10,7,4,.12) 65%, rgba(10,7,4,.78) 100%);
     }
+    .plate {
+      position: absolute;
+      z-index: 1;
+      width: 972px;
+      height: 972px;
+      left: 54px;
+      top: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.28);
+    }
+    .plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 46%;
+      display: block;
+    }
+    .plate-dark {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(13,8,4,.54) 0%, rgba(13,8,4,.02) 33%, rgba(13,8,4,.02) 70%, rgba(13,8,4,.56) 100%),
+        radial-gradient(circle at 50% 52%, transparent 42%, rgba(12,8,5,.32) 100%);
+    }
+    .badge {
+      position: absolute;
+      z-index: 7;
+      top: 30px;
+      left: 38px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: rgba(15,25,15,.82);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      color: #dfff78;
+    }
+    .badge b { color: #fff; }
     .headline {
       position: absolute;
       top: 70px;
-      left: 60px;
-      right: 60px;
-      z-index: 5;
+      left: 42px;
+      right: 42px;
+      z-index: 6;
       text-align: center;
-      font-size: 42px;
+      font-size: 43px;
       font-weight: 800;
-      line-height: 1.22;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      text-shadow: 0 3px 18px rgba(0,0,0,.75);
+    }
+    .headline .script {
+      display: inline-block;
+      margin-left: 8px;
+      font-family: "Bad Script", cursive;
+      font-size: 58px;
+      font-weight: 400;
+      line-height: .8;
+      color: #dfff78;
+      transform: rotate(-3deg);
+    }
+    .headline small {
+      display: block;
+      margin-top: 10px;
+      font-size: 31px;
+      line-height: 1.15;
+      font-weight: 700;
     }
     .arrows {
       position: absolute;
       inset: 0;
-      z-index: 3;
+      z-index: 4;
       pointer-events: none;
     }
     .callout {
       position: absolute;
-      z-index: 4;
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.3;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      z-index: 5;
+      text-shadow: 0 3px 14px rgba(0,0,0,.9);
     }
-    /* позиции как в референсе: 4 угла вокруг фрукта */
-    .tl { top: 280px; left: 48px; width: 300px; text-align: left; }
-    .tr { top: 280px; right: 48px; width: 300px; text-align: right; }
-    .bl { bottom: 140px; left: 48px; width: 280px; text-align: left; }
-    .br { bottom: 140px; right: 48px; width: 310px; text-align: right; }
+    .callout h2 {
+      font-size: 25px;
+      line-height: 1.08;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .callout p {
+      font-size: 21px;
+      line-height: 1.23;
+      font-weight: 600;
+    }
+    .how {
+      top: 280px;
+      left: 36px;
+      width: 300px;
+      text-align: left;
+    }
+    .norm {
+      top: 300px;
+      right: 36px;
+      width: 270px;
+      text-align: right;
+    }
+    .norm strong {
+      display: block;
+      color: #dfff78;
+      font-size: 34px;
+      line-height: 1.05;
+      margin-top: 4px;
+    }
+    .portion {
+      right: 38px;
+      bottom: 58px;
+      width: 415px;
+      text-align: right;
+    }
+    .portion h2 { color: #dfff78; }
+    .fruit-label {
+      position: absolute;
+      z-index: 5;
+      left: 70px;
+      bottom: 80px;
+      font-family: "Bad Script", cursive;
+      font-size: 44px;
+      line-height: 1;
+      color: #fff;
+      transform: rotate(-5deg);
+      text-shadow: 0 3px 16px rgba(0,0,0,.9);
+    }
   </style>
 </head>
 <body>
   <div class="slide">
-    <div class="bg"></div>
-    <div class="vignette"></div>
+    <div class="background"></div>
+    <div class="shade"></div>
+    <div class="plate">
+      <img src="./kiwi-plate-new.jpg" alt="Порция с киви" />
+      <div class="plate-dark"></div>
+    </div>
 
-    <h1 class="headline">Киви — не просто фрукт,<br>а фермент для белка</h1>
+    <div class="badge">фермент · <b>актинидин</b></div>
+    <h1 class="headline">
+      Киви — пример <span class="script">порции</span>
+      <small>к белковому приёму пищи</small>
+    </h1>
 
-    <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+    <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
           <path d="M0,0 L7,3 L0,6 Z" fill="#fff"/>
         </marker>
       </defs>
-      <!-- стрелки к центру киви (~540, 700) -->
-      <path d="M320 390 C 400 450, 460 540, 510 640" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M760 390 C 680 450, 620 540, 570 640" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M300 1080 C 380 1000, 450 900, 510 790" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M780 1080 C 700 1000, 630 900, 570 790" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M300 410 C 360 440, 385 500, 405 585" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M790 410 C 700 430, 600 500, 470 620" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M825 1110 C 750 1070, 620 1010, 455 880" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
     </svg>
 
-    <p class="callout tl">Фермент актинидин помогает расщеплять белок</p>
-    <p class="callout tr">Улучшает моторику кишечника и снимает тяжесть после еды</p>
-    <p class="callout bl">Норма: 1–2 штуки (~150 г) в день</p>
-    <p class="callout br">При тяжёлом белке или большой массе — до 2–3 шт с едой</p>
+    <section class="callout how">
+      <h2>Как работает<br>и какой эффект</h2>
+      <p>Помогает расщеплять белок и поддерживает моторику кишечника.</p>
+    </section>
+
+    <section class="callout norm">
+      <h2>Безопасная<br>суточная норма</h2>
+      <strong>1–2 шт.</strong>
+      <p>около 150 г</p>
+    </section>
+
+    <div class="fruit-label">лёгкость после еды</div>
+
+    <section class="callout portion">
+      <h2>От чего зависит порция</h2>
+      <p>От количества белка и массы тела. При плотном белковом приёме — до 2–3 шт.</p>
+    </section>
   </div>
 </body>
 </html>
