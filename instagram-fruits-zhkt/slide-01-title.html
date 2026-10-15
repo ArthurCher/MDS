@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Inter+Tight:wght@800;900&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -30,186 +30,125 @@
       filter: blur(16px) brightness(.72) saturate(.8);
       transform: scale(1.12);
     }
-    .art {
+    .plate {
       position: absolute;
-      inset: 0;
       z-index: 1;
+      width: 1040px;
+      height: 1040px;
+      left: 20px;
+      top: 330px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.28);
     }
+    .plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+      display: block;
+      filter: brightness(.86);
+    }
+
     .headline {
       position: absolute;
       z-index: 5;
-      top: 40px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-family: "Oswald", sans-serif;
-      font-size: 84px;
-      font-weight: 700;
-      line-height: 1.02;
-      letter-spacing: .01em;
+      top: 46px;
+      left: 58px;
+      right: 40px;
+      font-family: "Inter Tight", sans-serif;
+      font-size: 74px;
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.03em;
+      white-space: nowrap;
       text-transform: uppercase;
     }
-    .headline .accent {
-      display: inline-block;
-      color: #eaff72;
-      padding: 0 22px;
+    .headline span { display: inline-block; }
+    .headline .accent { color: #eaff72; padding: 0 6px; }
+
+    .sub {
+      position: absolute;
+      z-index: 5;
+      top: 296px;
+      left: 58px;
+      font-size: 30px;
+      line-height: 1.27;
+      font-weight: 400;
+    }
+    .sub b { font-weight: 600; color: #eaff72; }
+
+    .marks {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+      overflow: visible;
     }
   </style>
 </head>
 <body>
   <div class="slide">
     <div class="background"></div>
-    <svg class="art" id="art" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
+    <div class="plate"><img src="./cover-fruits-plate.jpg" alt=""></div>
 
     <h1 class="headline">
       Как усвоить <span class="accent" id="accent">двойную</span><br>
       порцию белка<br>
-      без вреда для ЖКТ
+      без вреда <span id="underline">для ЖКТ</span>
     </h1>
+
+    <p class="sub"><b>5 фруктов</b> с ферментами, которые<br>помогают пищеварению</p>
+
+    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
 
   <script>
     const NS = "http://www.w3.org/2000/svg";
-    const svg = document.getElementById("art");
+    const marks = document.getElementById("marks");
+    const slide = document.querySelector(".slide");
 
-    // Plate photo geometry (source images are 864×1152).
-    const IMG_W = 864, IMG_H = 1152;
-    // The plate is slightly wider than the photo, so the visible disc stops at
-    // VISIBLE_R to avoid showing the cropped edge.
-    const PLATE_CX = 438, PLATE_CY = 607, WELL_R = 310, VISIBLE_R = 420;
-
-    // Placement on the slide.
-    const CX = 540, CY = 880, CLIP_R = 470;
-    const s = CLIP_R / VISIBLE_R;
-    const R = WELL_R * s + 6;
-    const OUTER = CLIP_R;
-
-    // Fruit-only region (no vegetables) inside every *-red-plate-natural.jpg.
-    const PILE = { x: 50, y: 300, w: 270, h: 500 };
-
-    const fruits = [
-      { name: "Киви",   src: "./kiwi-red-plate-natural.jpg", pile: { x: 60, y: 380, w: 220, h: 400 } },
-      { name: "Папайя", src: "./papaya-red-plate-natural.jpg" },
-      { name: "Ананас", src: "./pineapple-red-plate-natural.jpg" },
-      { name: "Дыня",   src: "./melon-red-plate-natural.jpg" },
-      { name: "Манго",  src: "./mango-red-plate-natural.jpg" },
-    ];
-
-    const el = (tag, attrs, parent = svg) => {
-      const n = document.createElementNS(NS, tag);
-      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
-      parent.appendChild(n);
-      return n;
+    const box = (node) => {
+      const s = slide.getBoundingClientRect();
+      const r = node.getBoundingClientRect();
+      return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height };
     };
-    const pt = (a, r) => [CX + r * Math.cos(a), CY + r * Math.sin(a)];
+    const path = (d, attrs) => {
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke-linecap", "round");
+      p.setAttribute("stroke-linejoin", "round");
+      for (const [k, v] of Object.entries(attrs)) p.setAttribute(k, v);
+      marks.appendChild(p);
+    };
 
-    const defs = el("defs", {});
-    const plateClip = el("clipPath", { id: "plate-clip" }, defs);
-    el("circle", { cx: CX, cy: CY, r: CLIP_R }, plateClip);
-
-    // Empty plate.
-    const plateGroup = el("g", { "clip-path": "url(#plate-clip)" });
-    el("image", {
-      href: "./empty-red-plate.jpg",
-      x: CX - PLATE_CX * s,
-      y: CY - PLATE_CY * s,
-      width: IMG_W * s,
-      height: IMG_H * s,
-    }, plateGroup);
-
-    // Fruit sectors.
-    const n = fruits.length;
-    const start = -Math.PI / 2;
-    const step = (2 * Math.PI) / n;
-
-    fruits.forEach((f, i) => {
-      const a0 = start + i * step, a1 = a0 + step;
-      const [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R);
-      const d = `M ${CX} ${CY} L ${x0} ${y0} A ${R} ${R} 0 0 1 ${x1} ${y1} Z`;
-
-      const id = `sector-${i}`;
-      const cp = el("clipPath", { id }, defs);
-      el("path", { d }, cp);
-
-      const xs = [CX, x0, x1], ys = [CY, y0, y1];
-      for (let k = 0; k <= 16; k++) {
-        const [px, py] = pt(a0 + (step * k) / 16, R);
-        xs.push(px); ys.push(py);
-      }
-      const bx = Math.min(...xs), by = Math.min(...ys);
-      const bw = Math.max(...xs) - bx, bh = Math.max(...ys) - by;
-
-      const pile = f.pile || PILE;
-      const g = el("g", { "clip-path": `url(#${id})` });
-      const inner = el("svg", {
-        x: bx, y: by, width: bw, height: bh,
-        viewBox: `${pile.x} ${pile.y} ${pile.w} ${pile.h}`,
-        preserveAspectRatio: "xMidYMid slice",
-      }, g);
-      el("image", { href: f.src, x: 0, y: 0, width: IMG_W, height: IMG_H }, inner);
-
-      // Fruit name curved along the red rim; lower-half labels run the other
-      // way so they stay upright.
-      const mid = a0 + step / 2;
-      const lower = Math.sin(mid) > 0.2;
-      const lr = (R + OUTER) / 2 + (lower ? -12 : 12);
-      const span = step * 0.45;
-      const [sx, sy] = pt(lower ? mid + span : mid - span, lr);
-      const [ex, ey] = pt(lower ? mid - span : mid + span, lr);
-      const arcId = `label-arc-${i}`;
-      el("path", {
-        id: arcId,
-        d: `M ${sx} ${sy} A ${lr} ${lr} 0 0 ${lower ? 0 : 1} ${ex} ${ey}`,
-        fill: "none",
-      }, defs);
-      const t = el("text", {
-        fill: "#ffffff",
-        "font-family": "Oswald, sans-serif",
-        "font-weight": 700,
-        "font-size": 36,
-        "letter-spacing": "3",
-        "dominant-baseline": "middle",
-      });
-      const tp = el("textPath", { href: `#${arcId}`, startOffset: "50%", "text-anchor": "middle" }, t);
-      tp.textContent = f.name.toUpperCase();
-    });
-
-    // White dividers.
-    for (let i = 0; i < n; i++) {
-      const [x, y] = pt(start + i * step, R + 2);
-      el("line", {
-        x1: CX, y1: CY, x2: x, y2: y,
-        stroke: "#ffffff", "stroke-width": 16, "stroke-linecap": "round",
-      });
-    }
-    el("circle", { cx: CX, cy: CY, r: R, fill: "none", stroke: "#ffffff", "stroke-width": 10 });
-    el("circle", { cx: CX, cy: CY, r: 20, fill: "#ffffff" });
-    el("circle", { cx: CX, cy: CY, r: CLIP_R, fill: "none", stroke: "rgba(255,255,255,.28)", "stroke-width": 2 });
-
-    // Hand-drawn oval around the accent word.
     document.fonts.ready.then(() => {
-      const slide = document.querySelector(".slide").getBoundingClientRect();
-      const r = document.getElementById("accent").getBoundingClientRect();
-      const bx = r.left - slide.left, by = r.top - slide.top;
-      const cx = bx + r.width / 2, cy = by + r.height / 2 + 4;
-      const rx = r.width / 2 + 10, ry = r.height / 2 - 4;
-      const dd = [
+      // Hand-drawn oval around the accent word.
+      const a = box(document.getElementById("accent"));
+      const cx = a.x + a.w / 2, cy = a.y + a.h / 2 + 2;
+      const rx = a.w / 2 + 20, ry = a.h / 2 + 2;
+      path([
         `M ${cx - rx * 0.15} ${cy - ry * 1.02}`,
         `C ${cx + rx * 0.9} ${cy - ry * 1.12}, ${cx + rx * 1.08} ${cy + ry * 0.2}, ${cx + rx * 0.62} ${cy + ry * 0.86}`,
         `C ${cx + rx * 0.1} ${cy + ry * 1.22}, ${cx - rx * 1.02} ${cy + ry * 1.0}, ${cx - rx * 1.02} ${cy + ry * 0.05}`,
         `C ${cx - rx * 1.0} ${cy - ry * 0.8}, ${cx - rx * 0.2} ${cy - ry * 1.15}, ${cx + rx * 0.35} ${cy - ry * 0.96}`,
-      ].join(" ");
-      const overlay = document.createElementNS(NS, "svg");
-      overlay.setAttribute("viewBox", "0 0 1080 1350");
-      overlay.setAttribute("style", "position:absolute;inset:0;z-index:6;pointer-events:none;overflow:visible");
-      const p = document.createElementNS(NS, "path");
-      p.setAttribute("d", dd);
-      p.setAttribute("fill", "none");
-      p.setAttribute("stroke", "#ffffff");
-      p.setAttribute("stroke-width", "3.5");
-      p.setAttribute("stroke-linecap", "round");
-      overlay.appendChild(p);
-      document.querySelector(".slide").appendChild(overlay);
+      ].join(" "), { stroke: "#ffffff", "stroke-width": 3.5 });
+
+      // Lime brush underline.
+      const u = box(document.getElementById("underline"));
+      const y = u.y + u.h - 2;
+      path(`M ${u.x + 2} ${y + 4} C ${u.x + u.w * 0.3} ${y - 2}, ${u.x + u.w * 0.7} ${y + 6}, ${u.x + u.w - 2} ${y}`,
+        { stroke: "#eaff72", "stroke-width": 9 });
+
+      // Straight arrow from the subtitle down to the plate.
+      const s = box(document.querySelector(".sub"));
+      const x0 = s.x + s.w + 26, y0 = s.y + s.h * 0.35;
+      const x1 = x0 + 70, y1 = y0 + 120;
+      path(`M ${x0} ${y0} L ${x1} ${y1}`, { stroke: "#ffffff", "stroke-width": 3.5 });
+      const ang = Math.atan2(y1 - y0, x1 - x0), L = 18, w = 0.5;
+      path(`M ${x1 - L * Math.cos(ang - w)} ${y1 - L * Math.sin(ang - w)} L ${x1} ${y1} L ${x1 - L * Math.cos(ang + w)} ${y1 - L * Math.sin(ang + w)}`,
+        { stroke: "#ffffff", "stroke-width": 3.5 });
     });
   </script>
 </body>
