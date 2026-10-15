@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -30,11 +30,6 @@
       filter: blur(16px) brightness(.72) saturate(.8);
       transform: scale(1.12);
     }
-    .shade {
-      position: absolute;
-      inset: 0;
-      background: rgba(51, 35, 24, .12);
-    }
     .plate {
       position: absolute;
       z-index: 1;
@@ -52,130 +47,209 @@
       object-fit: cover;
       object-position: center 48%;
       display: block;
+      filter: brightness(.86);
     }
+
     .headline {
       position: absolute;
-      top: 38px;
-      left: 42px;
-      right: 42px;
+      top: 34px;
+      left: 0;
+      right: 0;
       z-index: 6;
       text-align: center;
-      font-family: "Golos Text", Arial, sans-serif;
-      font-size: 68px;
-      font-weight: 900;
-      font-style: normal;
-      line-height: 1.08;
-      letter-spacing: -.035em;
-      color: #ffffff;
-      text-shadow: none;
+      font-family: "Oswald", sans-serif;
+      font-size: 104px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .01em;
+      text-transform: uppercase;
     }
-    .arrows {
+
+    .marks {
       position: absolute;
       inset: 0;
       z-index: 4;
       pointer-events: none;
+      overflow: visible;
     }
+
     .callout {
       position: absolute;
       z-index: 5;
-      text-shadow: none;
+      text-align: left;
     }
     .callout h2 {
-      font-family: "Golos Text", Arial, sans-serif;
-      font-size: 34px;
-      line-height: 1.12;
-      font-weight: 900;
-      margin-bottom: 12px;
+      font-family: "Oswald", sans-serif;
+      font-size: 44px;
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: .01em;
+      text-transform: uppercase;
       color: #eaff72;
-      letter-spacing: -.025em;
+      margin-bottom: 12px;
     }
     .callout p {
-      font-size: 30px;
-      line-height: 1.3;
+      font-size: 29px;
+      line-height: 1.27;
+      font-weight: 500;
+    }
+    .callout .big {
+      display: inline-block;
+      font-family: "Oswald", sans-serif;
+      font-size: 70px;
+      line-height: 1;
       font-weight: 700;
-      letter-spacing: 0;
-      color: #ffffff;
-      -webkit-text-stroke: 0;
+      text-transform: uppercase;
+      color: #eaff72;
+      margin: 14px 0 16px 18px;
+      white-space: nowrap;
     }
-    .work {
-      top: 205px;
-      left: 30px;
-      width: 455px;
-      text-align: left;
+    .accent {
+      font-weight: 600;
+      color: #eaff72;
+      white-space: nowrap;
     }
-    .work h2 { text-align: right; }
-    .norm {
-      top: 205px;
-      right: 30px;
-      width: 355px;
-      text-align: right;
-    }
-    .norm h2 { text-align: left; }
-    .norm strong {
-      display: block;
-      color: #dfff78;
-      font-size: 50px;
-      line-height: 1.05;
-      margin: 6px 0;
-    }
-    .effect {
-      top: 540px;
-      right: 30px;
-      width: 520px;
-      text-align: right;
-    }
-    .effect h2 { text-align: left; }
-    .portion {
-      left: 30px;
-      bottom: 36px;
-      width: 790px;
-      text-align: left;
-    }
+
+    .work   { top: 196px; left: 40px;  width: 420px; }
+    .norm   { top: 196px; left: 650px; width: 400px; }
+    .effect { top: 610px; left: 610px; width: 430px; }
+    .portion{ top: 1040px; left: 40px; width: 640px; }
   </style>
 </head>
 <body>
   <div class="slide">
     <div class="background"></div>
-    <div class="shade"></div>
     <div class="plate">
       <img src="./kiwi-red-plate-natural.jpg" alt="Порция с киви" />
     </div>
 
     <h1 class="headline">Киви</h1>
 
-    <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
-        <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-          <path d="M0,0 L7,3 L0,6 Z" fill="#fff"/>
+        <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0,0 L9,4 L0,8 Z" fill="#fff"/>
         </marker>
       </defs>
-      <!-- Все стрелки выходят из зоны киви на тарелке -->
-      <line x1="350" y1="650" x2="490" y2="205" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <line x1="390" y1="635" x2="680" y2="205" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <line x1="410" y1="690" x2="515" y2="560" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <line x1="350" y1="720" x2="405" y2="1090" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
     </svg>
 
-    <section class="callout work">
+    <section class="callout work" data-from="330,560">
       <h2>Как работает</h2>
       <p>Содержит фермент (актинидин), который помогает расщеплять белок и улучшает моторику кишечника.</p>
     </section>
 
-    <section class="callout norm">
+    <section class="callout norm" data-from="420,560">
       <h2>Безопасная<br>суточная норма</h2>
-      <strong>1–2 штуки</strong>
+      <span class="big" data-circle>1–2 штуки</span>
       <p>в день (около 150 г).</p>
     </section>
 
-    <section class="callout effect">
+    <section class="callout effect" data-from="390,700">
       <h2>Какой эффект даёт</h2>
       <p>Проходимость комка пищи в кишечнике становится выше, облегчая тяжесть в желудке после еды, ускоряя перистальтику и пищеварение в целом.</p>
     </section>
 
-    <section class="callout portion">
+    <section class="callout portion" data-from="300,880">
       <h2>От чего зависит порция</h2>
-      <p>При рационе с высоким содержанием тяжёлого белка (мясо, птица) или при большой массе тела можно съедать до 2–3 штук в день, принимая их вместе с белком.</p>
+      <p>При рационе с высоким содержанием тяжёлого белка (мясо, птица) или при большой массе тела можно съедать <span class="accent" data-underline>до 2–3 штук в день</span>, принимая их вместе с белком.</p>
     </section>
   </div>
+
+  <script>
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.getElementById("marks");
+    const slide = document.querySelector(".slide").getBoundingClientRect();
+    const GAP = 18;
+
+    const rel = (el) => {
+      const r = el.getBoundingClientRect();
+      return { x: r.left - slide.left, y: r.top - slide.top, w: r.width, h: r.height };
+    };
+
+    // Point where the segment from (sx,sy) towards the box centre hits the box edge.
+    function edgePoint(sx, sy, b) {
+      const cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+      const dx = cx - sx, dy = cy - sy;
+      let t = 1;
+      if (dx !== 0) {
+        for (const ex of [b.x, b.x + b.w]) {
+          const tt = (ex - sx) / dx;
+          const y = sy + tt * dy;
+          if (tt > 0 && tt < t && y >= b.y && y <= b.y + b.h) t = tt;
+        }
+      }
+      if (dy !== 0) {
+        for (const ey of [b.y, b.y + b.h]) {
+          const tt = (ey - sy) / dy;
+          const x = sx + tt * dx;
+          if (tt > 0 && tt < t && x >= b.x && x <= b.x + b.w) t = tt;
+        }
+      }
+      const len = Math.hypot(dx, dy);
+      const back = GAP / len;
+      return { x: sx + dx * (t - back), y: sy + dy * (t - back) };
+    }
+
+    function draw() {
+      document.querySelectorAll(".callout[data-from]").forEach((el) => {
+        const [sx, sy] = el.dataset.from.split(",").map(Number);
+        const end = edgePoint(sx, sy, rel(el));
+        const line = document.createElementNS(NS, "line");
+        line.setAttribute("x1", sx);
+        line.setAttribute("y1", sy);
+        line.setAttribute("x2", end.x);
+        line.setAttribute("y2", end.y);
+        line.setAttribute("stroke", "#fff");
+        line.setAttribute("stroke-width", "2.6");
+        line.setAttribute("stroke-linecap", "round");
+        line.setAttribute("marker-end", "url(#ah)");
+        svg.appendChild(line);
+
+        const dot = document.createElementNS(NS, "circle");
+        dot.setAttribute("cx", sx);
+        dot.setAttribute("cy", sy);
+        dot.setAttribute("r", "5");
+        dot.setAttribute("fill", "#fff");
+        svg.appendChild(dot);
+      });
+
+      // Hand-drawn oval around the key number.
+      document.querySelectorAll("[data-circle]").forEach((el) => {
+        const b = rel(el);
+        const cx = b.x + b.w / 2, cy = b.y + b.h / 2 + 2;
+        const rx = b.w / 2 + 22, ry = b.h / 2 + 14;
+        const d = [
+          `M ${cx - rx * 0.15} ${cy - ry * 1.02}`,
+          `C ${cx + rx * 0.9} ${cy - ry * 1.12}, ${cx + rx * 1.08} ${cy + ry * 0.2}, ${cx + rx * 0.62} ${cy + ry * 0.86}`,
+          `C ${cx + rx * 0.1} ${cy + ry * 1.22}, ${cx - rx * 1.02} ${cy + ry * 1.0}, ${cx - rx * 1.02} ${cy + ry * 0.05}`,
+          `C ${cx - rx * 1.0} ${cy - ry * 0.8}, ${cx - rx * 0.2} ${cy - ry * 1.15}, ${cx + rx * 0.35} ${cy - ry * 0.96}`,
+        ].join(" ");
+        const path = document.createElementNS(NS, "path");
+        path.setAttribute("d", d);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", "#ffffff");
+        path.setAttribute("stroke-width", "3");
+        path.setAttribute("stroke-linecap", "round");
+        svg.appendChild(path);
+      });
+
+      // Brush-style underline under the highlighted phrase.
+      document.querySelectorAll("[data-underline]").forEach((el) => {
+        Array.from(el.getClientRects()).forEach((r) => {
+          const x1 = r.left - slide.left - 4, x2 = r.right - slide.left + 6;
+          const y = r.bottom - slide.top + 4;
+          const path = document.createElementNS(NS, "path");
+          path.setAttribute("d", `M ${x1} ${y + 3} Q ${(x1 + x2) / 2} ${y - 5}, ${x2} ${y + 1}`);
+          path.setAttribute("fill", "none");
+          path.setAttribute("stroke", "#eaff72");
+          path.setAttribute("stroke-width", "5");
+          path.setAttribute("stroke-linecap", "round");
+          svg.appendChild(path);
+        });
+      });
+    }
+
+    document.fonts.ready.then(draw);
+  </script>
 </body>
 </html>
