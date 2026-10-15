@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&family=Playfair+Display:ital,wght@1,700;1,800;1,900&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -50,12 +50,21 @@
       filter: brightness(.86);
     }
 
+    .marks {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: visible;
+    }
+
     .title {
       position: absolute;
       z-index: 5;
-      top: 72px;
+      top: 296px;
       left: 58px;
       right: 40px;
+      text-shadow: 0 0 22px rgba(35, 8, 4, .7), 0 2px 6px rgba(35, 8, 4, .45);
     }
     .headline {
       font-family: "Manrope", sans-serif;
@@ -69,56 +78,31 @@
     .headline .accent { color: #eaff72; }
 
     .subhead {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 2px 18px 8px 14px;
-      background: #eaff72;
-      color: #2a0f08;
+      margin-top: 10px;
       font-family: "Playfair Display", serif;
       font-style: italic;
-      font-weight: 600;
-      font-size: 76px;
+      font-weight: 900;
+      font-size: 84px;
       line-height: 1;
       letter-spacing: -.01em;
       text-transform: uppercase;
-      transform: rotate(-1.5deg);
-      transform-origin: left center;
+      white-space: nowrap;
     }
 
     .lead {
-      margin-top: 26px;
+      margin-top: 22px;
       font-size: 32px;
       line-height: 1.25;
-      font-weight: 500;
-      text-shadow: 0 1px 14px rgba(40, 10, 5, .6);
+      font-weight: 600;
     }
     .lead b { font-weight: 800; color: #eaff72; }
-
-    .chip {
-      position: absolute;
-      z-index: 4;
-      transform: translate(-50%, -50%);
-      padding: 9px 16px 10px;
-      border-radius: 999px;
-      background: #ffffff;
-      color: #2a0f08;
-      font-size: 24px;
-      line-height: 1;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    .chip b {
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .02em;
-      margin-right: 6px;
-    }
   </style>
 </head>
 <body>
   <div class="slide">
     <div class="background"></div>
     <div class="plate"><img src="./cover-fruits-plate.jpg" alt=""></div>
+    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
 
     <div class="title">
       <h1 class="headline">
@@ -131,30 +115,41 @@
   </div>
 
   <script>
-    // Sector centres in the 768×1024 preview of cover-fruits-plate.jpg,
-    // mapped onto the .plate circle (1040px, object-fit: cover, 48%).
+    // Points in the 768×1024 preview of cover-fruits-plate.jpg, mapped onto
+    // the .plate circle (1040px, object-fit: cover, position 48%).
     const K = 1040 / 768;
     const OFFSET_Y = 330 - (1024 * K - 1040) * 0.48;
-    const toSlide = (x, y) => [20 + x * K, OFFSET_Y + y * K];
+    const toSlide = ([x, y]) => [20 + x * K, OFFSET_Y + y * K];
 
-    const chips = [
-      { at: [235, 395], name: "Киви",   enzyme: "актинидин" },
-      { at: [545, 395], name: "Ананас", enzyme: "бромелайн" },
-      { at: [600, 610], name: "Манго",  enzyme: "амилазы" },
-      { at: [420, 740], name: "Дыня",   enzyme: "ферменты" },
-      { at: [150, 600], name: "Папайя", enzyme: "папаин" },
-    ];
+    const centre = toSlide([395, 512]);
+    const borders = [
+      [395, 175],  // kiwi | pineapple
+      [745, 440],  // pineapple | mango
+      [640, 850],  // mango | melon
+      [180, 790],  // melon | papaya
+      [45, 405],   // papaya | kiwi
+    ].map(toSlide);
 
-    const slide = document.querySelector(".slide");
-    for (const c of chips) {
-      const [x, y] = toSlide(...c.at);
-      const el = document.createElement("div");
-      el.className = "chip";
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-      el.innerHTML = `<b>${c.name}</b>${c.enzyme}`;
-      slide.appendChild(el);
+    const NS = "http://www.w3.org/2000/svg";
+    const marks = document.getElementById("marks");
+    const add = (tag, attrs) => {
+      const n = document.createElementNS(NS, tag);
+      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+      marks.appendChild(n);
+    };
+
+    const [cx, cy] = centre;
+    for (const [x, y] of borders) {
+      const a = Math.atan2(y - cy, x - cx);
+      const r0 = 26;
+      add("line", {
+        x1: cx + r0 * Math.cos(a), y1: cy + r0 * Math.sin(a), x2: x, y2: y,
+        stroke: "#ffffff", "stroke-width": 4, "stroke-linecap": "round",
+        "stroke-dasharray": "2 14",
+      });
+      add("circle", { cx: x, cy: y, r: 6, fill: "#ffffff" });
     }
+    add("circle", { cx, cy, r: 14, fill: "none", stroke: "#ffffff", "stroke-width": 4 });
   </script>
 </body>
 </html>
