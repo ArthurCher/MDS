@@ -9,6 +9,7 @@ const slides = [
   { html: "slide-03-papaya.html", out: "03-papaya.png", w: 1080, h: 1350 },
   { html: "slide-04-pineapple.html", out: "04-pineapple.png", w: 1080, h: 1350 },
   { html: "slide-05-melon.html", out: "05-melon.png", w: 1080, h: 1350 },
+  { html: "slide-06-mango.html", out: "06-mango.png", w: 1080, h: 1350 },
 ];
 
 const browser = await chromium.launch({
