@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Inter+Tight:wght@800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Inter+Tight:wght@800;900&family=Playfair+Display:ital,wght@1,700;1,800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -53,7 +53,7 @@
     .headline {
       position: absolute;
       z-index: 5;
-      top: 46px;
+      top: 296px;
       left: 58px;
       right: 40px;
       font-family: "Inter Tight", sans-serif;
@@ -63,14 +63,22 @@
       letter-spacing: -.03em;
       white-space: nowrap;
       text-transform: uppercase;
+      text-shadow: 0 2px 22px rgba(40, 10, 5, .55);
     }
     .headline span { display: inline-block; }
-    .headline .accent { color: #eaff72; padding: 0 6px; }
+    .headline .accent { color: #eaff72; padding: 0 4px; margin-left: 14px; }
+    .headline .serif {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 800;
+      font-size: 76px;
+      letter-spacing: -.01em;
+    }
 
     .sub {
       position: absolute;
       z-index: 5;
-      top: 296px;
+      top: 238px;
       left: 58px;
       font-size: 30px;
       line-height: 1.27;
@@ -93,12 +101,12 @@
     <div class="plate"><img src="./cover-fruits-plate.jpg" alt=""></div>
 
     <h1 class="headline">
-      Как усвоить <span class="accent" id="accent">двойную</span><br>
+      Как усвоить <span class="accent serif" id="accent">двойную</span><br>
       порцию белка<br>
-      без вреда <span id="underline">для ЖКТ</span>
+      <span class="serif">без вреда <span id="underline">для ЖКТ</span></span>
     </h1>
 
-    <p class="sub"><b>5 фруктов</b> с ферментами, которые<br>помогают пищеварению</p>
+    <p class="sub"><b>5 фруктов</b> с ферментами, которые помогают пищеварению</p>
 
     <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
@@ -127,7 +135,7 @@
       // Hand-drawn oval around the accent word.
       const a = box(document.getElementById("accent"));
       const cx = a.x + a.w / 2, cy = a.y + a.h / 2 + 2;
-      const rx = a.w / 2 + 20, ry = a.h / 2 + 2;
+      const rx = a.w / 2 + 22, ry = a.h / 2 + 10;
       path([
         `M ${cx - rx * 0.15} ${cy - ry * 1.02}`,
         `C ${cx + rx * 0.9} ${cy - ry * 1.12}, ${cx + rx * 1.08} ${cy + ry * 0.2}, ${cx + rx * 0.62} ${cy + ry * 0.86}`,
@@ -140,15 +148,6 @@
       const y = u.y + u.h - 2;
       path(`M ${u.x + 2} ${y + 4} C ${u.x + u.w * 0.3} ${y - 2}, ${u.x + u.w * 0.7} ${y + 6}, ${u.x + u.w - 2} ${y}`,
         { stroke: "#eaff72", "stroke-width": 9 });
-
-      // Straight arrow from the subtitle down to the plate.
-      const s = box(document.querySelector(".sub"));
-      const x0 = s.x + s.w + 26, y0 = s.y + s.h * 0.35;
-      const x1 = x0 + 70, y1 = y0 + 120;
-      path(`M ${x0} ${y0} L ${x1} ${y1}`, { stroke: "#ffffff", "stroke-width": 3.5 });
-      const ang = Math.atan2(y1 - y0, x1 - x0), L = 18, w = 0.5;
-      path(`M ${x1 - L * Math.cos(ang - w)} ${y1 - L * Math.sin(ang - w)} L ${x1} ${y1} L ${x1 - L * Math.cos(ang + w)} ${y1 - L * Math.sin(ang + w)}`,
-        { stroke: "#ffffff", "stroke-width": 3.5 });
     });
   </script>
 </body>
