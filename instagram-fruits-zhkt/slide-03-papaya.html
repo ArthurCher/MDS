@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 1080px;
-      height: 1920px;
-      overflow: hidden;
-      background: #12110f;
-    }
+    html, body { width: 1080px; height: 1920px; overflow: hidden; background: #22170f; }
     .slide {
       position: relative;
       width: 1080px;
@@ -22,205 +17,155 @@
       font-family: "Montserrat", sans-serif;
       color: #fff;
       background:
-        radial-gradient(ellipse 80% 55% at 50% 42%, #2a241c 0%, #141210 58%, #0c0b0a 100%);
+        linear-gradient(rgba(19,12,8,.3), rgba(19,12,8,.58)),
+        repeating-linear-gradient(3deg, #3b291d 0, #3b291d 3px, #342318 4px, #342318 8px);
     }
-    .noise {
+    .slide::after {
+      content: "";
       position: absolute;
       inset: 0;
-      opacity: 0.07;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0,0,0,.12), transparent 25%, transparent 72%, rgba(0,0,0,.4));
       pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      mix-blend-mode: soft-light;
     }
-
+    .tag {
+      position: absolute;
+      top: 50px;
+      left: 44px;
+      z-index: 6;
+      padding: 13px 20px;
+      border-radius: 8px;
+      background: rgba(21, 28, 17, .88);
+      color: #e9f39b;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
     .headline {
       position: absolute;
-      top: 88px;
-      left: 64px;
-      right: 64px;
-      z-index: 5;
+      top: 130px;
+      left: 55px;
+      right: 55px;
+      z-index: 6;
       text-align: center;
       font-size: 48px;
       font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -0.02em;
+      line-height: 1.15;
+      letter-spacing: -.03em;
     }
-
-    /* круглая тарелка по центру */
-    .plate-wrap {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -52%);
-      width: 520px;
-      height: 520px;
-      z-index: 2;
+    .headline em {
+      display: inline-block;
+      margin: 0 3px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 72px;
+      font-weight: 600;
+      line-height: .72;
+      color: #fff1a2;
+      transform: rotate(-4deg);
     }
     .plate {
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 610px;
+      z-index: 2;
+      width: 760px;
+      height: 760px;
+      transform: translateX(-50%);
       overflow: hidden;
-      border: 3px solid rgba(255, 214, 160, 0.35);
-      box-shadow:
-        0 0 0 12px rgba(255, 255, 255, 0.04),
-        0 30px 80px rgba(0, 0, 0, 0.55);
-      background: #1a1510;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,.55);
+      background: #fff;
+      box-shadow: 0 28px 70px rgba(0,0,0,.52);
     }
     .plate img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center 45%;
       display: block;
+      object-fit: cover;
+      object-position: center 49%;
+      transform: scale(1.08);
     }
-
-    .arrows {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
-
     .callout {
       position: absolute;
-      z-index: 4;
-      width: 280px;
+      z-index: 6;
+      text-shadow: 0 2px 8px rgba(0,0,0,.8);
     }
-    .callout .title {
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 10px;
-      color: #ffd59a;
-    }
-    .callout .desc {
-      font-size: 23px;
-      font-weight: 600;
-      line-height: 1.28;
-      color: rgba(255, 255, 255, 0.92);
-    }
-
-    .tl { top: 520px; left: 40px; text-align: left; }
-    .tr { top: 520px; right: 40px; text-align: right; }
-    .bl { top: 1240px; left: 40px; text-align: left; }
-    .br { top: 1240px; right: 40px; text-align: right; }
-
-    /* нижняя плашка суточной нормы */
-    .norm {
-      position: absolute;
-      left: 64px;
-      right: 64px;
-      bottom: 78px;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 28px 36px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 213, 154, 0.28);
-      backdrop-filter: blur(10px);
-    }
-    .norm-label {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.2;
-    }
-    .norm-label span {
+    .callout strong {
       display: block;
-      margin-top: 4px;
-      font-size: 20px;
-      letter-spacing: 0;
-      text-transform: none;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.55);
-    }
-    .norm-value {
-      text-align: right;
-    }
-    .norm-main {
-      font-size: 56px;
+      margin-bottom: 7px;
+      font-size: 28px;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      color: #fff;
+      line-height: 1.12;
     }
-    .norm-sub {
-      margin-top: 6px;
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffd59a;
+    .callout span {
+      display: block;
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .work { top: 360px; left: 48px; width: 365px; }
+    .norm { top: 400px; right: 48px; width: 300px; text-align: right; }
+    .depends { top: 1435px; right: 48px; width: 455px; text-align: right; }
+    .norm .big {
+      margin-top: 2px;
+      font-size: 43px;
+      font-weight: 800;
+      color: #fff1a2;
+    }
+    .arrows { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+    .footer {
+      position: absolute;
+      left: 55px;
+      bottom: 55px;
+      z-index: 6;
+      color: rgba(255,255,255,.6);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
   </style>
 </head>
 <body>
-  <div class="slide">
-    <div class="noise"></div>
+  <main class="slide">
+    <div class="tag">фермент · папаин</div>
 
-    <h1 class="headline">Это не просто папайя,<br>это ферментный помощник ЖКТ</h1>
+    <h1 class="headline">
+      <em>Папайя</em> — пример порции<br>
+      к белковому приёму пищи
+    </h1>
 
-    <div class="plate-wrap">
-      <div class="plate">
-        <img src="./refs/a7e24720-0540-4c07-9a30-a4a9baff60c1.jpg" alt="Папайя" />
-      </div>
+    <div class="plate">
+      <img src="./refs/a7e24720-0540-4c07-9a30-a4a9baff60c1.jpg" alt="Порция папайи" />
     </div>
 
-    <!-- стрелки от блоков к круглой тарелке (центр ~540, 870) -->
     <svg class="arrows" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
-        <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-          <path d="M0,0 L7,3 L0,6 Z" fill="#ffffff"/>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#fff"/>
         </marker>
       </defs>
-      <!-- top-left -> plate edge -->
-      <path d="M310 620 C 370 680, 410 740, 445 820"
-            fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <!-- top-right -> plate edge -->
-      <path d="M770 620 C 710 680, 670 740, 635 820"
-            fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <!-- bottom-left -> plate edge -->
-      <path d="M310 1230 C 370 1170, 420 1110, 460 1060"
-            fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <!-- bottom-right -> plate edge -->
-      <path d="M770 1230 C 710 1170, 660 1110, 620 1060"
-            fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M380 500 C 455 515, 480 555, 455 620" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+      <path d="M760 520 C 690 525, 650 560, 630 625" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#arrow)"/>
+      <path d="M790 1490 C 720 1470, 675 1425, 650 1350" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#arrow)"/>
     </svg>
 
-    <div class="callout tl">
-      <div class="title">Фермент Папаин</div>
-      <div class="desc">Помогает расщеплять белки и устраняет тяжесть</div>
-    </div>
+    <section class="callout work">
+      <strong>Как работает<br>и какой эффект</strong>
+      <span>Папаин помогает усваивать белок, уменьшает тяжесть и вздутие.</span>
+    </section>
 
-    <div class="callout tr">
-      <div class="title">Меньше вздутия</div>
-      <div class="desc">Облегчает живот при большом количестве белка</div>
-    </div>
+    <section class="callout norm">
+      <strong>Безопасная<br>суточная норма</strong>
+      <span class="big">100–150 г</span>
+    </section>
 
-    <div class="callout bl">
-      <div class="title">Лучше усвоение</div>
-      <div class="desc">Белок усваивается мягче, без дискомфорта</div>
-    </div>
+    <section class="callout depends">
+      <strong>От чего зависит порция</strong>
+      <span>При интенсивном белковом питании — до 200–250 г в день.</span>
+    </section>
 
-    <div class="callout br">
-      <div class="title">Больше белка?</div>
-      <div class="desc">При силовом рационе можно до 200–250 г</div>
-    </div>
-
-    <div class="norm">
-      <div class="norm-label">
-        Суточная норма
-        <span>безопасная порция в день</span>
-      </div>
-      <div class="norm-value">
-        <div class="norm-main">100–150 г</div>
-        <div class="norm-sub">мякоти папайи</div>
-      </div>
-    </div>
-  </div>
+    <div class="footer">фрукты для ЖКТ · 02</div>
+  </main>
 </body>
 </html>
