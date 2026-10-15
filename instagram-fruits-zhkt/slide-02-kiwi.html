@@ -26,7 +26,7 @@
     .background {
       position: absolute;
       inset: 0;
-      background: url("./kiwi-plate-new.jpg") center / cover no-repeat;
+      background: url("./kiwi-red-plate-edited.jpg") center / cover no-repeat;
       filter: blur(18px) brightness(.28) saturate(.75);
       transform: scale(1.12);
     }
@@ -51,7 +51,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 46%;
+      object-position: center 45%;
       display: block;
     }
     .plate-dark {
@@ -77,33 +77,16 @@
     .badge b { color: #fff; }
     .headline {
       position: absolute;
-      top: 70px;
+      top: 76px;
       left: 42px;
       right: 42px;
       z-index: 6;
       text-align: center;
-      font-size: 43px;
+      font-size: 58px;
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -.025em;
       text-shadow: 0 3px 18px rgba(0,0,0,.75);
-    }
-    .headline .script {
-      display: inline-block;
-      margin-left: 8px;
-      font-family: "Bad Script", cursive;
-      font-size: 58px;
-      font-weight: 400;
-      line-height: .8;
-      color: #dfff78;
-      transform: rotate(-3deg);
-    }
-    .headline small {
-      display: block;
-      margin-top: 10px;
-      font-size: 31px;
-      line-height: 1.15;
-      font-weight: 700;
     }
     .arrows {
       position: absolute;
@@ -115,55 +98,48 @@
       position: absolute;
       z-index: 5;
       text-shadow: 0 3px 14px rgba(0,0,0,.9);
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(12, 12, 10, .72);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.1);
     }
     .callout h2 {
-      font-size: 25px;
+      font-size: 29px;
       line-height: 1.08;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      color: #dfff78;
     }
     .callout p {
-      font-size: 21px;
-      line-height: 1.23;
+      font-size: 24px;
+      line-height: 1.25;
       font-weight: 600;
     }
     .how {
-      top: 280px;
-      left: 36px;
-      width: 300px;
+      top: 230px;
+      left: 28px;
+      width: 425px;
       text-align: left;
     }
     .norm {
-      top: 300px;
-      right: 36px;
-      width: 270px;
+      top: 240px;
+      right: 28px;
+      width: 320px;
       text-align: right;
     }
     .norm strong {
       display: block;
       color: #dfff78;
-      font-size: 34px;
+      font-size: 39px;
       line-height: 1.05;
-      margin-top: 4px;
+      margin: 6px 0;
     }
     .portion {
-      right: 38px;
-      bottom: 58px;
-      width: 415px;
+      right: 28px;
+      bottom: 105px;
+      width: 530px;
       text-align: right;
-    }
-    .portion h2 { color: #dfff78; }
-    .fruit-label {
-      position: absolute;
-      z-index: 5;
-      left: 70px;
-      bottom: 80px;
-      font-family: "Bad Script", cursive;
-      font-size: 44px;
-      line-height: 1;
-      color: #fff;
-      transform: rotate(-5deg);
-      text-shadow: 0 3px 16px rgba(0,0,0,.9);
     }
   </style>
 </head>
@@ -172,15 +148,12 @@
     <div class="background"></div>
     <div class="shade"></div>
     <div class="plate">
-      <img src="./kiwi-plate-new.jpg" alt="Порция с киви" />
+      <img src="./kiwi-red-plate-edited.jpg" alt="Порция с киви" />
       <div class="plate-dark"></div>
     </div>
 
     <div class="badge">фермент · <b>актинидин</b></div>
-    <h1 class="headline">
-      Киви — пример <span class="script">порции</span>
-      <small>к белковому приёму пищи</small>
-    </h1>
+    <h1 class="headline">Киви</h1>
 
     <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
@@ -188,27 +161,26 @@
           <path d="M0,0 L7,3 L0,6 Z" fill="#fff"/>
         </marker>
       </defs>
-      <path d="M300 410 C 360 440, 385 500, 405 585" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M790 410 C 700 430, 600 500, 470 620" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M825 1110 C 750 1070, 620 1010, 455 880" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <!-- Все стрелки выходят из зоны киви на тарелке -->
+      <path d="M380 700 C 305 625, 240 555, 205 500" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M405 690 C 535 610, 675 520, 790 435" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M395 735 C 530 840, 680 945, 810 1050" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
     </svg>
 
     <section class="callout how">
       <h2>Как работает<br>и какой эффект</h2>
-      <p>Помогает расщеплять белок и поддерживает моторику кишечника.</p>
+      <p>Содержит фермент (актинидин), который помогает расщеплять белок и улучшает моторику кишечника. Проходимость комка пищи в кишечнике становится выше, облегчая тяжесть в желудке после еды, ускоряя перистальтику и пищеварение в целом.</p>
     </section>
 
     <section class="callout norm">
       <h2>Безопасная<br>суточная норма</h2>
-      <strong>1–2 шт.</strong>
-      <p>около 150 г</p>
+      <strong>1–2 штуки</strong>
+      <p>в день (около 150 г).</p>
     </section>
-
-    <div class="fruit-label">лёгкость после еды</div>
 
     <section class="callout portion">
       <h2>От чего зависит порция</h2>
-      <p>От количества белка и массы тела. При плотном белковом приёме — до 2–3 шт.</p>
+      <p>При рационе с высоким содержанием тяжёлого белка (мясо, птица) или при большой массе тела можно съедать до 2–3 штук в день, принимая их вместе с белком.</p>
     </section>
   </div>
 </body>
