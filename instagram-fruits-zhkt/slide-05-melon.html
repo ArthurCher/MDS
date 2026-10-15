@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      background: #8a694d;
+    }
+    .slide {
+      position: relative;
+      width: 1080px;
+      height: 1350px;
+      overflow: hidden;
+      font-family: "Golos Text", Arial, sans-serif;
+      color: #ffffff;
+      background: #8a694d;
+    }
+    .background {
+      position: absolute;
+      inset: 0;
+      background: url("./melon-red-plate-natural.jpg") center / cover no-repeat;
+      filter: blur(16px) brightness(.72) saturate(.8);
+      transform: scale(1.12);
+    }
+    .plate {
+      position: absolute;
+      z-index: 1;
+      width: 1040px;
+      height: 1040px;
+      left: 20px;
+      top: 170px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.28);
+    }
+    .plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+      display: block;
+      filter: brightness(.86);
+    }
+
+    .headline {
+      position: absolute;
+      top: 34px;
+      left: 0;
+      right: 0;
+      z-index: 6;
+      text-align: center;
+      font-family: "Oswald", sans-serif;
+      font-size: 104px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    .marks {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .callout {
+      position: absolute;
+      z-index: 5;
+      text-align: left;
+    }
+    .callout h2 {
+      font-family: "Oswald", sans-serif;
+      font-size: 44px;
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      color: #eaff72;
+      margin-bottom: 12px;
+    }
+    .callout p {
+      font-size: 29px;
+      line-height: 1.27;
+      font-weight: 500;
+    }
+    .callout .big {
+      display: inline-block;
+      font-family: "Oswald", sans-serif;
+      font-size: 70px;
+      line-height: 1;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #eaff72;
+      margin: 14px 0 16px 18px;
+      white-space: nowrap;
+    }
+    .accent {
+      font-weight: 600;
+      color: #eaff72;
+      white-space: nowrap;
+    }
+
+    .work   { top: 196px; left: 40px;  width: 420px; }
+    .norm   { top: 196px; left: 650px; width: 400px; }
+    .effect { top: 610px; left: 610px; width: 430px; }
+    .portion{ top: 1040px; left: 40px; width: 780px; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="background"></div>
+    <div class="plate">
+      <img src="./melon-red-plate-natural.jpg" alt="Порция с дыней" />
+    </div>
+
+    <h1 class="headline">Дыня</h1>
+
+    <svg class="marks" id="marks" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0,0 L9,4 L0,8 Z" fill="#fff"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <section class="callout work" data-from="330,560">
+      <h2>Как работает</h2>
+      <p>Содержит растительные ферменты и органические кислоты, которые помогают расщеплять молочные и мясные белки.</p>
+    </section>
+
+    <section class="callout norm" data-from="420,560">
+      <h2>Безопасная<br>суточная норма</h2>
+      <span class="big" data-circle>200–300 г</span>
+      <p>мякоти в день.</p>
+    </section>
+
+    <section class="callout effect" data-from="390,700">
+      <h2>Какой эффект даёт</h2>
+      <p>Высокое содержание воды и клетчатки стимулирует кишечник и предотвращает застой пищи.</p>
+    </section>
+
+    <section class="callout portion" data-from="300,880">
+      <h2>От чего зависит порция</h2>
+      <p>Человеку с большим весом при отсутствии проблем с сахаром в крови можно съедать <span class="accent" data-underline>до 400 г</span>, но лучше порциями и отдельно от основного тяжёлого приёма пищи (чтобы избежать брожения из-за быстрых сахаров).</p>
+    </section>
+  </div>
+
+  <script>
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.getElementById("marks");
+    const slide = document.querySelector(".slide").getBoundingClientRect();
+    const GAP = 18;
+
+    const rel = (el) => {
+      const r = el.getBoundingClientRect();
+      return { x: r.left - slide.left, y: r.top - slide.top, w: r.width, h: r.height };
+    };
+
+    // Point where the segment from (sx,sy) towards the box centre hits the box edge.
+    function edgePoint(sx, sy, b) {
+      const cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+      const dx = cx - sx, dy = cy - sy;
+      let t = 1;
+      if (dx !== 0) {
+        for (const ex of [b.x, b.x + b.w]) {
+          const tt = (ex - sx) / dx;
+          const y = sy + tt * dy;
+          if (tt > 0 && tt < t && y >= b.y && y <= b.y + b.h) t = tt;
+        }
+      }
+      if (dy !== 0) {
+        for (const ey of [b.y, b.y + b.h]) {
+          const tt = (ey - sy) / dy;
+          const x = sx + tt * dx;
+          if (tt > 0 && tt < t && x >= b.x && x <= b.x + b.w) t = tt;
+        }
+      }
+      const len = Math.hypot(dx, dy);
+      const back = GAP / len;
+      return { x: sx + dx * (t - back), y: sy + dy * (t - back) };
+    }
+
+    function draw() {
+      document.querySelectorAll(".callout[data-from]").forEach((el) => {
+        const [sx, sy] = el.dataset.from.split(",").map(Number);
+        const end = edgePoint(sx, sy, rel(el));
+        const line = document.createElementNS(NS, "line");
+        line.setAttribute("x1", sx);
+        line.setAttribute("y1", sy);
+        line.setAttribute("x2", end.x);
+        line.setAttribute("y2", end.y);
+        line.setAttribute("stroke", "#fff");
+        line.setAttribute("stroke-width", "2.6");
+        line.setAttribute("stroke-linecap", "round");
+        line.setAttribute("marker-end", "url(#ah)");
+        svg.appendChild(line);
+
+        const dot = document.createElementNS(NS, "circle");
+        dot.setAttribute("cx", sx);
+        dot.setAttribute("cy", sy);
+        dot.setAttribute("r", "5");
+        dot.setAttribute("fill", "#fff");
+        svg.appendChild(dot);
+      });
+
+      // Hand-drawn oval around the key number.
+      document.querySelectorAll("[data-circle]").forEach((el) => {
+        const b = rel(el);
+        const cx = b.x + b.w / 2, cy = b.y + b.h / 2 + 2;
+        const rx = b.w / 2 + 22, ry = b.h / 2 + 14;
+        const d = [
+          `M ${cx - rx * 0.15} ${cy - ry * 1.02}`,
+          `C ${cx + rx * 0.9} ${cy - ry * 1.12}, ${cx + rx * 1.08} ${cy + ry * 0.2}, ${cx + rx * 0.62} ${cy + ry * 0.86}`,
+          `C ${cx + rx * 0.1} ${cy + ry * 1.22}, ${cx - rx * 1.02} ${cy + ry * 1.0}, ${cx - rx * 1.02} ${cy + ry * 0.05}`,
+          `C ${cx - rx * 1.0} ${cy - ry * 0.8}, ${cx - rx * 0.2} ${cy - ry * 1.15}, ${cx + rx * 0.35} ${cy - ry * 0.96}`,
+        ].join(" ");
+        const path = document.createElementNS(NS, "path");
+        path.setAttribute("d", d);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", "#ffffff");
+        path.setAttribute("stroke-width", "3");
+        path.setAttribute("stroke-linecap", "round");
+        svg.appendChild(path);
+      });
+
+      // Brush-style underline under the highlighted phrase.
+      document.querySelectorAll("[data-underline]").forEach((el) => {
+        Array.from(el.getClientRects()).forEach((r) => {
+          const x1 = r.left - slide.left - 4, x2 = r.right - slide.left + 6;
+          const y = r.bottom - slide.top + 4;
+          const path = document.createElementNS(NS, "path");
+          path.setAttribute("d", `M ${x1} ${y + 3} Q ${(x1 + x2) / 2} ${y - 5}, ${x2} ${y + 1}`);
+          path.setAttribute("fill", "none");
+          path.setAttribute("stroke", "#eaff72");
+          path.setAttribute("stroke-width", "5");
+          path.setAttribute("stroke-linecap", "round");
+          svg.appendChild(path);
+        });
+      });
+    }
+
+    document.fonts.ready.then(draw);
+  </script>
+</body>
+</html>
