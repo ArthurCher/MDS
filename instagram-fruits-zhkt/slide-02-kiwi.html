@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      background: #17100b;
+      background: #8a694d;
     }
     .slide {
       position: relative;
@@ -21,28 +21,27 @@
       overflow: hidden;
       font-family: "Manrope", sans-serif;
       color: #ffffff;
-      background: #17100b;
+      background: #8a694d;
     }
     .background {
       position: absolute;
       inset: 0;
-      background: url("./kiwi-red-plate-edited.jpg") center / cover no-repeat;
-      filter: blur(18px) brightness(.28) saturate(.75);
+      background: url("./kiwi-red-plate-natural.jpg") center / cover no-repeat;
+      filter: blur(16px) brightness(.72) saturate(.8);
       transform: scale(1.12);
     }
     .shade {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(180deg, rgba(10,7,4,.82) 0%, rgba(10,7,4,.3) 20%, rgba(10,7,4,.12) 65%, rgba(10,7,4,.78) 100%);
+      background: rgba(51, 35, 24, .12);
     }
     .plate {
       position: absolute;
       z-index: 1;
-      width: 972px;
-      height: 972px;
-      left: 54px;
-      top: 220px;
+      width: 1040px;
+      height: 1040px;
+      left: 20px;
+      top: 170px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255,255,255,.28);
@@ -51,42 +50,22 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 45%;
+      object-position: center 48%;
       display: block;
     }
-    .plate-dark {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(13,8,4,.54) 0%, rgba(13,8,4,.02) 33%, rgba(13,8,4,.02) 70%, rgba(13,8,4,.56) 100%),
-        radial-gradient(circle at 50% 52%, transparent 42%, rgba(12,8,5,.32) 100%);
-    }
-    .badge {
-      position: absolute;
-      z-index: 7;
-      top: 30px;
-      left: 38px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      background: rgba(15,25,15,.82);
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: .02em;
-      color: #dfff78;
-    }
-    .badge b { color: #fff; }
     .headline {
       position: absolute;
-      top: 76px;
+      top: 38px;
       left: 42px;
       right: 42px;
       z-index: 6;
       text-align: center;
-      font-size: 58px;
+      font-family: "Unbounded", sans-serif;
+      font-size: 54px;
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -.025em;
-      text-shadow: 0 3px 18px rgba(0,0,0,.75);
+      text-shadow: 0 3px 14px rgba(0,0,0,.72);
     }
     .arrows {
       position: absolute;
@@ -97,49 +76,53 @@
     .callout {
       position: absolute;
       z-index: 5;
-      text-shadow: 0 3px 14px rgba(0,0,0,.9);
-      padding: 18px 20px;
-      border-radius: 18px;
-      background: rgba(12, 12, 10, .72);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.1);
+      text-shadow:
+        0 2px 4px rgba(0,0,0,.95),
+        0 4px 12px rgba(0,0,0,.72);
     }
     .callout h2 {
-      font-size: 29px;
-      line-height: 1.08;
+      font-family: "Unbounded", sans-serif;
+      font-size: 25px;
+      line-height: 1.12;
       font-weight: 800;
       margin-bottom: 8px;
-      color: #dfff78;
+      color: #eaff72;
     }
     .callout p {
-      font-size: 24px;
-      line-height: 1.25;
-      font-weight: 600;
+      font-size: 25px;
+      line-height: 1.27;
+      font-weight: 700;
     }
-    .how {
-      top: 230px;
-      left: 28px;
-      width: 425px;
+    .work {
+      top: 205px;
+      left: 30px;
+      width: 390px;
       text-align: left;
     }
     .norm {
-      top: 240px;
-      right: 28px;
-      width: 320px;
+      top: 205px;
+      right: 30px;
+      width: 300px;
       text-align: right;
     }
     .norm strong {
       display: block;
       color: #dfff78;
-      font-size: 39px;
+      font-size: 40px;
       line-height: 1.05;
       margin: 6px 0;
     }
-    .portion {
-      right: 28px;
-      bottom: 105px;
-      width: 530px;
+    .effect {
+      top: 560px;
+      right: 30px;
+      width: 430px;
       text-align: right;
+    }
+    .portion {
+      left: 30px;
+      bottom: 56px;
+      width: 650px;
+      text-align: left;
     }
   </style>
 </head>
@@ -148,11 +131,9 @@
     <div class="background"></div>
     <div class="shade"></div>
     <div class="plate">
-      <img src="./kiwi-red-plate-edited.jpg" alt="Порция с киви" />
-      <div class="plate-dark"></div>
+      <img src="./kiwi-red-plate-natural.jpg" alt="Порция с киви" />
     </div>
 
-    <div class="badge">фермент · <b>актинидин</b></div>
     <h1 class="headline">Киви</h1>
 
     <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -162,20 +143,26 @@
         </marker>
       </defs>
       <!-- Все стрелки выходят из зоны киви на тарелке -->
-      <path d="M380 700 C 305 625, 240 555, 205 500" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M405 690 C 535 610, 675 520, 790 435" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
-      <path d="M395 735 C 530 840, 680 945, 810 1050" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M350 650 C 285 565, 230 455, 215 380" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M370 640 C 510 540, 670 420, 795 340" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M375 680 C 545 680, 690 670, 790 650" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
+      <path d="M350 700 C 305 865, 260 1030, 235 1120" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" marker-end="url(#ah)"/>
     </svg>
 
-    <section class="callout how">
-      <h2>Как работает<br>и какой эффект</h2>
-      <p>Содержит фермент (актинидин), который помогает расщеплять белок и улучшает моторику кишечника. Проходимость комка пищи в кишечнике становится выше, облегчая тяжесть в желудке после еды, ускоряя перистальтику и пищеварение в целом.</p>
+    <section class="callout work">
+      <h2>Как работает</h2>
+      <p>Содержит фермент (актинидин), который помогает расщеплять белок и улучшает моторику кишечника.</p>
     </section>
 
     <section class="callout norm">
       <h2>Безопасная<br>суточная норма</h2>
       <strong>1–2 штуки</strong>
       <p>в день (около 150 г).</p>
+    </section>
+
+    <section class="callout effect">
+      <h2>Какой эффект даёт</h2>
+      <p>Проходимость комка пищи в кишечнике становится выше, облегчая тяжесть в желудке после еды, ускоряя перистальтику и пищеварение в целом.</p>
     </section>
 
     <section class="callout portion">
