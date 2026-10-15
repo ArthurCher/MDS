@@ -5,173 +5,117 @@
   <meta name="viewport" content="width=1080" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 1080px;
       height: 1350px;
       overflow: hidden;
-      background: #eef3e6;
+      background: #1a2a14;
     }
     .slide {
+      position: relative;
       width: 1080px;
       height: 1350px;
       overflow: hidden;
       font-family: "Manrope", sans-serif;
-      color: #152016;
-      background: #eef3e6;
-      display: grid;
-      grid-template-rows: 470px 1fr;
-    }
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background: #1a2618;
-    }
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 40%;
-      display: block;
-    }
-    .hero-fade {
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 120px;
-      background: linear-gradient(180deg, rgba(238,243,230,0) 0%, #eef3e6 100%);
-    }
-    .badge {
-      position: absolute;
-      top: 36px;
-      left: 40px;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      background: rgba(18, 28, 16, 0.78);
-      color: #e8f5a8;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      backdrop-filter: blur(10px);
-    }
-    .badge strong {
       color: #fff;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: url("./kiwi-center-hero.jpg") center 40% / cover no-repeat;
+    }
+    .dim {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 48% 38% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0.4) 100%),
+        linear-gradient(180deg, rgba(6,10,4,0.45) 0%, rgba(6,10,4,0.05) 22%, rgba(6,10,4,0.05) 70%, rgba(6,10,4,0.4) 100%);
+    }
+    .headline {
+      position: absolute;
+      top: 64px;
+      left: 70px;
+      right: 70px;
+      z-index: 5;
+      text-align: center;
+      font-size: 44px;
       font-weight: 800;
-    }
-    .body {
-      padding: 8px 52px 48px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-    .title-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 4px;
-    }
-    h1 {
-      font-family: "Unbounded", sans-serif;
-      font-size: 72px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      color: #132016;
-    }
-    .portion-note {
-      font-size: 22px;
-      font-weight: 700;
-      color: #4d6348;
-      text-align: right;
-      max-width: 320px;
-      line-height: 1.25;
-    }
-    .block {
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 18px;
-      align-items: start;
-      padding: 22px 0 0;
-      border-top: 1.5px solid rgba(30, 52, 28, 0.14);
-    }
-    .label {
-      font-family: "Unbounded", sans-serif;
-      font-size: 22px;
-      font-weight: 700;
       line-height: 1.2;
-      color: #5f8a28;
-      letter-spacing: -0.01em;
-      padding-top: 2px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
     }
-    .text {
+    .arrows {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .callout {
+      position: absolute;
+      z-index: 4;
       font-size: 27px;
-      line-height: 1.32;
-      font-weight: 600;
-      color: #1b281c;
+      font-weight: 700;
+      line-height: 1.28;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
     }
-    .text em {
-      font-style: normal;
-      font-weight: 800;
-      color: #132016;
-      background: linear-gradient(180deg, transparent 62%, #d8ef8a 62%);
-    }
-    .norm {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-    .norm-num {
-      font-family: "Unbounded", sans-serif;
-      font-size: 42px;
-      font-weight: 800;
-      color: #132016;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .norm-sub {
-      font-size: 26px;
-      font-weight: 600;
-      color: #314536;
-      line-height: 1.25;
-    }
+    .c1 { top: 270px; left: 48px; width: 290px; text-align: left; }
+    .c2 { top: 270px; right: 48px; width: 290px; text-align: right; }
+    .c3 { bottom: 120px; left: 48px; width: 300px; text-align: left; }
+    .c4 { bottom: 120px; right: 48px; width: 310px; text-align: right; }
   </style>
 </head>
 <body>
   <div class="slide">
-    <div class="hero">
-      <img src="./kiwi-portion-real.jpg" alt="Порция с киви" />
-      <div class="badge">фермент · <strong>актинидин</strong></div>
-      <div class="hero-fade"></div>
+    <div class="bg"></div>
+    <div class="dim"></div>
+
+    <h1 class="headline">Киви — фермент для белка<br>и лёгкости в ЖКТ</h1>
+
+    <svg class="arrows" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#ffffff"/>
+        </marker>
+      </defs>
+
+      <!-- top-left -->
+      <path d="M300 380 C 380 430, 440 500, 500 600"
+            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+            marker-end="url(#arrow)"/>
+
+      <!-- top-right -->
+      <path d="M780 380 C 700 430, 640 500, 580 600"
+            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+            marker-end="url(#arrow)"/>
+
+      <!-- bottom-left -->
+      <path d="M300 1080 C 380 1020, 450 930, 510 820"
+            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+            marker-end="url(#arrow)"/>
+
+      <!-- bottom-right -->
+      <path d="M780 1080 C 700 1020, 630 930, 570 820"
+            fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"
+            marker-end="url(#arrow)"/>
+    </svg>
+
+    <div class="callout c1">
+      Фермент актинидин помогает расщеплять белок
     </div>
-    <div class="body">
-      <div class="title-row">
-        <h1>Киви</h1>
-        <div class="portion-note">пример порции<br>к белковому приёму пищи</div>
-      </div>
 
-      <section class="block">
-        <div class="label">Как работает<br>и какой эффект</div>
-        <p class="text">Содержит фермент <em>актинидин</em>, который помогает расщеплять белок и улучшает моторику кишечника. Комок пищи проходит легче: меньше тяжести после еды, быстрее перистальтика и пищеварение в целом.</p>
-      </section>
+    <div class="callout c2">
+      Улучшает моторику кишечника и снимает тяжесть после еды
+    </div>
 
-      <section class="block">
-        <div class="label">Безопасная<br>суточная норма</div>
-        <div class="norm">
-          <div class="norm-num">1–2 шт</div>
-          <div class="norm-sub">около 150&nbsp;г в день</div>
-        </div>
-      </section>
+    <div class="callout c3">
+      Безопасная норма:<br>1–2 штуки (~150 г)
+    </div>
 
-      <section class="block">
-        <div class="label">От чего зависит порция</div>
-        <p class="text">При рационе с тяжёлым белком (мясо, птица) или большой массе тела — до <em>2–3 шт</em> в день, лучше вместе с белковой едой.</p>
-      </section>
+    <div class="callout c4">
+      При тяжёлом белке или большой массе — до 2–3 шт вместе с едой
     </div>
   </div>
 </body>
