@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const slides = [
   { html: "slide-01-title.html", out: "01-title.png", w: 1080, h: 1350 },
   { html: "slide-02-kiwi.html", out: "02-kiwi.png", w: 1080, h: 1350 },
-  { html: "slide-03-papaya.html", out: "03-papaya.png", w: 1080, h: 1920 },
+  { html: "slide-03-papaya.html", out: "03-papaya.png", w: 1080, h: 1350 },
 ];
 
 const browser = await chromium.launch({
