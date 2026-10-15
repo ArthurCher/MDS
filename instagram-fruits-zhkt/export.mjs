@@ -4,8 +4,9 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const slides = [
-  ["slide-01-title.html", "01-title.png"],
-  ["slide-02-kiwi.html", "02-kiwi.png"],
+  { html: "slide-01-title.html", out: "01-title.png", w: 1080, h: 1350 },
+  { html: "slide-02-kiwi.html", out: "02-kiwi.png", w: 1080, h: 1350 },
+  { html: "slide-03-papaya.html", out: "03-papaya.png", w: 1080, h: 1920 },
 ];
 
 const browser = await chromium.launch({
@@ -13,22 +14,25 @@ const browser = await chromium.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 
-const page = await browser.newPage({
-  viewport: { width: 1080, height: 1350 },
-  deviceScaleFactor: 1,
-});
-
-for (const [html, out] of slides) {
-  const filePath = path.join(__dirname, html);
+for (const slide of slides) {
+  const page = await browser.newPage({
+    viewport: { width: slide.w, height: slide.h },
+    deviceScaleFactor: 1,
+  });
+  const filePath = path.join(__dirname, slide.html);
   await page.goto(`file://${filePath}`, { waitUntil: "networkidle" });
-  // wait for fonts
   await page.evaluate(async () => {
     await document.fonts.ready;
   });
-  await page.waitForTimeout(400);
-  const outPath = path.join(__dirname, "export", out);
-  await page.screenshot({ path: outPath, type: "png", clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+  await page.waitForTimeout(500);
+  const outPath = path.join(__dirname, "export", slide.out);
+  await page.screenshot({
+    path: outPath,
+    type: "png",
+    clip: { x: 0, y: 0, width: slide.w, height: slide.h },
+  });
   console.log("saved", outPath);
+  await page.close();
 }
 
 await browser.close();
