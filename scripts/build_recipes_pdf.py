@@ -14,6 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RECIPES_JSON = ROOT / "recipes-a-cheremisin-fitness.json"
 MAP_JSON = ROOT / "assets" / "recipe-image-map.json"
+STEPS_JSON = ROOT / "assets" / "recipe-1-steps.json"
 OUT_PDF = ROOT / "recipes-a-cheremisin-fitness.pdf"
 ARTIFACTS_PDF = Path("/opt/cursor/artifacts/recipes-a-cheremisin-fitness.pdf")
 
@@ -116,7 +117,44 @@ def image_data_uri(path: Path) -> str:
     return f"data:image/jpeg;base64,{b64}"
 
 
-def build_html(recipes: list[dict], mapping: dict) -> str:
+def render_steps_html(steps: list[dict]) -> str:
+    parts: list[str] = ['<div class="steps"><h3>Приготовление по шагам</h3>']
+    for idx, step in enumerate(steps, 1):
+        img_path = ROOT / "assets" / step["file"]
+        img = ""
+        if img_path.exists():
+            img = (
+                f'<img src="{image_data_uri(img_path)}" '
+                f'alt="Шаг {idx}">'
+            )
+        parts.append(
+            f'<div class="step">'
+            f'<div class="step-label">Шаг {idx}</div>'
+            f"{img}"
+            f'<p class="step-text">{html.escape(step["text"])}</p>'
+            f"</div>"
+        )
+    parts.append("</div>")
+    return "\n".join(parts)
+
+
+def ingredients_only_html(caption: str, title: str) -> str:
+    """Keep ingredients block; steps are rendered separately with photos."""
+    cleaned = clean_caption(caption, title)
+    # Cut off preparation paragraph so we don't duplicate steps text
+    parts = re.split(
+        r"\n\s*\n(?=Приготовление|Процесс|Готовка)",
+        cleaned,
+        maxsplit=1,
+        flags=re.I,
+    )
+    return caption_to_html(parts[0])
+
+
+def build_html(
+    recipes: list[dict], mapping: dict, recipe_steps: dict[str, list[dict]] | None = None
+) -> str:
+    recipe_steps = recipe_steps or {}
     toc_items: list[str] = []
     sections: list[str] = []
     for i, r in enumerate(recipes, 1):
@@ -124,7 +162,19 @@ def build_html(recipes: list[dict], mapping: dict) -> str:
         macros = r.get("macros") or ""
         if "чебурек" in title.lower() and "кбжу)" in macros.lower():
             macros = "КБЖУ на 1 чебурек: 269 ккал, 22 г белка, 9 г жира, 23 г углеводов"
-        body_html = caption_to_html(clean_caption(r["caption"], title))
+        steps = recipe_steps.get(str(i)) or []
+        if steps:
+            body_html = ingredients_only_html(r["caption"], title)
+            # Keep macros line visible in body if present in caption
+            macros_match = re.search(r"К[бБ][жЖ][уУ][^\n]*", r["caption"])
+            if macros_match:
+                body_html += (
+                    f'<p><span class="macros-inline">'
+                    f"{html.escape(macros_match.group(0))}</span></p>"
+                )
+            body_html += render_steps_html(steps)
+        else:
+            body_html = caption_to_html(clean_caption(r["caption"], title))
         toc_items.append(
             f'<li><a href="#r{i}"><span class="n">{i}.</span> {html.escape(title)}</a></li>'
         )
@@ -137,10 +187,12 @@ def build_html(recipes: list[dict], mapping: dict) -> str:
                 media = (
                     f'<figure class="hero-photo">'
                     f'<img src="{image_data_uri(img_path)}" alt="{html.escape(title)}">'
-                    f"<figcaption>Визуализация блюда по рецепту</figcaption>"
+                    f"<figcaption>Готовое блюдо</figcaption>"
                     f"</figure>"
                 )
                 featured = " recipe-featured"
+        if steps:
+            featured = " recipe-featured recipe-with-steps"
         sections.append(
             f"""
     <article class="recipe{featured}" id="r{i}">
@@ -183,19 +235,26 @@ h2.toc-title {{ font-size: 18pt; margin: 0 0 14px; color: #14201a; }}
 .toc a {{ color: #1a1f1c; text-decoration: none; }}
 .toc .n {{ color: #2f6b45; font-weight: 700; margin-right: 4px; }}
 .recipe {{ break-inside: avoid; margin: 0 0 16px; padding: 12px; border: 1px solid #d7e0d9; border-radius: 10px; background: #fff; }}
-.recipe-featured {{ break-inside: auto; page-break-inside: avoid; }}
+.recipe-featured {{ break-inside: auto; }}
+.recipe-with-steps {{ page-break-inside: auto; }}
 .recipe header {{ display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }}
 .recipe .num {{ flex: 0 0 auto; width: 34px; height: 34px; border-radius: 8px; background: #2f6b45; color: #fff; font-weight: 800; font-size: 11pt; display: flex; align-items: center; justify-content: center; }}
 .recipe h2 {{ margin: 0 0 4px; font-size: 13pt; line-height: 1.25; color: #14201a; }}
 .macros {{ margin: 0; color: #2f6b45; font-weight: 600; font-size: 9.5pt; }}
 .macros-inline {{ display: inline-block; margin-top: 4px; color: #2f6b45; font-weight: 600; }}
 .hero-photo {{ margin: 0 0 10px; padding: 0; }}
-.hero-photo img {{ display: block; width: 100%; max-height: 85mm; object-fit: cover; border-radius: 8px; }}
+.hero-photo img {{ display: block; width: 100%; max-height: 70mm; object-fit: cover; border-radius: 8px; }}
 .hero-photo figcaption {{ margin-top: 4px; font-size: 8pt; color: #6b7280; }}
 .body p {{ margin: 0 0 8px; }}
 .body ul {{ margin: 4px 0 10px 18px; padding: 0; }}
 .body li {{ margin: 0 0 3px; }}
 .body strong {{ color: #1f3d2c; }}
+.steps {{ margin-top: 12px; }}
+.steps h3 {{ margin: 0 0 10px; font-size: 12pt; color: #1f3d2c; }}
+.step {{ break-inside: avoid; margin: 0 0 14px; padding: 10px; border: 1px solid #e5ebe6; border-radius: 8px; background: #fbfcfb; }}
+.step-label {{ font-size: 9pt; font-weight: 700; color: #2f6b45; margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }}
+.step img {{ display: block; width: 100%; max-height: 72mm; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }}
+.step-text {{ margin: 0; font-size: 10pt; color: #1a1f1c; }}
 .source {{ margin: 8px 0 0; font-size: 8.5pt; }}
 .source a {{ color: #6b7280; text-decoration: none; }}
 .note {{ margin-top: 20px; font-size: 9pt; color: #6b7280; }}
@@ -223,13 +282,13 @@ def print_pdf(html_path: Path, pdf_path: Path) -> None:
     with tempfile.TemporaryDirectory() as tmp:
         cmd = [
             "timeout",
-            "180",
+            "240",
             "google-chrome",
             "--headless=new",
             "--disable-gpu",
             "--no-pdf-header-footer",
             f"--user-data-dir={tmp}",
-            "--virtual-time-budget=30000",
+            "--virtual-time-budget=45000",
             "--run-all-compositor-stages-before-draw",
             f"--print-to-pdf={pdf_path}",
             html_path.as_uri(),
@@ -242,10 +301,14 @@ def print_pdf(html_path: Path, pdf_path: Path) -> None:
 def main() -> None:
     recipes = json.loads(RECIPES_JSON.read_text(encoding="utf-8"))
     raw_map = json.loads(MAP_JSON.read_text(encoding="utf-8"))
-    html_doc = build_html(recipes, raw_map)
+    recipe_steps: dict[str, list[dict]] = {}
+    if STEPS_JSON.exists():
+        recipe_steps["1"] = json.loads(STEPS_JSON.read_text(encoding="utf-8"))
+    html_doc = build_html(recipes, raw_map, recipe_steps)
     html_path = Path("/tmp/recipes_all.html")
     html_path.write_text(html_doc, encoding="utf-8")
     print(f"html_mb={html_path.stat().st_size / 1024 / 1024:.2f}")
+    print(f"recipe1_steps={len(recipe_steps.get('1', []))}")
     print_pdf(html_path, OUT_PDF)
     ARTIFACTS_PDF.parent.mkdir(parents=True, exist_ok=True)
     ARTIFACTS_PDF.write_bytes(OUT_PDF.read_bytes())
