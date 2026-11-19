@@ -1,2 +1,4 @@
 *.json
+!templates.example.json
+*.json.tmp
 __pycache__/
