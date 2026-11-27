@@ -1,0 +1,26 @@
+# Скопируйте этот файл в queue.yaml и подставьте свои ролики.
+# Время без часового пояса читается как Asia/Makassar (WITA, UTC+8).
+
+timezone: Asia/Makassar
+
+defaults:
+  privacy: private
+  category_id: "22"
+  made_for_kids: false
+  append_shorts_hashtag: false
+  default_language: ru
+  synthetic_media: false
+  playlist_id: null
+  allow_long_form: false
+
+# inbox: inbox
+
+videos:
+  - file: inbox/first.mp4
+    title: "Как собрать очередь роликов"
+    description: |
+      Первая строка описания.
+      Вторая строка.
+    tags: [shorts, пример]
+    publish_at: "2027-01-15 18:00"
+    # thumbnail: inbox/first.jpg
