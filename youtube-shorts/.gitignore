@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+client_secret.json
+client_secret*.json
+token.json
+state.json
+*.tmp
+inbox/*
+!inbox/.gitkeep
+videos/
+*.mp4
+*.m4v
+*.mov
+*.webm
+*.mkv

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shorts-uploader"
+version = "1.0.0"
+description = "Выкладка YouTube Shorts по очереди через YouTube Data API"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-api-python-client>=2.149.0",
+    "google-auth>=2.35.0",
+    "google-auth-oauthlib>=1.2.1",
+    "google-auth-httplib2>=0.2.0",
+    "PyYAML>=6.0.1",
+]
+
+[project.scripts]
+shorts-uploader = "shorts_uploader.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["shorts_uploader*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
